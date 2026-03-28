@@ -4,7 +4,7 @@
 
 For example, instead of going to AWS and creating an EC2 server step by step, I can use Terraform and write a small file. Then with one command, the server is created automatically.
 
-----
+##########################################################################################################
 
 **Simple Example:**
 
@@ -23,7 +23,7 @@ You:
 - Make mistakes
 - Do things differently
 
----
+##########################################################################################################
 
 **With IaC (Code way)**
 
@@ -42,7 +42,7 @@ Then run a command:
 
 - Server is created automatically
 
----
+##########################################################################################################
 
 **Why IaC Matters in DevOps:**
 
@@ -158,15 +158,45 @@ IaC solves many problems that we face when creating resources manually in the AW
 
 
 
-
-
-
-
-
 ---
 
-How is Terraform different from AWS CloudFormation, Ansible, and Pulumi?
+**3. How is Terraform different from AWS CloudFormation, Ansible, and Pulumi?**
 
----
 
-What does it mean that Terraform is "declarative" and "cloud-agnostic"?
+Terraform, AWS CloudFormation, Ansible, and Pulumi are all used in DevOps, but they differ in cloud support, purpose, and how infrastructure is defined.”
+
+**1. Terraform vs AWS CloudFormation —**
+- Both are used for infrastructure provisioning,
+- But Terraform is multi-cloud, meaning it works with AWS, Azure, and GCP, whereas CloudFormation is AWS-only.
+- Also, Terraform uses HCL (.tf files), while CloudFormation uses JSON or YAML.
+
+**2. Terraform vs Ansible —**
+- Terraform is used to create infrastructure like servers and networks, while Ansible is mainly used for configuration management, such as installing software or configuring servers.
+
+_In short:_
+
+- Terraform → creates resources
+- Ansible → configures them
+
+**3. Terraform vs Pulumi —**
+- Both are Infrastructure as Code tools, but Terraform uses declarative configuration files (HCL), whereas Pulumi uses programming languages like Python, JavaScript, etc.
+
+##########################################################################################################
+
+So overall, Terraform stands out because it is:
+- cloud-agnostic,
+- declarative, and
+- uses simple configuration files, making it very popular for multi-cloud infrastructure.”
+
+##########################################################################################################
+
+- Terraform = Multi-cloud IaC tool using HCL
+- CloudFormation = AWS only
+- Ansible = configuration management
+- Pulumi = programming languages for infrastructure
+
+
+
+--------------
+
+**4. What does it mean that Terraform is "declarative" and "cloud-agnostic"?**
