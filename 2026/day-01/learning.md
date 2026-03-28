@@ -3,8 +3,8 @@
 ----
 
 Current Level:
-- I am a working IT professional with 13 years of experience in software testing, with strong expertise in system validation, debugging, and release cycles.
-- Recently, I have been focusing on DevOps and Cloud practices, building hands-on skills in automation, containerization, and infrastructure.
+- I bring 13 years of experience in software testing, with a strong background in system validation, debugging, and release cycles.
+- I am currently focusing on DevOps and Cloud technologies, building practical skills in automation, containerization, and infrastructure.
 
 ----
 
