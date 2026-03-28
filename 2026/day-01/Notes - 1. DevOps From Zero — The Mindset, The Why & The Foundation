@@ -1,6 +1,8 @@
 DevOps Overview — My Day 01 Learning
 
-Most beginners think DevOps is about tools like Docker or Kubernetes…
+Most beginners think DevOps is about 
+tools like 
+Docker or Kubernetes…
 
 But today I learned something important:
 
@@ -12,8 +14,8 @@ DevOps is not about tools. It’s about mindset.
 
 Today, every industry runs on software:
 
-FinTech 
-EdTech 
+Fin Tech 
+Ed Tech 
 AI Tech 
 
 -> And all of them need:
@@ -73,6 +75,8 @@ The DevOps Solution
 Simple but powerful idea:
 
 Developers + Operations work together 
+
+---
 
 --> Modern DevOps Flow:
 
@@ -135,7 +139,7 @@ It means:
 
 Key Insight:
 
-- 90%+ applications run on Linux 🐧
+- 90%+ applications run on Linux 
 
 ---
 
