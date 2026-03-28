@@ -1,8 +1,8 @@
-DevOps Overview — My Day 01 Learning
+**DevOps Overview — My Day 01 Learning**
 
-Most beginners think DevOps is about 
-tools like 
-Docker or Kubernetes…
+Most beginners think DevOps is about tools like:
+- Docker or
+- Kubernetes…
 
 But today I learned something important:
 
@@ -10,13 +10,13 @@ DevOps is not about tools. It’s about mindset.
 
 ---
 
---> Why DevOps Exists
+**Why DevOps Exists**
 
 Today, every industry runs on software:
 
-Fin Tech 
-Ed Tech 
-AI Tech 
+- Fin Tech 
+- Ed Tech 
+- AI Tech 
 
 -> And all of them need:
 
@@ -30,30 +30,13 @@ Because…
 
 ---
 
-- The Old Way (Before DevOps)
+**The Old Way (Before DevOps)**
 
 Here’s how software delivery used to work:
 
-Developer
-   ↓
-Write Code
-   ↓
-Convert to ZIP
-   ↓
-Send to Ops Team
-   ↓
--------------------------
-| System Admin          |
-| Network Admin         |
-| Database Admin        |
-| QA Tester             |
--------------------------
-   ↓
-Deploy to Server
-   ↓
-User gets the app 
 
 
+![Workflow](software-deployment-workflow.png)
 
 -> Problems:
 - Slow delivery (weeks/months)
@@ -64,7 +47,9 @@ User gets the app
 
 ---
 
-The Real Problem
+**Traditional DevOps Flow:**
+
+The Real Problem:
 
 You build an app on your laptop 
 
@@ -76,27 +61,16 @@ The DevOps Solution
 
 Simple but powerful idea:
 
-Developers + Operations work together 
+`Developers + Operations work together`
 
 ---
 
---> Modern DevOps Flow:
 
-Developer
-   ↓
-Write Code
-   ↓
-Push to Git
-   ↓
-CI/CD Pipeline 
-   ↓
-Build → Test → Deploy
-   ↓
-Cloud Server 
-   ↓
-Users get updates instantly 
 
+![Workflow](Traditional-way.jpeg)
 ---
+
+**Modern DevOps Flow:**
 
 DevOps =
 - Culture 
@@ -116,13 +90,9 @@ Goals of DevOps
 
 Goal: Build systems that don’t fail easily
 
-User Activity
-   ↓
-Monitoring  (Prometheus/Grafana)
-   ↓
-Alert 
-   ↓
-Fix Automatically / Quickly
+
+
+![Workflow](Modern-Way.jpeg)
 
 ---
 
@@ -145,7 +115,7 @@ Key Insight:
 
 ---
 
---> Final Learning
+**Final Learning**
 
 DevOps is NOT:
 
@@ -160,8 +130,6 @@ DevOps IS:
 ✅ Problem-solving
 
 ---
-
-One-Line Takeaway:
 
 - DevOps = Deliver software faster, better, and smarter
 
