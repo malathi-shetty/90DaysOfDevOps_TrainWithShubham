@@ -36,7 +36,7 @@ Here’s how software delivery used to work:
 
 
 
-![Workflow](software-deployment-workflow.png)
+![Workflow](images/software-deployment-workflow.png)
 
 -> Problems:
 - Slow delivery (weeks/months)
@@ -67,7 +67,7 @@ Simple but powerful idea:
 
 
 
-![Workflow](Traditional-way.jpeg)
+![Workflow](images/Traditional-way.jpeg)
 ---
 
 **Modern DevOps Flow:**
@@ -92,7 +92,7 @@ Goal: Build systems that don’t fail easily
 
 
 
-![Workflow](Modern-Way.jpeg)
+![Workflow](images/Modern-Way.jpeg)
 
 ---
 
