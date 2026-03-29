@@ -170,6 +170,20 @@ Terraform, AWS CloudFormation, Ansible, and Pulumi are all used in DevOps, but t
 - But Terraform is multi-cloud, meaning it works with AWS, Azure, and GCP, whereas CloudFormation is AWS-only.
 - Also, Terraform uses HCL (.tf files), while CloudFormation uses JSON or YAML.
 
+| Feature                 | Terraform                          | AWS CloudFormation            |
+| ----------------------- | ---------------------------------- | ----------------------------- |
+| **Cloud Support**       | Multi-cloud (AWS, Azure, GCP) ✅    | AWS only ❌                 |
+| **Language**            | HCL (.tf files)                    | JSON / YAML                   |
+| **Type**                | Open-source tool                   | AWS managed service           |
+| **Approach**            | Declarative                        | Declarative                   |
+| **State Management**    | Uses state file (managed by user)  | Managed by AWS                |
+| **Execution Plan**      | `terraform plan` (preview changes) | Change Sets (preview changes) |
+| **Portability**         | High (works across clouds)         | Low (AWS-specific)            |
+| **Dependency Handling** | Automatic                          | Automatic                     |
+| **Ease of Use**         | Easy to read (HCL)                 | JSON can be complex           |
+| **Best Use Case**       | Multi-cloud infrastructure         | AWS-only infrastructure       |
+
+
 **2. Terraform vs Ansible —**
 - Terraform is used to create infrastructure like servers and networks, while Ansible is mainly used for configuration management, such as installing software or configuring servers.
 
@@ -178,8 +192,32 @@ _In short:_
 - Terraform → creates resources
 - Ansible → configures them
 
+| Feature              | Terraform                             | Ansible                                 |
+| -------------------- | ------------------------------------- | --------------------------------------- |
+| **Purpose**          | Infrastructure provisioning           | Configuration management                |
+| **What it does**     | Creates resources (servers, networks) | Configures servers (software, settings) |
+| **Approach**         | Declarative                           | Imperative (step-by-step)               |
+| **Language**         | HCL (.tf files)                       | YAML (playbooks)                        |
+| **State Management** | Yes (state file)                      | No state file                           |
+| **Agent Required**   | No                                    | No (agentless via SSH)                  |
+| **Cloud Support**    | Multi-cloud                           | Multi-cloud                             |
+| **Best Use Case**    | Create infrastructure                 | Configure after creation                |
+
+
 **3. Terraform vs Pulumi —**
 - Both are Infrastructure as Code tools, but Terraform uses declarative configuration files (HCL), whereas Pulumi uses programming languages like Python, JavaScript, etc.
+
+| Feature              | Terraform                    | Pulumi                                       |
+| -------------------- | ---------------------------- | -------------------------------------------- |
+| **Purpose**          | Infrastructure provisioning  | Infrastructure provisioning                  |
+| **Language**         | HCL (.tf files)              | Python, JavaScript, TypeScript, etc.         |
+| **Approach**         | Declarative                  | Declarative (using real code)                |
+| **Learning Curve**   | Easier (simple syntax)       | Depends on programming knowledge             |
+| **Flexibility**      | Limited logic                | Full programming power (loops, conditions)   |
+| **State Management** | Yes (state file)             | Yes (managed or self-managed)                |
+| **Cloud Support**    | Multi-cloud                  | Multi-cloud                                  |
+| **Best Use Case**    | Simple, standard infra setup | Complex logic + developer-friendly workflows |
+
 
 ##########################################################################################################
 
@@ -200,3 +238,66 @@ So overall, Terraform stands out because it is:
 --------------
 
 **4. What does it mean that Terraform is "declarative" and "cloud-agnostic"?**
+
+**Declarative:**
+
+In Terraform, declarative means I just tell it what I want, and it figures out how to create it.”
+
+For example, I can say I need a server with a certain configuration, and Terraform will handle:
+
+- creating it
+- setting it up
+- and managing dependencies
+
+I don’t need to write step-by-step instructions.
+
+Example:
+```
+resource "aws_instance" "my_server" {
+  instance_type = "t2.micro"
+}
+```
+
+ You just say:
+“I want a server of this type”
+
+Terraform handles:
+
+- Creating it
+- Setting it up
+- Managing dependencies
+
+---
+
+
+
+**Cloud-Agnostic:**
+
+- Terraform can work with **different cloud providers**
+
+- AWS
+- Azure
+- Google Cloud
+
+You don’t need to learn a new tool for each cloud
+
+---
+
+**Example**
+
+You can switch provider like:
+
+`provider "aws" {}`
+
+_Change to:_
+
+`provider "azurerm" {}`
+
+ Same tool, different cloud 
+
+---
+
+“Declarative means defining what you want instead of how to do it, and cloud-agnostic means Terraform works across multiple cloud providers.”
+
+- “Declarative = WHAT
+- Cloud-agnostic = ANY cloud”
