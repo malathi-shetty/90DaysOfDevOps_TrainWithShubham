@@ -1,3 +1,10 @@
+# Challenge Tasks
+
+---
+
+Task 1: Understand Infrastructure as Code
+---
+
 **1. What is Infrastructure as Code (IaC)? Why does it matter in DevOps?**
 
 “Infrastructure as Code means creating infrastructure using code instead of manually clicking in the cloud console.”
