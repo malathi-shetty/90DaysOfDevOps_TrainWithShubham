@@ -235,7 +235,7 @@ sudo apt install nginx
 
 ---
 
-## Break it (simulate issue)
+## Break it
 
 ```bash
 sudo systemctl stop nginx
@@ -287,3 +287,7 @@ Completed:
 * SSH inspection
 * Troubleshooting steps
 * Real-world nginx practice
+
+---
+
+#90DaysOfDevOps #DevOpsKaJosh #TrainWithShubham #Happy Learning
