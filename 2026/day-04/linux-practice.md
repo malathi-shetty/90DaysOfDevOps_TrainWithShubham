@@ -290,4 +290,6 @@ Completed:
 
 ---
 
+https://90-days-devops-with-shubham.hashnode.dev/day-04-linux-practice-processes-services-logs
+
 #90DaysOfDevOps #DevOpsKaJosh #TrainWithShubham #Happy Learning
