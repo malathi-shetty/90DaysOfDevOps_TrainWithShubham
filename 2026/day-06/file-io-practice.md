@@ -161,6 +161,8 @@ Purpose:
 - File handling is used daily in debugging and automation
 
 ---
+Hashnode: https://90-days-devops-with-shubham.hashnode.dev/day-06-linux-fundamentals-mastering-file-read-write
+---
 
 #90DaysOfDevOps
 #DevOpsKaJosh
