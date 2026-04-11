@@ -57,6 +57,10 @@ Commands Ran + Observations
 
 --------
 
+https://90-days-devops-with-shubham.hashnode.dev/day-05-my-first-real-linux-troubleshooting-drill
+
+------
+
 #90DaysOfDevOps
 #DevOpsKaJosh
 #TrainWithShubham
