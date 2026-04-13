@@ -65,7 +65,7 @@ ls -l /etc
 # nginx/
 # ssh/
 # hostname
-
+```
 
 ---
 
