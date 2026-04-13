@@ -53,6 +53,20 @@ Problem → Check → Logs → Fix → Verify
 +----------------------+--------------------------+
 ```
 
+###  Directory Output
+
+```bash
+ls -l /var/log
+# syslog
+# auth.log
+# nginx/
+
+ls -l /etc
+# nginx/
+# ssh/
+# hostname
+
+
 ---
 
 ## Scenario Practice
@@ -122,8 +136,7 @@ Why: Add execute permission
 
 ##  Quick Debug Flow
 
-[2026/day-07/Commands Practiced/Quick Debug Flow.png](https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/79002683587daf3066d4c25b3c3de1e8ff9bd7ac/2026/day-07/Commands%20Practiced/Quick%20Debug%20Flow.png)
-
+<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/f38ee446-0c7e-4800-a47e-194e65410963" />
 
 
 ---
