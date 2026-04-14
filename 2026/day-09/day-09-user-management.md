@@ -1,5 +1,7 @@
 # Day 09 – Linux User & Group Management Challenge
 
+Practice Linux user and group management by creating users, assigning groups, and configuring shared directories with correct permissions.
+
 ## Users & Groups Created
 
 * Users: tokyo, berlin, professor, nairobi
@@ -160,9 +162,85 @@ ls -l /opt/team-workspace
 
 ---
 
+
+# Break → Observe → Fix (Learning)
+
+Step 1: BREAK the permissions
+
+Run this:
+
+```bash
+sudo chmod 755 /opt/dev-project
+```
+
+Step 2: Verify it's broken
+
+```bash
+ls -ld /opt/dev-project
+```
+
+```bash
+drwxr-xr-x
+```
+
+Step 3: Tried creating file (NOW it should fail)
+
+```bash
+sudo -u tokyo touch /opt/dev-project/break-test.txt
+```
+
+Expected:
+
+Permission denied
+
+WHY it broke:
+
+With 755 permissions:
+
+- Owner (root) →  write
+- Group (developers) →  NO write
+- Others →  NO write
+
+Even though tokyo belongs to the developers group, the group does not have write permission.
+
+Step 4: FIX it again
+
+```bash
+sudo chmod 775 /opt/dev-project
+```
+
+Step 5: Test again
+
+```bash
+sudo -u tokyo touch /opt/dev-project/fixed-test.txt
+```
+
+File creation succeeds
+
+Steps:
+- Broke a working system 
+- Diagnosed the issue 
+- Fixed it correctly 
+
+
+
+<img width="762" height="260" alt="image" src="https://github.com/user-attachments/assets/0bcae353-bf23-4af4-ac29-d82d5abec8a5" />
+
+---
+
+Insight: 
+
+Why couldn’t the user write even though they were in the group?
+
+Because directory permissions did not allow group write access (missing w in 755 vs 775).
+
+
+---
+
 ## What I Learned
 
 1. Users can belong to multiple groups and inherit permissions from them.
-2. 775 permissions allow team collaboration (owner + group can write).
-3. Group ownership (chgrp) + permissions (chmod) control access in Linux.
+2. 775 permissions enable collaboration by allowing group write access.
+3. Group ownership (chgrp) and permissions (chmod) together control access in Linux.
+4. Small permission mistakes can break functionality in real systems.
 
