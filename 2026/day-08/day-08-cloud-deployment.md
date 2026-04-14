@@ -12,9 +12,11 @@ Deployed a real web server on a cloud VM, expose it securely to the internet, an
 - Web Server: Nginx
 - Container Runtime: Docker
 
-https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/master/2026/day-08/Images/Launch-an-instance-EC2.png?raw=true
+<img width="2560" height="3382" alt="image" src="https://github.com/user-attachments/assets/d1f31c8b-e967-47c2-9a6c-3fcf02c800a6" />
 
-https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/master/2026/day-08/Images/EC2-Instance.png?raw=true
+<img width="1913" height="762" alt="image" src="https://github.com/user-attachments/assets/a5df82c4-056c-4a39-9fa0-010dc974d53c" />
+
+
 
 ---
 
@@ -34,9 +36,11 @@ chmod 400 your-key.pem
 ssh -i your-key.pem ubuntu@<your-instance-ip>
 ```
 
-[📸 Screenshot: `ssh-connection.png`](https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/master/2026/day-08/Images/ssh-connection1.png?raw=true)
+<img width="2493" height="911" alt="image" src="https://github.com/user-attachments/assets/3e70221e-509e-42d0-8342-c8a233f7ac1c" />
 
-https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/master/2026/day-08/Images/ssh-connection.png?raw=true
+<img width="772" height="825" alt="image" src="https://github.com/user-attachments/assets/d364f0e3-d982-4f01-8163-fa99eaf6f230" />
+
+
 
 ---
 
@@ -71,7 +75,8 @@ sudo usermod -aG docker ubuntu
 newgrp ubuntu
 ```
 
-https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/master/2026/day-08/Images/docker%20group.png?raw=true
+<img width="547" height="38" alt="image" src="https://github.com/user-attachments/assets/aa1e55a6-59fb-40ca-adfb-bbd75fe49378" />
+
 
 ---
 
@@ -95,6 +100,9 @@ sudo systemctl status nginx
 curl localhost
 ```
 
+<img width="1192" height="483" alt="image" src="https://github.com/user-attachments/assets/1178ccf1-0be0-42db-9100-43ebce2a86c6" />
+
+
 ---
 
 ## Part 3: Security Group Configuration & Web Access
@@ -104,7 +112,8 @@ curl localhost
   - Port: 80
   - Source: 0.0.0.0/0
  
-  https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/master/2026/day-08/Images/Inbound%20Rules%20.png?raw=true
+  <img width="2122" height="627" alt="image" src="https://github.com/user-attachments/assets/bb48fced-6f46-4601-8e92-740e270c5376" />
+
 
 ### Test Web Access
 
@@ -116,7 +125,8 @@ http://<your-instance-ip>
 
 ✅ Nginx welcome page loaded successfully
 
-[📸 Screenshot: `nginx-webpage.png`](https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/master/2026/day-08/Images/nginx-webpage.png?raw=true)
+<img width="1755" height="551" alt="image" src="https://github.com/user-attachments/assets/9748e06a-10dc-416b-b419-ecd6e0b9bfb9" />
+
 
 ---
 
@@ -128,13 +138,15 @@ http://<your-instance-ip>
 docker run -d -p 8081:80 --name apache-server httpd
 ```
 
-### Test Docker Nginx
+### Test Docker Apache
 
 ```bash
 curl localhost:8081
 ```
 
-https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/master/2026/day-08/Images/Apache%20container.png?raw=true
+<img width="1562" height="562" alt="image" src="https://github.com/user-attachments/assets/a64f73b8-74fc-488c-aa04-cfe8d0d72b8b" />
+
+
 
 ---
 
@@ -171,7 +183,9 @@ cat ~/nginx-logs.txt
 scp -i your-key.pem ubuntu@<your-instance-ip>:~/nginx-logs.txt .
 ```
 
-[📸 Screenshot: `logs_capture.png`](https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham/blob/master/2026/day-08/Images/docker-nginx.png?raw=true)
+
+<img width="1907" height="881" alt="image" src="https://github.com/user-attachments/assets/f3aafcd7-7806-4ce1-af79-d645bf011234" />
+
 
 ---
 
