@@ -81,7 +81,6 @@ df -h /mnt/app-data
 
 ---
 
-# Day 13 – Linux Volume Management (LVM)
 
 ##  Learning Resources
 
