@@ -27,7 +27,7 @@ Fruit: grape
 
 
 
-[for_loop.sh](day-17/scripts/task1/for_loop.sh)
+[for_loop.sh](scripts/task1/for_loop.sh)
 
 <img width="561" height="408" alt="image" src="https://github.com/user-attachments/assets/2d371608-3028-4716-a21b-25ecfd9cc21b" />
 
