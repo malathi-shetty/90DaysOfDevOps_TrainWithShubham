@@ -56,7 +56,7 @@ Output
 10
 ```
 
-[count.sh](day-17/scripts/task1/count.sh)
+[count.sh](scripts/task1/count.sh)
 
 <img width="546" height="402" alt="image" src="https://github.com/user-attachments/assets/c9992807-86f8-4297-b20a-fc69722197e1" />
 
@@ -90,7 +90,7 @@ Enter a number: 5
 Done!
 ```
 
-[countdown.sh](day-17/scripts/task2/countdown.sh)
+[countdown.sh](scripts/task2/countdown.sh)
 
 <img width="575" height="587" alt="image" src="https://github.com/user-attachments/assets/6fd32172-1b78-49c8-b732-76ff8e9c3d09" />
 
@@ -114,7 +114,7 @@ Output
 Hello, John!
 ```
 
-[greet.sh](day-17/scripts/task3/greet.sh)
+[greet.sh](scripts/task3/greet.sh)
 
 <img width="540" height="368" alt="image" src="https://github.com/user-attachments/assets/cb96d76c-73cc-44d3-96b2-6cdb91f7c779" />
 
@@ -135,7 +135,7 @@ Total Arguments: 3
 All Arguments: one two three
 ```
 
-[args_demo.sh](day-17/scripts/task3/args_demo.sh)
+[args_demo.sh](scripts/task3/args_demo.sh)
 
 <img width="747" height="475" alt="image" src="https://github.com/user-attachments/assets/7f137d9b-e59e-4bf9-9c42-16ea4423893e" />
 
@@ -197,7 +197,7 @@ Installing curl...
 Installing wget...
 ```
 
-[install_packages.sh](day-17/scripts/task4/install_packages.sh)
+[install_packages.sh](scripts/task4/install_packages.sh)
 
 <img width="977" height="1237" alt="image" src="https://github.com/user-attachments/assets/bcda6ebe-57e9-4717-997d-3aad1eade80f" />
 
@@ -227,7 +227,7 @@ Directory already exists
 Script executed successfully ✔
 ```
 
-[safe_script.sh](day-17/scripts/task5/safe_script.sh)
+[safe_script.sh](scripts/task5/safe_script.sh)
 
 <img width="637" height="723" alt="image" src="https://github.com/user-attachments/assets/fb082ebc-32cf-43a0-8fbc-2154c5eeafcb" />
 
@@ -245,7 +245,7 @@ fi
 echo "Running as root ✔"
 ```
 
-[install_packages.sh](day-17/scripts/task5/install_packages.sh)
+[install_packages.sh](scripts/task5/install_packages.sh)
 
 <img width="621" height="533" alt="image" src="https://github.com/user-attachments/assets/837c48db-5cb9-4a8e-88f7-55c32f87259b" />
 
