@@ -51,7 +51,7 @@
  <img width="533" height="141" alt="image" src="https://github.com/user-attachments/assets/f03b5c7b-f15b-4e3a-8a0c-5606c03539cc" />
 
 
- [pipefail.sh](/Scripts/task3/pipefail.sh)
+ [pipefail.sh](Scripts/task3/pipefail.sh)
 
    
 <img width="527" height="140" alt="image" src="https://github.com/user-attachments/assets/8afaaaaa-2bed-44ff-8087-1836a29091a1" />
