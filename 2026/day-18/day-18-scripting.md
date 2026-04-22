@@ -6,7 +6,7 @@
    - A function `add` that takes two numbers and prints their sum
    - Call both functions from the script
    
-   [functions.sh](day-18/Scripts/task1/functions.sh)
+   [functions.sh](Scripts/task1/functions.sh)
 
    
 
