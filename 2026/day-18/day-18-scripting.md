@@ -22,7 +22,7 @@
    - A function `check_memory` that checks free memory using `free -h`
    - A main section that calls both and prints the results
    
-   [disk_check.sh](day-18/Scripts/task2/disk_check.sh)
+   [disk_check.sh](Scripts/task2/disk_check.sh)
    
    
   <img width="740" height="512" alt="image" src="https://github.com/user-attachments/assets/96d9ee65-de62-46d7-ab27-47acd8a94d16" />
@@ -41,17 +41,17 @@
 - `set -u` → Error on undefined variables
 - `set -o` pipefail → Pipeline fails if any command fails
 
-   [set-e.sh](day-18/Scripts/task3/set-e.sh)
+   [set-e.sh](Scripts/task3/set-e.sh)
 
   <img width="526" height="138" alt="image" src="https://github.com/user-attachments/assets/0be1b0e9-5a33-43b1-bcbb-886ffc94b9cc" />
 
 
- [set-u.sh](day-18/Scripts/task3/set-u.sh)
+ [set-u.sh](Scripts/task3/set-u.sh)
 
  <img width="533" height="141" alt="image" src="https://github.com/user-attachments/assets/f03b5c7b-f15b-4e3a-8a0c-5606c03539cc" />
 
 
- [pipefail.sh](day-18/Scripts/task3/pipefail.sh)
+ [pipefail.sh](Scripts/task3/pipefail.sh)
    
 <img width="527" height="140" alt="image" src="https://github.com/user-attachments/assets/8afaaaaa-2bed-44ff-8087-1836a29091a1" />
 
@@ -64,7 +64,7 @@
    - Show that `local` variables don't leak outside the function
    - Compare with a function that uses regular variables
    
-   [local_demo.sh](day-18/Scripts/task4/local_demo.sh)
+   [local_demo.sh](Scripts/task4/local_demo.sh)
 
    
   <img width="512" height="522" alt="image" src="https://github.com/user-attachments/assets/0b047b76-364a-4b6f-b144-de98f85d6f4d" />
@@ -82,7 +82,7 @@ Create `system_info.sh` that uses functions for everything:
 6. A `main` function that calls all of the above with section headers
 7. Use `set -euo pipefail` at the top
 
-   [system_info.sh](day-18/Scripts/task5/system_info.sh)
+   [system_info.sh](Scripts/task5/system_info.sh)
 
 <img width="612" height="752" alt="image" src="https://github.com/user-attachments/assets/53769923-8779-467c-9a8d-a9d47941e3be" />
 
