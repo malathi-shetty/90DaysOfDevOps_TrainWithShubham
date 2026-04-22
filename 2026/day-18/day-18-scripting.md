@@ -41,7 +41,7 @@
 - `set -u` → Error on undefined variables
 - `set -o` pipefail → Pipeline fails if any command fails
 
-   [set-e.sh](Scripts/task3/set-e.sh)
+ [set-e.sh](Scripts/task3/set-e.sh)
 
   <img width="526" height="138" alt="image" src="https://github.com/user-attachments/assets/0be1b0e9-5a33-43b1-bcbb-886ffc94b9cc" />
 
@@ -51,7 +51,8 @@
  <img width="533" height="141" alt="image" src="https://github.com/user-attachments/assets/f03b5c7b-f15b-4e3a-8a0c-5606c03539cc" />
 
 
- [pipefail.sh](Scripts/task3/pipefail.sh)
+ [pipefail.sh](/Scripts/task3/pipefail.sh)
+
    
 <img width="527" height="140" alt="image" src="https://github.com/user-attachments/assets/8afaaaaa-2bed-44ff-8087-1836a29091a1" />
 
