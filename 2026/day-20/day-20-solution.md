@@ -50,8 +50,8 @@ Finds top 5 most frequent error messages.
 ### Task 5: Summary Report
 Generates structured report file.
 
-[SummaryReport](scripts/task5_report.sh)
-[TextLogReport](scripts/log_report_2026-04-24.txt)
+- [SummaryReport](scripts/task5_report.sh)
+- [TextLogReport](scripts/log_report_2026-04-24.txt)
 
 <img width="742" height="531" alt="image" src="https://github.com/user-attachments/assets/71a1015d-4200-464d-b054-f4f4f003c803" />
 
@@ -61,8 +61,7 @@ Moves processed logs into archive folder.
 
 
    [archive](scripts/archive/sample_log.log)
-   
-   ![images](images/analyzer.png)
+
 
    <img width="648" height="423" alt="image" src="https://github.com/user-attachments/assets/3cfa84cc-f3d2-4239-af56-6dd4ce56b716" />
 
