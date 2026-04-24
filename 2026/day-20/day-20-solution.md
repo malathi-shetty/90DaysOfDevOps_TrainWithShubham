@@ -84,6 +84,21 @@ Generates random log files for testing.
 
 ---
 
+## Tools & Commands Used
+- grep – Used for searching and filtering log lines based on patterns like ERROR, Failed, and CRITICAL.
+- awk – Used for text processing, especially to remove timestamps and extract meaningful parts of log messages.
+- sed – Used for formatting output (e.g., adding Line <number>: before critical events, trimming spaces).
+- sort – Used to arrange log entries so duplicate messages can be grouped together.
+- uniq -c – Used to count occurrences of repeated error messages.
+- wc -l – Used to count total lines and number of error entries.
+- head – Used to limit output to the top 5 most frequent error messages.
+- date – Used to generate dynamic filenames for reports (e.g., log_report_<date>.txt).
+- mv – Used to move processed log files into an archive/ directory.
+- mkdir -p – Used to create the archive directory if it doesn’t already exist.
+- Shell features – Variables, conditionals (if), loops, and command substitution ($(...)) to build automation logic.
+
+---
+
 ## What I Learned
 - How to break a larger automation problem into smaller focused scripts (input validation, error counting, critical events, top errors) and then combine them into one complete solution.
 - How to use core Linux tools like grep, awk, sort, uniq, sed, and wc together to extract meaningful insights from raw log data.
