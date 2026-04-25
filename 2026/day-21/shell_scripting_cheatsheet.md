@@ -552,7 +552,8 @@ done
 ```
 
 ## 5. Break
-```bashbreak
+```bash
+break
 ```
 **What it does:**
 Exits the loop immediately.
@@ -867,7 +868,8 @@ Counts lines.
 Quick log size check.
 
 ## Replace text
-```bash sed -i 's/old/new/g' *.conf
+```bash
+sed -i 's/old/new/g' *.conf
 ```
 **What it does:**
 Replaces text in files.
