@@ -718,7 +718,8 @@ result=$(get_sum 2 3)
 echo $result
 ```
 ## 5. Local Variables
-```bashlocal var=value
+```bash
+local var=value
 ```
 **What it does:**
 Limits variable scope.
@@ -758,7 +759,8 @@ grep -E "error|fail" file
 ```
 
 ## 2. awk
-```bash awk 'pattern { action }' file
+```bash
+awk 'pattern { action }' file
 ```
 **What it does:**
 Processes structured text.
@@ -774,7 +776,8 @@ awk '/error/ {print $0}' file
 ```
 
 ## 3. sed
-```bashsed 's/old/new/' file
+```bash
+sed 's/old/new/' file
 ```
 **What it does:**
 Edits text streams.
@@ -797,7 +800,8 @@ Extracts columns.
 Quick data parsing.
 
 ## 5. sort / uniq
-```bash sort file
+```bash
+sort file
 sort -n file
 sort file | uniq
 sort file | uniq -c
@@ -809,7 +813,8 @@ Sorts and removes duplicates.
 Used for analysis and reports.
 
 ## 6. tr
-```bash tr 'a-z' 'A-Z'
+```bash
+ tr 'a-z' 'A-Z'
 ```
 **What it does:**
 Transforms characters.
@@ -818,7 +823,8 @@ Transforms characters.
 Quick text formatting.
 
 ## 7. wc
-```bash wc -l file
+```bash
+ wc -l file
 ```
 **What it does:**
 Counts lines, words, chars.
@@ -827,7 +833,8 @@ Counts lines, words, chars.
 Gives file metrics.
 
 ## 8. head / tail
-```bash head -n 5 file
+```bash
+head -n 5 file
 tail -f file
 ```
 **What it does:**
@@ -840,7 +847,8 @@ Used in monitoring.
 
 # Task 6: Useful One-Liners
 ## Find old files
-```bash find /var/log -type f -name "*.log" -mtime +15 -delete
+```bash
+find /var/log -type f -name "*.log" -mtime +15 -delete
 ```
 **What it does:**
 Deletes old log files.
@@ -849,7 +857,8 @@ Deletes old log files.
 Prevents disk overflow.
 
 ## Count log lines
-```bash wc -l /var/log/*.log
+```bash
+wc -l /var/log/*.log
 ```
 **What it does:**
 Counts lines.
@@ -867,7 +876,8 @@ Replaces text in files.
 Bulk config updates.
 
 ## Check service
-```bash systemctl is-active nginx && echo "Running" || echo "Stopped"
+```bash
+systemctl is-active nginx && echo "Running" || echo "Stopped"
 ```
 **What it does:**
 Checks service status.
@@ -876,7 +886,8 @@ Checks service status.
 Automation scripts.
 
 ## Disk usage alert
-```bashdf -h | awk '$5+0 > 80 {print}'
+```bash
+df -h | awk '$5+0 > 80 {print}'
 ```
 **What it does:**
 Shows high usage disks.
@@ -885,7 +896,8 @@ Shows high usage disks.
 Prevents outages.
 
 ## Live error logs
-```bash tail -f /var/log/syslog | grep -E "ERROR|CRITICAL"
+```bash
+tail -f /var/log/syslog | grep -E "ERROR|CRITICAL"
 ```
 **What it does:**
 Filters logs in real-time.
@@ -897,7 +909,8 @@ Production debugging.
 
 # Task 7: Error Handling & Debugging
 ## 1. Exit Codes
-```bash echo $?
+```bash
+echo $?
 exit 0
 exit 1
 ```
@@ -908,7 +921,8 @@ Represents command result.
 Used for logic and decisions.
 
 ## 2. set -e
-```bash set -e
+```bash
+set -e
 ```
 **What it does:**
 Stops script on error.
@@ -926,7 +940,8 @@ Errors on undefined variables.
 Avoids bugs.
 
 ## 4. pipefail
-```bash set -o pipefail
+```bash
+set -o pipefail
 ```
 **What it does:**
 Fails if any pipeline command fails.
@@ -935,7 +950,8 @@ Fails if any pipeline command fails.
 Ensures reliability.
 
 ## 5. Debug mode
-```bash set -x
+```bash
+set -x
 ```
 **What it does:**
 Prints commands before execution.
@@ -944,7 +960,8 @@ Prints commands before execution.
 Helps debugging.
 
 ## 6. trap
-```bash trap 'cleanup' EXIT
+```bash
+trap 'cleanup' EXIT
 ```
 **What it does:****
 R**uns cleanup on exit.
