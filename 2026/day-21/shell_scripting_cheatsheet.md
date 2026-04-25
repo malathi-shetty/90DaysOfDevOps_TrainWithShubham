@@ -741,7 +741,8 @@ echo $x
 
 # Task 5: Text Processing Commands
 ## 1. grep
-```bashgrep [options] "pattern" file
+```bash
+grep [options] "pattern" file
 ```
 **What it does:**
 Searches for text patterns.
