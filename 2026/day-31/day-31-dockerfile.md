@@ -28,7 +28,7 @@
 
 **Verify:** The message prints on `docker run`
 
-  [my-first-image Dockerfile](day-31/scripts/my-first-image/Dockerfile)
+  [my-first-image Dockerfile](scripts/my-first-image/Dockerfile)
 
    
 
