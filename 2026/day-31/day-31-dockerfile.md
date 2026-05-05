@@ -59,7 +59,7 @@ CMD: Default command when container starts
 
 <img width="1002" height="1086" alt="image" src="https://github.com/user-attachments/assets/4c6da89d-3df1-4bda-ab2d-0a5763c74bc2" />
 
- [Dockerfile Instructions](day-31/scripts/dockerfile-demo)
+ [Dockerfile Instructions](scripts/dockerfile-demo)
 
 
 ---
@@ -85,7 +85,7 @@ CMD: Default command when container starts
   ```
 
 
- [CMD_Dockerfile](day-31/scripts/cmd-demo/Dockerfile)
+ [CMD_Dockerfile](scripts/cmd-demo/Dockerfile)
 
 
 2. Create an image with `ENTRYPOINT ["echo"]` — run it, then run it with additional arguments. What happens?
@@ -104,7 +104,7 @@ CMD: Default command when container starts
   ```
 
 
- [ENTRYPOINT_Dockerfile](day-31/scripts/entrypoint-demo/Dockerfile)
+ [ENTRYPOINT_Dockerfile](scripts/entrypoint-demo/Dockerfile)
  
 
 3. When would you use CMD vs ENTRYPOINT?
@@ -116,7 +116,7 @@ CMD: Default command when container starts
 <img width="1008" height="528" alt="image" src="https://github.com/user-attachments/assets/7dd2d60c-42d6-40d9-bee6-1df91832ecb0" />
 
 
-[CMD_ENTRYPOINT_Dockerfile](day-31/scripts/CMD_ENTRYPOINT/Dockerfile)
+[CMD_ENTRYPOINT_Dockerfile](scripts/CMD_ENTRYPOINT/Dockerfile)
 
 
 | Feature  | CMD                 | ENTRYPOINT         |
@@ -153,7 +153,7 @@ CMD: Default command when container starts
 <img width="1161" height="1002" alt="image" src="https://github.com/user-attachments/assets/4373b58f-08c6-43a6-a32f-ec9e6f033ada" />
 
 
-[CMD_ENTRYPOINT_Dockerfile](day-31/scripts/CMD_ENTRYPOINT/Dockerfile)
+[CMD_ENTRYPOINT_Dockerfile](scripts/CMD_ENTRYPOINT/Dockerfile)
 
 ---
 
@@ -170,7 +170,7 @@ CMD: Default command when container starts
 <img width="1041" height="858" alt="image" src="https://github.com/user-attachments/assets/9562bbd8-ad6c-4e13-8f95-3c34138fa18d" />
 
 
-[dockerignore](day-31/scripts/dockerignore-demo)
+[dockerignore](scripts/dockerignore-demo)
 
 
 ## .dockerignore
@@ -235,7 +235,7 @@ CMD ["cat", "app.txt"]
 
 
 
-[docker-opt](day-31/scripts/docker-opt)
+[docker-opt](scripts/docker-opt)
 
 Observation:
 Docker reused cached layers for: Base image,Working directory,Dependency installation
