@@ -77,7 +77,9 @@ Start it, access WordPress in your browser, and set it up.
 
 
 [wordpress-compose](scripts/wordpress-compose/)
-    
+
+ [db service file](scripts/wordpress-compose/db-service)
+
 
 ---
 
@@ -140,10 +142,9 @@ Docker Compose = “Run multiple containers as one application”
 
 <img width="857" height="1055" alt="image" src="https://github.com/user-attachments/assets/36a1004b-3914-4c91-a7e7-ada7c957cc33" />
 
-    [db service file](scripts/envVar/db service/docker-compose.yml)
-
-    [Env](scripts/envVar)
-        
+    
+[Env](scripts/envVar)
+  
 
 
 ## Key Learnings
