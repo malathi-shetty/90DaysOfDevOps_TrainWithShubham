@@ -1,6 +1,6 @@
 # Day 36 – Docker Project: Dockerize a Full Application
 ---
-
+```bash
 Folder Structure:
 
 2026/day-36/
@@ -18,7 +18,7 @@ Folder Structure:
 ├── .env
 ├── README.md
 └── day-36-docker-project.md
-
+```
 ## Challenge Tasks
 
 ### Task 1: App
