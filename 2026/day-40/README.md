@@ -22,19 +22,19 @@ on: push
 > Run the workflow every time code is pushed to the repository (any device, any terminal, any tool).
 > You push code → GitHub sees change → workflow starts
 
-Real-world analogy
+**Real-world analogy**
 
 Imagine:
 
-You drop a letter in a mailbox 📬 (git push)
-Post office receives it (GitHub)
-Machine starts processing it (Actions)
+- You drop a letter in a mailbox  (git push)
+- Post office receives it (GitHub)
+- Machine starts processing it (Actions)
 
 It doesn’t matter:
 
-which pen you used
-which language you wrote in
-where you dropped it from
+- which pen you used
+- which language you wrote in
+- where you dropped it from
 
 Only matters:
 👉 letter reached mailbox
@@ -45,7 +45,7 @@ runs-on: ubuntu-latest
 👉 Means: “use a Linux computer in the cloud”
 > GitHub should create a fresh Ubuntu Linux machine in the cloud and run my workflow steps there.
 
-Easy analogy
+**Easy analogy**
 
 Think:
 
