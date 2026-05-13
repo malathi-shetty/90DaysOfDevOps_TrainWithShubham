@@ -2050,7 +2050,7 @@ Prevents runaway jobs from consuming CI resources forever.
 
 Projects often add CI status badges in `README.md`:
 
-`![CI](https://github.com/user/repo/actions/workflows/ci.yml/badge.svg)`
+`![CodeQL](https://github.com/github/docs/actions/workflows/codeql.yml/badge.svg)`
 
 This shows pipeline health publicly.
 
