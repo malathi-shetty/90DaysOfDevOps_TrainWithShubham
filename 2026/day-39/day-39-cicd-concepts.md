@@ -1,9 +1,8 @@
 
 # Day 39 – What is CI/CD?
-
 ---
 
-# Why CI/CD Exists
+## Why CI/CD Exists
 
 Before CI/CD, software teams deployed applications manually.
 
@@ -17,7 +16,7 @@ CI/CD exists to solve these problems through automation.
 
 ---
 
-# What CI/CD Actually Does
+## What CI/CD Actually Does
 
 CI/CD automates the process of:
 1. integrating code changes,
@@ -29,7 +28,7 @@ Instead of waiting days or weeks to release software, teams can release small ch
 
 ---
 
-# The Core Goal of CI/CD
+## The Core Goal of CI/CD
 
 CI/CD helps teams:
 - detect problems early,
@@ -40,7 +39,7 @@ CI/CD helps teams:
 
 ---
 
-# Why CI/CD Became Necessary
+## Why CI/CD Became Necessary
 
 Imagine 5 developers working on the same project.
 
@@ -56,7 +55,7 @@ CI/CD creates a standardized automated workflow so every change follows the same
 
 ---
 
-# What Happens in a CI/CD Workflow
+## What Happens in a CI/CD Workflow
 
 A typical CI/CD process looks like this:
 
@@ -80,9 +79,9 @@ Deploy to production
 
 ---
 
-# Simple Explanation of CI/CD
+## Simple Explanation of CI/CD
 
-## Continuous Integration (CI)
+### Continuous Integration (CI)
 
 Developers frequently merge code changes into a shared repository.
 
@@ -91,32 +90,32 @@ Every change is automatically:
 - validated,
 - and checked for errors.
 
-### Goal
+#### Goal
 Catch problems early.
 
 ---
 
-## Continuous Delivery (CD)
+### Continuous Delivery (CD)
 
 After successful testing, the application is automatically prepared for deployment.
 
 The software is always ready to release.
 
-### Goal
+#### Goal
 Make releases reliable and repeatable.
 
 ---
 
-## Continuous Deployment
+### Continuous Deployment
 
 Every successful change is automatically deployed to production without manual approval.
 
-### Goal
+#### Goal
 Release updates faster and continuously.
 
 ---
 
-# Important Mindset
+## Important Mindset
 
 CI/CD is NOT just a tool.
 
@@ -135,7 +134,7 @@ only help implement the CI/CD process.
 
 ---
 
-# Why Pipeline Failures Are Good
+## Why Pipeline Failures Are Good
 
 A failed pipeline is NOT bad.
 
@@ -614,6 +613,11 @@ after final verification.
 ## Definition
 
 Continuous Deployment goes one step further than Continuous Delivery.
+| Type                  | Production Release              |
+| --------------------- | ------------------------------- |
+| Continuous Delivery   | Manual approval required        |
+| Continuous Deployment | Automatic production deployment |
+
 
 Every code change that successfully passes:
 - automated tests,
@@ -1831,7 +1835,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - run: docker compose build
 
@@ -1927,7 +1931,7 @@ The real goal is:
 ### Important Pipeline Behaviors
 ### Parallel Jobs
 
-Jobs inside the same stage can run in parallel.
+Independent jobs can run in parallel.
 
 Example:
 
