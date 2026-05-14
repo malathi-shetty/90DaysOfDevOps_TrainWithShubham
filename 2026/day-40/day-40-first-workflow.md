@@ -559,4 +559,5 @@ When the pipeline fails:
 
 ## Key Learning:
 A single failing command stops the entire CI pipeline.
+
 ---
