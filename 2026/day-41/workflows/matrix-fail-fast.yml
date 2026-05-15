@@ -48,4 +48,4 @@ jobs:
           exit 1
 
       - name: Run tests
-        run: python -c "print('All tests passed ✅')"
+        run: python -c "print('All tests passed')"
