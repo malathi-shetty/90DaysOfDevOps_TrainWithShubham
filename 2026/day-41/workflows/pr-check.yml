@@ -1,5 +1,3 @@
-# .github/workflows/pr-check.yml
-
 name: PR Check
 
 on:
@@ -7,8 +5,8 @@ on:
     branches:
       - main
     types:
-      - opened # runs when PR is created
-      - synchronize # runs when new commits are pushed to the PR
+      - opened
+      - synchronize
 
 jobs:
   pr-check:
@@ -17,4 +15,10 @@ jobs:
     steps:
       - name: Print branch name
         run: |
-          echo "PR check running for branch: ${{ github.head_ref }}" # ${{ github.head_ref }} → prints the source branch name
+          echo "PR check running for branch: ${{ github.head_ref }}"
+      - name: Print PR metadata
+        run: |
+          echo "Actor: ${{ github.actor }}"
+          echo "Base branch: ${{ github.base_ref }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "PR #: ${{ github.event.pull_request.number }}"          
