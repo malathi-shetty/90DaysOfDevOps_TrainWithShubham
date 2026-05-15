@@ -1,0 +1,60 @@
+name: Scheduled Workflow
+
+# Trigger the workflow every day at midnight UTC
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  scheduled-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Check repository
+        uses: actions/checkout@v4
+
+      # Step 2: Print scheduled message
+      - name: Print message
+        run: echo "Scheduled workflow running at midnight UTC"
+
+      # Step 3: Print greeting
+      - name: Print greeting
+        run: echo "Hello from GitHub Actions!"
+
+      # Step 4: Print current date and time
+      - name: Print current date and time
+        run: date
+
+      # Step 5: Print branch name
+      - name: Print branch name
+        run: |
+          echo "Triggered by branch: ${{ github.ref_name }}"
+
+      # Step 6: List repository files
+      - name: List repo files
+        run: ls -la
+
+      # Step 7: Print runner operating system
+      - name: Print runner OS
+        run: |
+          echo "Runner OS: ${{ runner.os }}"
+
+      # Step 8: Print workflow trigger type
+      - name: Print trigger type
+        run: |
+          echo "Workflow triggered by: ${{ github.event_name }}"
+
+      # Step 9: Print current UTC time
+      - name: Print current UTC time
+        run: date -u
+
+      # Step 10: Simulate health check
+      - name: Simulate health check
+        run: |
+          echo "Running scheduled health check..."
+          echo "All systems operational ✅"
+
+      # Step 11: Intentionally fail (optional)
+      # - name: Break the workflow on purpose
+      #   run: exit 1
