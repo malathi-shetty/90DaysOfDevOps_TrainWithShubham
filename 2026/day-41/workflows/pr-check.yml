@@ -1,0 +1,20 @@
+# .github/workflows/pr-check.yml
+
+name: PR Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened # runs when PR is created
+      - synchronize # runs when new commits are pushed to the PR
+
+jobs:
+  pr-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print branch name
+        run: |
+          echo "PR check running for branch: ${{ github.head_ref }}" # ${{ github.head_ref }} → prints the source branch name
