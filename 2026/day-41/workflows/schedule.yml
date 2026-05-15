@@ -53,7 +53,7 @@ jobs:
       - name: Simulate health check
         run: |
           echo "Running scheduled health check..."
-          echo "All systems operational ✅"
+          echo "All systems operational"
 
       # Step 11: Intentionally fail (optional)
       # - name: Break the workflow on purpose
