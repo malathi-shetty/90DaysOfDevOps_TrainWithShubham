@@ -1,0 +1,30 @@
+steps:
+  - name: Full Ubuntu environment check
+    run: |
+      echo "===== SYSTEM ====="
+      uname -a
+      lsb_release -a
+
+      echo "===== CPU / MEMORY ====="
+      free -m
+
+      echo "===== DISK ====="
+      df -h
+
+      echo "===== DOCKER ====="
+      docker --version
+
+      echo "===== PYTHON ====="
+      python3 --version
+
+      echo "===== NODE ====="
+      node --version
+
+      echo "===== GIT ====="
+      git --version
+
+      echo "===== CURL ====="
+      curl --version
+
+      echo "===== GCC ====="
+      gcc --version
