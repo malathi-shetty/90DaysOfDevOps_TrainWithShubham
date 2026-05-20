@@ -6,33 +6,34 @@ on:
 jobs:
   ubuntu-tools:
     runs-on: ubuntu-latest
-steps:
-  - name: Full Ubuntu environment check
-    run: |
-      echo "===== SYSTEM ====="
-      uname -a
-      lsb_release -a
 
-      echo "===== CPU / MEMORY ====="
-      free -m
+    steps:
+      - name: Full Ubuntu environment check
+        run: |
+          echo "===== SYSTEM ====="
+          uname -a
+          lsb_release -a
 
-      echo "===== DISK ====="
-      df -h
+          echo "===== CPU / MEMORY ====="
+          free -m
 
-      echo "===== DOCKER ====="
-      docker --version
+          echo "===== DISK ====="
+          df -h
 
-      echo "===== PYTHON ====="
-      python3 --version
+          echo "===== DOCKER ====="
+          docker --version
 
-      echo "===== NODE ====="
-      node --version
+          echo "===== PYTHON ====="
+          python3 --version
 
-      echo "===== GIT ====="
-      git --version
+          echo "===== NODE ====="
+          node --version
 
-      echo "===== CURL ====="
-      curl --version
+          echo "===== GIT ====="
+          git --version
 
-      echo "===== GCC ====="
-      gcc --version
+          echo "===== CURL ====="
+          curl --version
+
+          echo "===== GCC ====="
+          gcc --version
