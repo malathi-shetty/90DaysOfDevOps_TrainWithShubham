@@ -1,0 +1,9 @@
+2026-04-24 10:00:01 INFO Server started
+2026-04-24 10:01:15 ERROR Connection timed out
+2026-04-24 10:02:20 ERROR File not found
+2026-04-24 10:03:10 CRITICAL Disk space below threshold
+2026-04-24 10:04:30 ERROR Connection timed out
+2026-04-24 10:05:00 Failed Login attempt
+2026-04-24 10:06:45 CRITICAL Database connection lost
+2026-04-24 10:07:50 ERROR Permission denied
+2026-04-24 10:08:10 ERROR Connection timed out

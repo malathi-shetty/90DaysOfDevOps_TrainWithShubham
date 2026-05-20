@@ -1,0 +1,24 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  pr-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print branch name
+        run: |
+          echo "PR check running for branch: ${{ github.head_ref }}"
+      - name: Print PR metadata
+        run: |
+          echo "Actor: ${{ github.actor }}"
+          echo "Base branch: ${{ github.base_ref }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "PR #: ${{ github.event.pull_request.number }}"          

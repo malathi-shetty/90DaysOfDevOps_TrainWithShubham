@@ -1,0 +1,310 @@
+# Challenge Tasks
+
+---
+
+Task 1: Understand Infrastructure as Code
+---
+
+**1. What is Infrastructure as Code (IaC)? Why does it matter in DevOps?**
+
+“Infrastructure as Code means creating infrastructure using code instead of manually clicking in the cloud console.”
+
+For example, instead of going to AWS and creating an EC2 server step by step, I can use Terraform and write a small file. Then with one command, the server is created automatically.
+
+##########################################################################################################
+
+**Simple Example:**
+
+**Without IaC (Manual way)**
+
+You:
+
+- Log into AWS
+- Click “Create EC2”
+- Choose settings
+- Launch server
+
+*Every time you do this, you might:*
+
+- Forget something
+- Make mistakes
+- Do things differently
+
+##########################################################################################################
+
+**With IaC (Code way)**
+
+*You write a file like this (example using Terraform):*
+
+```
+resource "aws_instance" "my_server" {
+  ami           = "ami-123456"
+  instance_type = "t2.micro"
+}
+```
+
+Then run a command:
+
+`terraform apply`
+
+- Server is created automatically
+
+##########################################################################################################
+
+**Why IaC Matters in DevOps:**
+
+*1. Makes infrastructure Repeatable*
+
+You can create the same setup again anytime
+- Same server, same config, no surprises
+
+*2. Reduces Human Errors*
+
+No manual clicking = fewer mistakes
+- Code runs exactly as written
+
+*3. Automation Friendly + CI/CD integration*
+
+You can connect IaC with CI/CD pipelines
+- Servers get created automatically when needed
+
+*4. Everything is version-controlled (like code)*
+
+Your infrastructure code can be saved in Git
+
+You can:
+
+- Track changes
+- Roll back if something breaks
+- Collaborate with team
+
+*5. Reusable*
+
+Write once, use many times
+- Same code works for dev, test, and production
+
+**Super Simple Summary**
+
+1. IaC = Managing infrastructure using code instead of manual setup
+   ```
+   IaC = Write code → Create infrastructure → No manual work
+   ```
+3. It helps DevOps by making systems:
+- Consistent
+- Automated
+- Easy to manage
+- Less error-prone
+
+
+----
+
+**2. What problems does IaC solve compared to manually creating resources in the AWS console?**
+
+
+IaC solves many problems that we face when creating resources manually in the AWS console.
+
+1. **Inconsistency**
+- When we create resources **manually**, dev, test, and production _environments can be different_.
+- _Example:_
+-- Dev = 2GB RAM,
+-- Prod = 4GB RAM → causes bugs
+
+**IaC Fix**, the same code creates identical environments every time.
+
+2. **Human Errors**
+- Manual steps can lead to mistakes like wrong configurations or missing settings.
+- _Example:_ Forgot to open port 80 → website not accessible
+
+**IaC Fix:** Reduces mistakes because everything is predefined in code.
+
+3. **No Repeatability** 
+- Manually recreating the same infrastructure is difficult.
+- _Example:_ Can’t easily rebuild same infrastructure for staging
+  
+**IaC Fix:** We can reuse the same file and recreate infrastructure anytime.
+
+4. **No Version Control**
+- In manual setup, we don’t know who changed what.
+- _Example:_  Someone changed config → no idea who or why
+
+**IaC Fix:**  Store code in Git to track changes and roll back if needed.
+
+5. **Time-Consuming Process** 
+- Creating resources manually takes time, especially at scale.
+- _Example:_ Need 10 servers → repeat the same steps 10 times
+
+**IaC Fix:**  Automates the process and creates multiple resources in seconds with one command.
+
+6. **Team Collaboration Issues** 
+- Manual setups depend on individuals and can vary between team members.
+- Knowledge is not shared.
+- _Example:_ Each person sets things differently
+
+**IaC Fix:**  Standardizes the process and make team collaboration easier.
+
+7. **No Visibility Before Changes** 
+- In manual setup, we don’t know the impact before making changes.
+- _Example:_ Update config → unexpected issues
+
+**IaC Fix:**  Tools like Terraform provide a plan (`terraform plan`) to preview changes before applying them.
+
+8. **Scaling difficulties**
+- Manual work doesn’t scale well as infrastructure grows.
+- _Example:_ Adding 50 servers manually is difficult
+
+**IaC Fix:**  Using variables and loops → Allows us to create multiple resources easily.
+
+9. **Configuration Drift** 
+- Manual changes in the console can make systems inconsistent.
+- _Example:_ Someone changes settings in AWS console → config mismatch
+
+**IaC Fix:**  IAC helps detect and fix these differences to keep infrastructure consistent.
+
+“So overall, IaC makes infrastructure consistent, automated, scalable, and easier to manage compared to manual setup.”
+
+
+
+
+---
+
+**3. How is Terraform different from AWS CloudFormation, Ansible, and Pulumi?**
+
+
+Terraform, AWS CloudFormation, Ansible, and Pulumi are all used in DevOps, but they differ in cloud support, purpose, and how infrastructure is defined.”
+
+**1. Terraform vs AWS CloudFormation —**
+- Both are used for infrastructure provisioning,
+- But Terraform is multi-cloud, meaning it works with AWS, Azure, and GCP, whereas CloudFormation is AWS-only.
+- Also, Terraform uses HCL (.tf files), while CloudFormation uses JSON or YAML.
+
+| Feature                 | Terraform                          | AWS CloudFormation            |
+| ----------------------- | ---------------------------------- | ----------------------------- |
+| **Cloud Support**       | Multi-cloud (AWS, Azure, GCP) ✅    | AWS only ❌                 |
+| **Language**            | HCL (.tf files)                    | JSON / YAML                   |
+| **Type**                | Open-source tool                   | AWS managed service           |
+| **Approach**            | Declarative                        | Declarative                   |
+| **State Management**    | Uses state file (managed by user)  | Managed by AWS                |
+| **Execution Plan**      | `terraform plan` (preview changes) | Change Sets (preview changes) |
+| **Portability**         | High (works across clouds)         | Low (AWS-specific)            |
+| **Dependency Handling** | Automatic                          | Automatic                     |
+| **Ease of Use**         | Easy to read (HCL)                 | JSON can be complex           |
+| **Best Use Case**       | Multi-cloud infrastructure         | AWS-only infrastructure       |
+
+
+**2. Terraform vs Ansible —**
+- Terraform is used to create infrastructure like servers and networks, while Ansible is mainly used for configuration management, such as installing software or configuring servers.
+
+_In short:_
+
+- Terraform → creates resources
+- Ansible → configures them
+
+| Feature              | Terraform                             | Ansible                                 |
+| -------------------- | ------------------------------------- | --------------------------------------- |
+| **Purpose**          | Infrastructure provisioning           | Configuration management                |
+| **What it does**     | Creates resources (servers, networks) | Configures servers (software, settings) |
+| **Approach**         | Declarative                           | Imperative (step-by-step)               |
+| **Language**         | HCL (.tf files)                       | YAML (playbooks)                        |
+| **State Management** | Yes (state file)                      | No state file                           |
+| **Agent Required**   | No                                    | No (agentless via SSH)                  |
+| **Cloud Support**    | Multi-cloud                           | Multi-cloud                             |
+| **Best Use Case**    | Create infrastructure                 | Configure after creation                |
+
+
+**3. Terraform vs Pulumi —**
+- Both are Infrastructure as Code tools, but Terraform uses declarative configuration files (HCL), whereas Pulumi uses programming languages like Python, JavaScript, etc.
+
+| Feature              | Terraform                    | Pulumi                                       |
+| -------------------- | ---------------------------- | -------------------------------------------- |
+| **Purpose**          | Infrastructure provisioning  | Infrastructure provisioning                  |
+| **Language**         | HCL (.tf files)              | Python, JavaScript, TypeScript, etc.         |
+| **Approach**         | Declarative                  | Declarative (using real code)                |
+| **Learning Curve**   | Easier (simple syntax)       | Depends on programming knowledge             |
+| **Flexibility**      | Limited logic                | Full programming power (loops, conditions)   |
+| **State Management** | Yes (state file)             | Yes (managed or self-managed)                |
+| **Cloud Support**    | Multi-cloud                  | Multi-cloud                                  |
+| **Best Use Case**    | Simple, standard infra setup | Complex logic + developer-friendly workflows |
+
+
+##########################################################################################################
+
+So overall, Terraform stands out because it is:
+- cloud-agnostic,
+- declarative, and
+- uses simple configuration files, making it very popular for multi-cloud infrastructure.”
+
+##########################################################################################################
+
+- Terraform = Multi-cloud IaC tool using HCL
+- CloudFormation = AWS only
+- Ansible = configuration management
+- Pulumi = programming languages for infrastructure
+
+
+
+--------------
+
+**4. What does it mean that Terraform is "declarative" and "cloud-agnostic"?**
+
+**Declarative:**
+
+In Terraform, declarative means I just tell it what I want, and it figures out how to create it.”
+
+For example, I can say I need a server with a certain configuration, and Terraform will handle:
+
+- creating it
+- setting it up
+- and managing dependencies
+
+I don’t need to write step-by-step instructions.
+
+Example:
+```
+resource "aws_instance" "my_server" {
+  instance_type = "t2.micro"
+}
+```
+
+ You just say:
+“I want a server of this type”
+
+Terraform handles:
+
+- Creating it
+- Setting it up
+- Managing dependencies
+
+---
+
+
+
+**Cloud-Agnostic:**
+
+- Terraform can work with **different cloud providers**
+
+- AWS
+- Azure
+- Google Cloud
+
+You don’t need to learn a new tool for each cloud
+
+---
+
+**Example**
+
+You can switch provider like:
+
+`provider "aws" {}`
+
+_Change to:_
+
+`provider "azurerm" {}`
+
+ Same tool, different cloud 
+
+---
+
+“Declarative means defining what you want instead of how to do it, and cloud-agnostic means Terraform works across multiple cloud providers.”
+
+- “Declarative = WHAT
+- Cloud-agnostic = ANY cloud”

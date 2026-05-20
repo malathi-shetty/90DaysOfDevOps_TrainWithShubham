@@ -1,0 +1,15 @@
+===== Log Analysis Report =====
+Date of analysis: Fri Apr 24 15:42:46 UTC 2026
+Log file name: file.log
+Total lines processed: 10
+Total error count: 1
+
+------------ Top 5 Error Messages ------------
+      1 Failed to connect - 7467
+
+------------ Critical Events ------------
+Line 1:2026-04-24 15:42:28 [CRITICAL]  - 4705
+Line 4:2026-04-24 15:42:28 [CRITICAL]  - 19765
+Line 6:2026-04-24 15:42:28 [CRITICAL]  - 29619
+Line 9:2026-04-24 15:42:28 [CRITICAL]  - 5776
+

@@ -1,0 +1,51 @@
+name: Manual Deploy Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Select the environment"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
+
+      version:
+        description: "Version or tag to deploy"
+        required: false
+        default: "latest"
+        type: string
+
+      dry_run:
+        description: "Perform dry run only"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print deployment inputs
+        run: |
+          echo "Selected environment: ${{ github.event.inputs.environment }}"
+          echo "Version: ${{ github.event.inputs.version }}"
+          echo "Dry run: ${{ github.event.inputs.dry_run }}"
+
+      - name: Simulate deployment
+        run: |
+          DRY="${{ github.event.inputs.dry_run }}"
+          ENV="${{ github.event.inputs.environment }}"
+          VER="${{ github.event.inputs.version }}"
+
+          if [ "$DRY" = "true" ]; then
+            echo "DRY RUN → Would deploy $VER to $ENV"
+          else
+            echo "Deploying $VER to $ENV ✅"
+          fi
