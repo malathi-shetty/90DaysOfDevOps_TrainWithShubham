@@ -101,3 +101,36 @@ jobs:
 
       - name: Verify artifact
         run: cat artifacts/proof.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: task-output
+          path: artifacts/
+
+
+  # =========================
+  # FINAL - UNIFIED OUTPUT (DOWNLOADABLE)
+  # =========================
+  task6-unified-output:
+    name: Task 6 - Unified Output Bundle
+    runs-on: self-hosted
+
+    steps:
+      - name: Create unified output folder
+        run: |
+          mkdir -p output
+
+          echo "RUN ON EC2: $(hostname) at $(date)" > output/ec2-proof.txt
+          echo "$(date) | Job executed on $(hostname)" > output/execution.log
+          uname -a > output/system.txt
+          echo "Self-hosted runner test file" > output/test-file.txt
+
+      - name: Show output files
+        run: ls -la output
+
+      - name: Upload full output bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: day42-full-output
+          path: output/
