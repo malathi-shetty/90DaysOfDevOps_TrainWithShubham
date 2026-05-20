@@ -1,3 +1,11 @@
+name: Task 2 - Ubuntu Preinstalled Tools
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ubuntu-tools:
+    runs-on: ubuntu-latest
 steps:
   - name: Full Ubuntu environment check
     run: |
