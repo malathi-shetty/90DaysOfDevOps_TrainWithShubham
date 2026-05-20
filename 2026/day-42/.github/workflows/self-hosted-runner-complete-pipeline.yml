@@ -1,0 +1,103 @@
+name: Day 42 - Self Hosted Runner Complete Task Pipeline
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  # =========================
+  # TASK 4 - BASIC EXECUTION
+  # =========================
+  task4-basic-execution:
+    name: Task 4 - Basic Self Hosted Execution
+    runs-on: self-hosted
+
+    steps:
+      - name: Show hostname
+        run: hostname
+
+      - name: Show working directory
+        run: pwd
+
+      - name: Show user
+        run: whoami
+
+      - name: System details
+        run: |
+          echo "==== SYSTEM INFO ===="
+          uname -a
+          echo "==== MEMORY ===="
+          free -m
+          echo "==== DISK ===="
+          df -h
+
+      - name: Create test file
+        run: |
+          echo "Self-hosted runner test file" > test-file.txt
+          echo "Created at: $(date)" >> test-file.txt
+
+      - name: Display file
+        run: cat test-file.txt
+
+
+  # =========================
+  # TASK 4 - PROOF & VERIFICATION
+  # =========================
+  task4-proof-validation:
+    name: Task 4 - Proof Validation
+    runs-on: self-hosted
+
+    steps:
+      - name: Create EC2 proof marker
+        run: |
+          echo "RUN ON EC2: $(hostname) at $(date)" > /tmp/ec2-proof.txt
+          cat /tmp/ec2-proof.txt
+
+      - name: Verify proof file exists
+        run: |
+          if [ -f /tmp/ec2-proof.txt ]; then
+            echo "✅ Proof file exists on EC2"
+          else
+            echo "❌ Proof file missing"
+            exit 1
+          fi
+
+      - name: Create permanent execution log
+        run: |
+          mkdir -p ~/ci-logs
+          echo "$(date) | Job executed on $(hostname)" >> ~/ci-logs/execution.log
+
+      - name: Print runner identity
+        run: |
+          echo "Runner Name: $RUNNER_NAME"
+          echo "Hostname: $(hostname)"
+
+
+  # =========================
+  # TASK 5 - LABEL BASED RUNNER
+  # =========================
+  task5-label-based-runner:
+    name: Task 5 - Label Based Execution
+    runs-on: [self-hosted, my-linux-runner]
+
+    steps:
+      - name: Runner identity check
+        run: |
+          echo "Hostname: $(hostname)"
+          echo "User: $(whoami)"
+          echo "Date: $(date)"
+
+      - name: Network check
+        run: |
+          curl -I https://github.com || true
+
+      - name: Create artifact file
+        run: |
+          mkdir -p artifacts
+          echo "Pipeline executed on $(hostname)" > artifacts/proof.txt
+
+      - name: Verify artifact
+        run: cat artifacts/proof.txt

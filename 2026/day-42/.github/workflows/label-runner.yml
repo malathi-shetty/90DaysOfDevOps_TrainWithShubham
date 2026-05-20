@@ -1,0 +1,21 @@
+name: Label Based Self Hosted Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  labeled-job:
+    runs-on: [self-hosted, my-linux-runner]
+
+    steps:
+      - name: Show runner identity
+        run: |
+          echo "Hostname: $(hostname)"
+          echo "User: $(whoami)"
+          echo "Date: $(date)"
+
+      - name: Verify label usage
+        run: echo "This job ran on labeled self-hosted runner"
+
+      - name: System check
+        run: uname -a
