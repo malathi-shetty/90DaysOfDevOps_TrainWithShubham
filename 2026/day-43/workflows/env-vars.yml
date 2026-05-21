@@ -1,0 +1,59 @@
+name: Environment Variables
+
+on:
+  push:
+
+# Workflow-level environment variable
+# ← Available to ALL jobs and ALL steps
+env:
+  APP_NAME: myapp
+
+jobs:
+  env-demo:
+    runs-on: ubuntu-latest
+
+    # Job-level environment variable
+    # ← Available to ALL steps inside this job
+    env:
+      ENVIRONMENT: staging
+
+    steps:
+
+      - name: Print All Environment Variables
+
+        # Step-level environment variable
+        # ← Available ONLY inside this step
+        env:
+          VERSION: 1.0.0
+
+        run: |
+          echo "Workflow level env: $APP_NAME"
+          echo "Job level env: $ENVIRONMENT"
+          echo "Step level env: $VERSION"
+
+          # GitHub Context Variables
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+
+      - name: Print Variables Again
+
+        # Step-level variable again
+        # ← Must be redefined if needed in another step
+        env:
+          VERSION: 1.0.0
+
+        run: |
+          echo "App Name: $APP_NAME"        # ✅ workflow scope works
+          echo "Environment: $ENVIRONMENT" # ✅ job scope works
+          echo "Version: $VERSION"         # ✅ step scope works
+
+      - name: Print GitHub Context Variables
+        run: |
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Triggered By: ${{ github.actor }}"
+
+      - name: Next Step
+        run: |
+          echo $APP_NAME      # ✅ works (workflow scope)
+          echo $ENVIRONMENT   # ✅ works (job scope)
+          echo $VERSION       # ❌ empty (step scope ended)

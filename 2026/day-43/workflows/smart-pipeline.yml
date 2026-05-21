@@ -1,0 +1,141 @@
+# Workflow name shown in GitHub Actions tab
+name: Smart Pipeline
+
+# Workflow trigger
+on:
+
+  # Run workflow on every push event
+  push:
+
+jobs:
+
+  # Lint Job
+  # ← Runs independently in parallel with test job
+  lint:
+
+    # GitHub-hosted Ubuntu runner
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Print lint start message
+      - name: Lint Code
+
+        run: |
+          echo "Running lint checks on branch: ${{ github.ref_name }}"
+
+      # Checkout repository code
+      # ← Downloads repo contents into runner
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Install Python on runner
+      - name: Setup Python
+        uses: actions/setup-python@v5
+
+        # Action input parameters
+        with:
+
+          # Python version to install
+          python-version: "3.12"
+
+      # Install project dependencies
+      - name: Install Dependencies
+
+        run: |
+          pip install -r Day-43/requirements.txt
+
+      # Run Python linter
+      - name: Run Linter
+
+        run: |
+          flake8 Day-43/app.py
+
+  # Test Job
+  # ← Runs in parallel with lint job
+  test:
+
+    # Ubuntu runner
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Print test start message
+      - name: Run Tests
+
+        run: |
+          echo "Running tests"
+
+      # Checkout source code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Example test step
+      - name: Execute Test Suite
+
+        run: |
+          echo "Running test suite on branch: ${{ github.ref_name }}"
+          echo "✅ All tests passed"
+
+  # Summary Job
+  # ← Runs only AFTER lint and test jobs succeed
+  summary:
+
+    # Ubuntu runner
+    runs-on: ubuntu-latest
+
+    # Job dependency chain
+    # ← Waits for lint and test jobs
+    needs: [lint, test]
+
+    steps:
+
+      # Print pipeline execution summary
+      - name: Print Pipeline Summary
+
+        run: |
+          echo "==============================="
+          echo "       Pipeline Summary"
+          echo "==============================="
+
+          # GitHub context variables
+          echo "Commit SHA    : ${{ github.sha }}"
+          echo "Triggered by  : ${{ github.actor }}"
+          echo "Branch        : ${{ github.ref_name }}"
+          echo "Event         : ${{ github.event_name }}"
+
+          # Static status messages
+          echo "Lint status   : ✅ passed"
+          echo "Test status   : ✅ passed"
+
+      # Branch detection logic
+      - name: Branch Information
+
+        run: |
+
+          # Print current branch name
+          echo "Branch name: ${{ github.ref_name }}"
+
+          # Conditional branch check
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+
+            # Runs for main branch
+            echo "This is a main branch push"
+
+          else
+
+            # Runs for feature branches
+            echo "This is a feature branch push"
+
+          fi
+
+      # Print latest commit message
+      - name: Print Commit Message
+
+        run: |
+
+          # Print heading
+          echo "Commit Message:"
+
+          # GitHub commit message context
+          echo "${{ github.event.commits[0].message }}"

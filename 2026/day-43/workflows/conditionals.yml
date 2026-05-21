@@ -1,0 +1,105 @@
+name: Conditionals Demo
+
+on:
+  # Trigger workflow on push events
+  push:
+
+    # Run only when pushing to main branch
+    branches: [main]
+
+  # Trigger workflow on pull request events
+  pull_request:
+
+    # Run PR workflow only for main branch
+    branches: [main]
+
+jobs:
+
+  # Job runs ONLY for push events
+  # ← Skips execution during pull_request events
+  conditional-push-only-job:
+    runs-on: ubuntu-latest
+
+    # Job-level conditional
+    # ← Executes only if event type is push
+    if: github.event_name == 'push'
+
+    steps:
+
+      # Simple confirmation step
+      - name: Confirm this is a push event
+        run:  |
+          echo "This job only runs on push — event was: ${{ github.event_name }}"
+
+  # Main demo job for conditionals
+  conditionals-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Default step
+      # ← Runs every time
+      - name: Always runs
+        run: echo "This step always runs regardless of branch or event"
+
+      # Step-level conditional
+      # ← Runs only when branch is main
+      - name: Run only on main branch
+        if: github.ref == 'refs/heads/main'
+        run: echo "This runs only on main branch — ${{ github.ref }}"
+
+      # Opposite branch condition
+      # ← Runs only on non-main branches
+      - name: Run only on non-main branches
+        if: github.ref != 'refs/heads/main'
+        run: echo "On feature branch — ${{ github.ref }} (not main)"
+
+      # Intentional failure step
+      # ← Step fails but workflow continues
+      - name: Intentional Failure Step (continue-on-error)
+        run: exit 1
+
+        # Prevents workflow from stopping on failure
+        continue-on-error: true
+
+      # Another risky step with step ID
+      # ← ID allows checking the step outcome later
+      - name: Intentionally failing step (continue-on-error)
+
+        # Step ID used for referencing outputs/outcome
+        id: risky-step
+
+        # Continue workflow even if this step fails
+        continue-on-error: true
+
+        run: |
+          echo "Attempting risky operation..."
+          exit 1
+
+      # Runs when ANY previous step failed
+      # ← failure() checks overall previous step status
+      - name: Run when previous step failed
+        if: failure()
+
+        run: echo "Previous step failed - Job continued because of continue-on-error"
+
+      # Step-specific failure check
+      # ← Runs only if risky-step failed
+      - name: Run only when risky-step failed
+        if: steps.risky-step.outcome == 'failure'
+
+        run: |
+          echo "risky-step failed — running recovery/notification step"
+          echo "Outcome was: ${{ steps.risky-step.outcome }}"
+
+      # Step-specific success check
+      # ← Runs only if risky-step succeeded
+      - name: Run only when risky-step succeeded
+        if: steps.risky-step.outcome == 'success'
+
+        run: echo "risky-step passed — no recovery needed"
+
+      # Final workflow step
+      # ← Proves workflow continued after failures
+      - name: Final Step
+        run: echo "Workflow continues because continue-on-error is true"

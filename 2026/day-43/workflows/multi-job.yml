@@ -1,0 +1,28 @@
+name: Multi Job Workflow
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build Step
+        run: echo "Building the app"
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build # ← waits for build to succeed
+
+    steps:
+      - name: Test Step
+        run: echo "Running tests"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test # ← waits for test to succeed
+
+    steps:
+      - name: Deploy Step
+        run: echo "Deploying application"
