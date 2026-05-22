@@ -1,0 +1,14 @@
+{
+  "name": "day45-devops-dashboard",
+  "version": "1.0.0",
+  "description": "Docker CI/CD dashboard for Day 45",
+  "main": "src/index.js",
+
+  "scripts": {
+    "start": "node src/index.js"
+  },
+
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
