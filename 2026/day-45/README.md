@@ -1,4 +1,4 @@
-![Docker Publish](https://github.com/shettymalathi113/github-actions-practice/actions/workflows/docker-publish.yml/badge.svg?branch=main&cache=1)
+![Docker Publish](https://github.com/shettymalathi113/github-actions-practice/actions/workflows/docker-publish.yml/badge.svg?branch=master&cache=1)
 
 # Day 45 – Docker Build & Push in GitHub Actions
 
