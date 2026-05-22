@@ -1,0 +1,122 @@
+# Workflow name shown in GitHub UI
+name: Run Real Tests
+
+
+# Defines when workflow runs
+on:
+
+  # Manual trigger
+  workflow_dispatch:
+
+  # Also run automatically on push
+  push:
+
+
+
+# jobs = collection of tasks
+jobs:
+
+
+  # Job ID
+  test-job:
+
+
+    # Create Ubuntu Linux VM
+    runs-on: ubuntu-latest
+
+
+    # Steps executed one-by-one
+    steps:
+
+
+      # ==========================================
+      # Step 1:
+      # Download repository code into VM
+      # ==========================================
+      - name: Checkout repository
+
+
+        # Official GitHub Action for cloning repo
+        uses: actions/checkout@v4
+
+
+
+      # ==========================================
+      # Step 2:
+      # Install Python
+      # ==========================================
+      - name: Setup Python
+
+
+        # Official Python setup action
+        uses: actions/setup-python@v5
+
+
+        # Configuration for setup-python action
+        with:
+
+
+          # Python version to install
+          python-version: "3.11"
+
+
+
+      # ==========================================
+      # Step 3:
+      # Run Python test script
+      # ==========================================
+      - name: Run test suite
+
+
+        # Execute shell command
+        run: python scripts/test_utils.py
+
+
+
+      # ==========================================
+      # Step 4:
+      # Upload test files as artifact
+      # ==========================================
+      - name: Upload test output as artifact
+
+
+        # IMPORTANT:
+        # always()
+        #
+        # Means:
+        # Run this step whether tests PASS or FAIL
+        #
+        # Useful for:
+        # logs
+        # reports
+        # debugging
+        if: always()
+
+
+        # Official GitHub Action for artifact upload
+        uses: actions/upload-artifact@v4
+
+
+        # Configuration
+        with:
+
+
+          # Artifact name shown in GitHub UI
+          name: test-output
+
+
+          # Folder/file to upload
+          #
+          # Your script exists here:
+          # scripts/test_utils.py
+          #
+          # Uploading whole scripts folder
+          path: scripts/
+
+
+          # Keep artifact for 3 days
+          retention-days: 3
+
+
+          # Fail if folder missing
+          if-no-files-found: error

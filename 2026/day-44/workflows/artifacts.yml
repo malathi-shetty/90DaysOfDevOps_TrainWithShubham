@@ -1,0 +1,101 @@
+# Workflow name shown in GitHub Actions UI
+name: Upload Artifacts Demo
+
+
+# Defines when workflow runs
+on:
+
+  # Allows manual trigger from Actions tab
+  workflow_dispatch:
+
+
+# jobs = collection of tasks
+jobs:
+
+
+  # Job ID
+  artifact-job:
+
+
+    # GitHub creates temporary Ubuntu Linux VM
+    runs-on: ubuntu-latest
+
+
+    # Steps run one-by-one
+    steps:
+
+
+      # Step 1:
+      # Create a report file
+      - name: Generate test report
+
+
+        # Execute shell commands
+        run: |
+
+
+          # mkdir = make directory
+          #
+          # -p means:
+          # "Create parent folders if missing"
+          mkdir -p reports
+
+
+          # Create file and write first line
+          #
+          # > means:
+          # "Create/overwrite file"
+          echo "Tests run: 10 completed successfully" > reports/test-report.txt
+
+
+          # Append second line into same file
+          #
+          # >> means:
+          # "Append to existing file"
+          echo "Status: ALL PASSED" >> reports/test-report.txt
+
+
+          # Show file contents in logs
+          cat reports/test-report.txt
+
+
+
+      # Step 2:
+      # Upload generated file as artifact
+      - name: Upload artifact
+
+
+        # uses:
+        # Runs a prebuilt GitHub Action
+        #
+        # actions/upload-artifact@v4
+        # Official GitHub Action for uploading artifacts
+        uses: actions/upload-artifact@v4
+
+
+        # with:
+        # Inputs/configuration for the action
+        with:
+
+
+          # Name shown in GitHub UI
+          #
+          # github.run_number = unique workflow run number
+          #
+          # Example:
+          # test-report-5
+          name: test-report-${{ github.run_number }}
+
+
+          # File/folder to upload
+          path: reports/
+
+
+          # Keep artifact for 5 days
+          retention-days: 5
+
+
+          # Fail workflow if file/folder missing
+          #
+          # Prevents silent success when artifact path is wrong
+          if-no-files-found: error

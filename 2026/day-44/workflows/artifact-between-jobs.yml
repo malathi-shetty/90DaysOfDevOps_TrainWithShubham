@@ -1,0 +1,142 @@
+# Workflow name shown in GitHub Actions UI
+name: Artifact Between Jobs Demo
+
+
+# Defines when workflow runs
+on:
+
+  # Manual trigger from Actions tab
+  workflow_dispatch:
+
+
+# jobs = collection of jobs/tasks
+jobs:
+
+
+  # ==========================================
+  # JOB 1
+  # Build job creates a file
+  # ==========================================
+  build:
+
+
+    # Create temporary Ubuntu Linux VM
+    runs-on: ubuntu-latest
+
+
+    # Steps inside build job
+    steps:
+
+
+      # Step 1:
+      # Create a file
+      - name: Create build file
+
+
+        # Execute shell commands
+        run: |
+
+
+          # mkdir -p
+          # Create folder if missing
+          mkdir -p dist
+
+
+          # Create file with build info
+          #
+          # > means overwrite/create file
+          echo "app-version=1.0.0" > dist/build-info.txt
+
+
+          # Show file contents in logs
+          cat dist/build-info.txt
+
+
+
+      # Step 2:
+      # Upload file as artifact
+      - name: Upload build artifact
+
+
+        # Official GitHub Action for artifact upload
+        uses: actions/upload-artifact@v4
+
+
+        # Configuration for upload action
+        with:
+
+
+          # Artifact name stored in GitHub
+          name: build-output
+
+
+          # Folder/file to upload
+          path: dist/
+
+
+          # Fail if folder missing
+          if-no-files-found: error
+
+
+
+  # ==========================================
+  # JOB 2
+  # Deploy job downloads artifact
+  # ==========================================
+  deploy:
+
+
+    # VERY IMPORTANT
+    #
+    # needs: build
+    #
+    # Means:
+    # "Run deploy job ONLY AFTER build job succeeds"
+    needs: build
+
+
+    # Create another fresh Ubuntu VM
+    #
+    # This is NOT same machine as build job
+    runs-on: ubuntu-latest
+
+
+    # Steps inside deploy job
+    steps:
+
+
+      # Step 1:
+      # Download artifact uploaded by build job
+      - name: Download build artifact
+
+
+        # Official GitHub Action for downloading artifacts
+        uses: actions/download-artifact@v4
+
+
+        # Configuration for download action
+        with:
+
+
+          # Artifact name to download
+          #
+          # Must exactly match uploaded artifact name
+          name: build-output
+
+
+          # Where to place downloaded files
+          path: downloaded-dist/
+
+
+
+      # Step 2:
+      # Use downloaded file
+      - name: Print downloaded file contents
+
+
+        # Execute shell commands
+        run: |
+
+
+          # Display downloaded file
+          cat downloaded-dist/build-info.txt

@@ -1,0 +1,184 @@
+# Workflow name shown in GitHub UI
+name: Cache Demo
+
+
+# Defines when workflow runs
+on:
+
+  # Also run automatically on push
+  push:
+    branches:
+      - main
+
+  # Manual trigger
+  workflow_dispatch:
+
+
+
+# jobs = collection of tasks
+jobs:
+
+
+  # Cache pip dependencies
+  # Run twice to observe time difference
+  cache-job:
+
+
+    # Create Ubuntu Linux VM
+    runs-on: ubuntu-latest
+
+
+    # Steps execute one-by-one
+    steps:
+
+
+      # ==========================================
+      # Step 1:
+      # Download repository code
+      # ==========================================
+      - name: Checkout repository
+
+
+        # Official GitHub Action
+        uses: actions/checkout@v4
+
+
+
+      # ==========================================
+      # Step 2:
+      # Setup Python
+      # ==========================================
+      - name: Setup Python
+
+
+        # Official Python setup action
+        uses: actions/setup-python@v5
+
+
+        with:
+
+          # Python version
+          python-version: "3.11"
+
+
+
+      # ==========================================
+      # Step 3:
+      # Cache pip downloads
+      # ==========================================
+      - name: Cache pip packages
+
+
+        # Official cache action
+        uses: actions/cache@v4
+
+
+        # Step ID
+        #
+        # Allows referencing outputs later
+        id: pip-cache
+
+
+        with:
+
+
+          # What to cache
+          #
+          # ~/.cache/pip
+          #
+          # pip stores downloaded packages here
+          path: ~/.cache/pip
+
+
+          # Unique cache key
+          #
+          # Cache invalidates automatically
+          # when requirements.txt changes
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+
+          # Optional fallback key
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+
+
+      # ==========================================
+      # Step 4:
+      # Show cache status
+      # ==========================================
+      - name: Print cache result
+
+
+        run: |
+
+
+          # cache-hit output:
+          #
+          # true  = cache restored
+          # false = cache not found
+          if [ "${{ steps.pip-cache.outputs.cache-hit }}" = "true" ]; then
+
+            echo "Cache HIT — packages restored from cache (fast path) ✅"
+
+          else
+
+            echo "Cache MISS — downloading packages fresh (will be cached for next run) ❌"
+
+          fi
+
+
+
+      # ==========================================
+      # Step 5:
+      # Install dependencies
+      # ==========================================
+      - name: Install dependencies
+
+
+        run: |
+
+
+          # Upgrade pip
+          python -m pip install --upgrade pip
+
+
+          # Install packages
+          pip install requests pytest black flake8
+
+
+
+      # ==========================================
+      # Step 6:
+      # Verify packages installed
+      # ==========================================
+      - name: Verify packages
+
+
+        run: |
+
+
+          # Show installed package details
+          pip show requests
+
+
+          # Show selected installed packages
+          pip list | grep -E "requests|pytest|black|flake8"
+
+
+          echo "✅ All packages ready"
+
+
+
+      # ==========================================
+      # Step 7:
+      # Quick import test
+      # ==========================================
+      - name: Run a quick check
+
+
+        run: |
+
+
+          # Try importing installed packages
+          python -c "import requests, pytest; print('Imports OK ✅')"
