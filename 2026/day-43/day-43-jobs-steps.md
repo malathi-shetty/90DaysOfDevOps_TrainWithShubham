@@ -390,6 +390,8 @@ Create `.github/workflows/smart-pipeline.yml` that:
 
 The `summary` job waits for both `lint` and `test` jobs using `needs: [lint, test]`.
 
+- Add app.py and requirements.txt in https://github.com/malathi-shetty/github-actions-practice/tree/main/Day-43
+
 ```yaml
 # Workflow name shown in GitHub Actions tab
 name: Smart Pipeline
