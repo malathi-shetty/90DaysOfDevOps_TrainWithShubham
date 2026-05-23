@@ -1,0 +1,127 @@
+# =========================================================
+# CI/CD PIPELINE - Docker Build & Push (DAY 45)
+# =========================================================
+
+name: CI/CD - Docker Build & Publish to Docker Hub
+
+# =========================================================
+# WHEN PIPELINE RUNS
+# =========================================================
+on:
+
+  push:
+    branches:
+      - main
+      - master
+      - feature/*   # feature branches → BUILD ONLY (NO PUSH)
+
+  pull_request:
+    branches:
+      - main
+      - master     # PR → BUILD ONLY (NO PUSH)
+
+  workflow_dispatch:
+
+# =========================================================
+# GLOBAL VARIABLES
+# =========================================================
+env:
+  DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/day45-cicd-app
+
+# =========================================================
+# JOB
+# =========================================================
+jobs:
+
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # =================================================
+      # STEP 1: Checkout code
+      # =================================================
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      # =================================================
+      # STEP 2: Checkout application code
+      # =================================================
+      - name: Checkout application
+        uses: actions/checkout@v4
+        with:
+          repository: malathi-shetty/90DaysOfDevOps_TrainWithShubham
+          path: 2026/day-45
+
+
+      # =================================================
+      # STEP 3: Generate short SHA (for image tagging)
+      # =================================================
+      - name: Generate short SHA
+        id: vars
+        run: echo "short_sha=$(echo '${{ github.sha }}' | cut -c1-7)" >> "$GITHUB_OUTPUT"
+
+
+      # =================================================
+      # STEP 4: Setup Docker Buildx
+      # =================================================
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+
+      # =================================================
+      # STEP 5: Docker Login (ALL BRANCHES)
+      # NOTE: Login does NOT push anything by itself
+      # =================================================
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+
+      # =================================================
+      # STEP 6: Debug workspace (safe view only)
+      # =================================================
+      - name: Debug workspace
+        run: |
+          pwd
+          echo "Showing only app folder (not full clutter)"
+          ls 2026/day-45/2026/day-45
+      # =========================================================
+      # STEP 7A: MAIN → BUILD + PUSH TO DOCKER HUB
+      # =========================================================
+      - name: Build, tag & push Docker image (MAIN only)
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./2026/day-45/2026/day-45
+          push: true
+          tags: |
+            ${{ env.DOCKER_IMAGE_NAME }}:latest
+            ${{ env.DOCKER_IMAGE_NAME }}:sha-${{ steps.vars.outputs.short_sha }}
+      # =========================================================
+      # STEP 7B: FEATURE + PR → BUILD ONLY (NO PUSH)
+      # =========================================================
+      - name: Build image only (feature/PR branches)
+        if: github.ref != 'refs/heads/main' || github.event_name == 'pull_request'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./2026/day-45/2026/day-45
+          push: false
+          tags: |
+            local-test:latest
+      # =================================================
+      # STEP 8: SUMMARY (WHAT HAPPENED)
+      # =================================================
+      - name: Pipeline Summary
+        run: |
+          echo "## CI/CD RESULT SUMMARY" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Branch | ${GITHUB_REF_NAME} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Commit | ${{ steps.vars.outputs.short_sha }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Docker Image | ${{ env.DOCKER_IMAGE_NAME }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "✔ Feature/PR → Build only" >> "$GITHUB_STEP_SUMMARY"
+          echo "✔ Main → Build + Push to Docker Hub" >> "$GITHUB_STEP_SUMMARY"
