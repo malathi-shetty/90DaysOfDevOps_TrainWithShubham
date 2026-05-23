@@ -129,7 +129,8 @@ docker run -d -p 3000:3000 --name day45-app shettymalathi113/day45-cicd-app:late
 ✔ Application accessible on port 3000
 ✔ API endpoints working as expected
 
-<img width="1663" height="1030" alt="image" src="https://github.com/user-attachments/assets/e33c71bb-33b9-4cf7-baea-65e839b22ce8" />
+<img width="1920" height="1392" alt="image" src="https://github.com/user-attachments/assets/072b0a78-e2b6-436b-8d19-6c10c2cd4249" />
+
 
 
 
