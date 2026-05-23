@@ -1,132 +1,357 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>DevOps Live Deployment Dashboard</title>
+
+<title>DevOps Deployment Monitor</title>
 
 <style>
-body{
+
+*{
   margin:0;
-  font-family:Segoe UI;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Inter,Segoe UI,sans-serif;
+  min-height:100vh;
   background:#0f172a;
   color:white;
+  overflow-x:hidden;
 }
-.container{padding:40px;max-width:1100px;margin:auto;}
-.card{background:#111827;padding:20px;border-radius:12px;margin:10px 0;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;}
-.value{font-size:18px;font-weight:bold;}
-.label{color:#94a3b8;font-size:13px;}
+
+/* Animated background */
+
+.bg{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top left,#2563eb33,transparent 30%),
+    radial-gradient(circle at bottom right,#7c3aed33,transparent 30%),
+    #0f172a;
+  z-index:-1;
+}
+
+/* Main container */
+
+.container{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+/* Header */
+
+.header{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.header h1{
+  font-size:48px;
+  margin-bottom:15px;
+}
+
+.header p{
+  color:#cbd5e1;
+  font-size:18px;
+}
+
+/* Dashboard cards */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  margin-top:40px;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:25px;
+  transition:0.3s;
+  position:relative;
+  overflow:hidden;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  border-color:#38bdf8;
+}
+
+.card::before{
+  content:'';
+  position:absolute;
+  width:200%;
+  height:200%;
+  background:linear-gradient(
+    45deg,
+    transparent,
+    rgba(255,255,255,0.06),
+    transparent
+  );
+  top:-50%;
+  left:-50%;
+  transform:rotate(25deg);
+}
+
+.icon{
+  font-size:42px;
+  margin-bottom:15px;
+}
+
+.card h2{
+  margin-bottom:10px;
+  font-size:22px;
+}
+
+.card p{
+  color:#cbd5e1;
+  line-height:1.6;
+}
+
+/* Status section */
+
+.status{
+  margin-top:60px;
+  background:rgba(255,255,255,0.05);
+  border-radius:20px;
+  padding:30px;
+}
+
+.status h2{
+  margin-bottom:20px;
+}
+
+.status-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+}
+
+.status-box{
+  background:#111827;
+  padding:20px;
+  border-radius:15px;
+}
+
+.label{
+  color:#94a3b8;
+  margin-bottom:8px;
+  font-size:14px;
+}
+
+.value{
+  font-size:18px;
+  font-weight:bold;
+}
+
+/* Footer */
+
+.footer{
+  margin-top:50px;
+  text-align:center;
+}
+
+.badge{
+  margin-top:15px;
+}
+
+.badge img{
+  height:28px;
+}
+
+.tech-stack{
+  margin-top:25px;
+}
+
+.tech-stack span{
+  display:inline-block;
+  margin:6px;
+  padding:10px 16px;
+  background:#1e293b;
+  border-radius:30px;
+  font-size:14px;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+  .header h1{
+    font-size:34px;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
+<div class="bg"></div>
+
 <div class="container">
 
-<h1>🚀 Live DevOps Dashboard</h1>
+  <!-- Header -->
 
-<div class="grid">
+  <div class="header">
+    <h1>🚀 DevOps Deployment Monitor</h1>
 
-  <div class="card">
-    <div class="label">GitHub Actions Build</div>
-    <div class="value" id="build-status">Loading...</div>
+    <p>
+      Automated Docker CI/CD pipeline powered by GitHub Actions & Docker Hub
+    </p>
+
+   <div class="badge">
+  <img src="https://github.com/malathi-shetty/github-actions-practice/actions/workflows/docker-publish.yml/badge.svg" alt="Docker CI/CD Status">
+</div>
   </div>
 
-  <div class="card">
-    <div class="label">Last Deployment</div>
-    <div class="value" id="deploy-time">Loading...</div>
+  <!-- Cards -->
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="icon">📦</div>
+      <h2>Build Stage</h2>
+      <p>
+        Docker image builds automatically whenever new code is pushed.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔐</div>
+      <h2>Secure Secrets</h2>
+      <p>
+        Docker credentials are securely managed using GitHub Secrets.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🐳</div>
+      <h2>Docker Hub</h2>
+      <p>
+        Versioned images are pushed with latest and SHA-based tags.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">⚡</div>
+      <h2>Continuous Delivery</h2>
+      <p>
+        Production-ready containers can be deployed instantly anywhere.
+      </p>
+    </div>
+
   </div>
 
-  <div class="card">
-    <div class="label">Docker Hub Tag</div>
-    <div class="value" id="docker-tag">Loading...</div>
+  <!-- Status -->
+
+  <div class="status">
+
+    <h2>📊 Deployment Details</h2>
+
+    <div class="status-grid">
+
+      <div class="status-box">
+        <div class="label">Pipeline</div>
+        <div class="value">GitHub Actions</div>
+      </div>
+
+      <div class="status-box">
+        <div class="label">Container Runtime</div>
+        <div class="value">Docker</div>
+      </div>
+
+      <div class="status-box">
+        <div class="label">Registry</div>
+        <div class="value">Docker Hub</div>
+      </div>
+
+      <div class="status-box">
+        <div class="label">Deployment Status</div>
+        <div class="value">🟢 Active</div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </div>
 
-  <div class="card">
-    <div class="label">EC2 Health</div>
-    <div class="value" id="ec2-status">Checking...</div>
+
+
+
+
+
+
+
+
+  <!-- Footer -->
+
+
+  <div class="footer">
+
+
+
+
+    <h3>Day 45 — Docker Build & Push using GitHub Actions</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="tech-stack">
+      <span>GitHub Actions</span>
+      <span>Docker</span>
+      <span>Node.js</span>
+      <span>CI/CD</span>
+      <span>Docker Hub</span>
+    </div>
+
+
   </div>
+
 
 </div>
-
-</div>
-
-<script>
-const GITHUB_USER = "shettymalathi113";
-const REPO = "github-actions-practice";
-const DOCKER_IMAGE = "shettymalathi113/day45-cicd-app";
-const EC2_HEALTH_URL = "http://YOUR-EC2-IP:3000/health";
-
-// --------------------
-// GitHub Actions Status
-// --------------------
-async function getGitHubStatus(){
-  try{
-    const res = await fetch(
-      `https://api.github.com/repos/${GITHUB_USER}/${REPO}/actions/runs?per_page=1`
-    );
-    const data = await res.json();
-    const run = data.workflow_runs?.[0];
-
-    document.getElementById("build-status").innerText =
-      run?.conclusion || "unknown";
-
-    document.getElementById("deploy-time").innerText =
-      run?.updated_at || "N/A";
-
-  }catch(e){
-    document.getElementById("build-status").innerText = "error";
-  }
-}
-
-// --------------------
-// Docker Hub Latest Tag
-// --------------------
-async function getDockerTag(){
-  try{
-    const res = await fetch(
-      `https://hub.docker.com/v2/repositories/${DOCKER_IMAGE}/tags?page_size=1`
-    );
-    const data = await res.json();
-
-    document.getElementById("docker-tag").innerText =
-      data.results?.[0]?.name || "latest";
-
-  }catch(e){
-    document.getElementById("docker-tag").innerText = "error";
-  }
-}
-
-// --------------------
-// EC2 Health Check
-// --------------------
-async function checkEC2(){
-  try{
-    const res = await fetch(EC2_HEALTH_URL);
-    if(res.ok){
-      document.getElementById("ec2-status").innerText = "🟢 Healthy";
-    }else{
-      document.getElementById("ec2-status").innerText = "🔴 Down";
-    }
-  }catch(e){
-    document.getElementById("ec2-status").innerText = "🔴 Offline";
-  }
-}
-
-// --------------------
-// Auto Refresh Loop
-// --------------------
-function refreshAll(){
-  getGitHubStatus();
-  getDockerTag();
-  checkEC2();
-}
-
-refreshAll();
-setInterval(refreshAll, 5000);
-
-</script>
 
 </body>
 </html>
