@@ -263,6 +263,9 @@ jobs:
           echo "Generated build version: ${BUILD_VERSION}"
 ```
 
+<img width="1342" height="502" alt="image" src="https://github.com/user-attachments/assets/efeadd4f-76b0-4ab6-9964-2a0e6dfcbbd9" />
+
+
 ---
 
 ### Task 3: Create a Caller Workflow
@@ -314,6 +317,8 @@ jobs:
     secrets:
       docker_token: ${{ secrets.DOCKER_TOKEN }}
 ```
+<img width="733" height="775" alt="image" src="https://github.com/user-attachments/assets/543029ef-8ef3-4a77-a3a1-9395d777b0de" />
+
 
 ---
 
@@ -510,9 +515,28 @@ Second job prints version
 
 https://github.com/malathi-shetty/github-actions-practice/actions/runs/26337294905/job/77533048483
 
+
+<img width="1309" height="376" alt="image" src="https://github.com/user-attachments/assets/129654c4-eea3-4ae6-bda1-578aa73927a9" />
+
+<img width="967" height="595" alt="image" src="https://github.com/user-attachments/assets/70a43256-fcd3-4ec0-b522-deb3a4a15122" />
+
+
 ---
 
 ### Task 5: Create a Composite Action
+
+```bash
+.github/
+│
+├── workflows/
+│   ├── reusable-build.yml
+│   ├── call-build.yml
+│   └── composite-demo.yml
+│
+└── actions/
+    └── setup-and-greet/
+        └── action.yml
+```
 
 ## What Is a Composite Action? (Simple Definition)
 
@@ -941,6 +965,9 @@ ubuntu@ip-172-31-5-100:~/github-actions-practice$ tree .github
 4 directories, 28 files
 ```
 https://github.com/malathi-shetty/github-actions-practice/actions/runs/26337294903
+
+<img width="1920" height="3540" alt="image" src="https://github.com/user-attachments/assets/23424ec3-bd4a-41a8-b08c-0859ea48d4bb" />
+
 
 # Composite Action Directory Rule (VERY IMPORTANT)
 
