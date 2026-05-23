@@ -1,0 +1,68 @@
+# Workflow name displayed in GitHub Actions
+name: Call Reusable Build Workflow
+
+# ── Workflow Triggers ─────────────────────────────────────────────────
+on:
+
+  # Run automatically when code is pushed to main branch
+  push:
+    branches:
+      - main
+
+  # Allow manual execution from GitHub Actions UI
+  workflow_dispatch:
+
+# ── Jobs ──────────────────────────────────────────────────────────────
+jobs:
+
+  # ── Call Reusable Workflow ──────────────────────────────────────────
+  call-reusable-build:
+
+    # Friendly job name shown in Actions tab
+    name: Invoke reusable build workflow
+
+    # Call reusable workflow from same repository
+    #
+    # Syntax:
+    # uses: ./.github/workflows/<workflow-file>.yml
+    uses: ./.github/workflows/reusable-build.yml
+
+    # ── Inputs passed to reusable workflow ────────────────────────────
+    with:
+
+      # Value for app_name input
+      app_name: "my-web-app"
+
+      # Value for environment input
+      environment: "production"
+
+    # ── Secrets passed securely ───────────────────────────────────────
+    secrets:
+
+      # Repository secret
+      #
+      # Left side  = reusable workflow secret name
+      # Right side = actual GitHub repository secret
+      docker_token: ${{ secrets.DOCKER_TOKEN }}
+
+  # ── Second Job: Read Workflow Output ────────────────────────────────
+  print-version:
+
+    # Friendly name shown in Actions tab
+    name: Print build version from reusable workflow
+
+    # GitHub-hosted runner
+    runs-on: ubuntu-latest
+
+    # Wait for reusable workflow job to complete
+    #
+    # Access outputs using:
+    # needs.<job-id>.outputs.<output-name>
+    needs: call-reusable-build
+
+    steps:
+
+      # Print reusable workflow output
+      - name: Print version output
+        run: |
+          echo "Build version: ${{ needs.call-reusable-build.outputs.build_version }}"

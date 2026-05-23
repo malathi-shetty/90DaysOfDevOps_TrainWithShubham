@@ -1,0 +1,83 @@
+# Workflow name shown in GitHub Actions
+name: Use Composite Action
+
+# ── Workflow Trigger ─────────────────────────────────────────────────
+on:
+
+  # Run on push to main
+  push:
+    branches:
+      - main
+
+  # Allow manual execution
+  workflow_dispatch:
+
+# ── Jobs ─────────────────────────────────────────────────────────────
+jobs:
+
+  greet:
+
+    # Friendly job name
+    name: Run composite action demo
+
+    # GitHub-hosted runner
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ── Checkout Repository ────────────────────────────────────────
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ── Task 5: Use Composite Action (English) ────────────────────
+      - name: Greet in English
+        id: greet-en
+        uses: ./.github/actions/setup-and-greet
+
+        with:
+          name: "Malathi"
+          language: "en"
+
+      # ── Use Composite Action (Spanish) ────────────────────────────
+      - name: Greet in Spanish
+        id: greet-es
+        uses: ./.github/actions/setup-and-greet
+
+        with:
+          name: "DevOps Engineer"
+          language: "es"
+
+      # ── Use Composite Action (Hindi) ──────────────────────────────
+      - name: Greet in Hindi
+        id: greet-hi
+        uses: ./.github/actions/setup-and-greet
+
+        with:
+          name: "GitHub Actions"
+          language: "hi"
+
+      # ── Verify Composite Action Outputs ───────────────────────────
+      - name: Check greeted outputs
+        run: |
+          echo "greeted (EN): ${{ steps.greet-en.outputs.greeted }}"
+          echo "greeted (ES): ${{ steps.greet-es.outputs.greeted }}"
+          echo "greeted (HI): ${{ steps.greet-hi.outputs.greeted }}"
+
+          if [ "${{ steps.greet-en.outputs.greeted }}" = "true" ]; then
+            echo "✅ Composite action output verified"
+          else
+            echo "❌ Composite action output missing"
+            exit 1
+          fi
+
+      # ── Print Date and Runner OS ──────────────────────────────────
+      - name: Print Date and Runner OS
+        shell: bash
+        run: |
+          echo "Current Date: $(date)"
+          echo "Runner OS: $RUNNER_OS"
+
+      # ── Final Verification Message ────────────────────────────────
+      - name: Final verification
+        run: |
+          echo "Composite action completed successfully"

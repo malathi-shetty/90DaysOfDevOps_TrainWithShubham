@@ -1,0 +1,96 @@
+# Composite Action Name
+name: Setup and Greet
+
+# Description shown in GitHub Marketplace/UI
+description: Custom composite action that greets the user in the given language and exposes a greeted output.
+
+# ── Inputs ────────────────────────────────────────────────────────────
+inputs:
+
+  # User name input
+  name:
+    description: Name of the person or service to greet
+    required: true
+
+  # Greeting language
+  language:
+    description: Greeting language (en, es, fr, hi, de)
+    required: false
+    default: en
+
+# ── Outputs ───────────────────────────────────────────────────────────
+outputs:
+
+  greeted:
+    description: Whether greeting completed successfully
+
+    # Read value from step output
+    value: ${{ steps.greet.outputs.greeted }}
+
+# ── Composite Action Steps ────────────────────────────────────────────
+runs:
+
+  # Composite action type
+  using: "composite"
+
+  steps:
+
+    # ── Step 1: Print Greeting ───────────────────────────────────────
+    - name: Print greeting
+
+      # Step ID required for outputs
+      id: greet
+
+      shell: bash
+
+      run: |
+
+        # Greeting based on selected language
+        if [ "${{ inputs.language }}" = "en" ]; then
+          echo "Hello, ${{ inputs.name }}! 👋"
+
+        elif [ "${{ inputs.language }}" = "es" ]; then
+          echo "Hola, ${{ inputs.name }}! 👋"
+
+        elif [ "${{ inputs.language }}" = "fr" ]; then
+          echo "Bonjour, ${{ inputs.name }}! 👋"
+
+        elif [ "${{ inputs.language }}" = "hi" ]; then
+          echo "नमस्ते, ${{ inputs.name }}! 👋"
+
+        elif [ "${{ inputs.language }}" = "de" ]; then
+          echo "Hallo, ${{ inputs.name }}! 👋"
+
+        else
+          echo "Hi, ${{ inputs.name }}! 👋"
+        fi
+
+        # Set composite action output
+        echo "greeted=true" >> "$GITHUB_OUTPUT"
+
+    # ── Step 2: Print Current Date ───────────────────────────────────
+    - name: Print current date
+
+      shell: bash
+
+      run: |
+        echo "Current date: $(date)"
+
+    # ── Step 3: Print Runner OS ──────────────────────────────────────
+    - name: Print runner OS
+
+      shell: bash
+
+      run: |
+        echo "Runner OS: $RUNNER_OS"
+
+    # ── Step 4: Print GitHub Context ─────────────────────────────────
+    - name: Print context
+
+      shell: bash
+
+      run: |
+        echo "Date      : $(date -u)"
+        echo "Runner OS : ${{ runner.os }}"
+        echo "Repository: ${{ github.repository }}"
+        echo "Actor     : ${{ github.actor }}"

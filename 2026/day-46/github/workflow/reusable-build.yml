@@ -1,0 +1,144 @@
+# Workflow name shown in GitHub Actions
+name: Reusable Build Workflow
+
+# This workflow can ONLY be triggered by another workflow.
+# It cannot run directly on push, pull_request, or schedule.
+on:
+  workflow_call:
+
+    # ── Inputs passed from caller workflow ─────────────────────────────
+    inputs:
+
+      # Application name input
+      app_name:
+        description: Name of the application being built
+        required: true
+        type: string
+
+      # Deployment environment input
+      environment:
+        description: Target deployment environment
+        required: false
+        default: staging
+        type: string
+
+    # ── Secrets passed securely from caller workflow ──────────────────
+    secrets:
+
+      # Docker access token
+      DOCKER_TOKEN:
+        required: true
+
+    # ── Workflow outputs exposed back to caller workflow ──────────────
+    #
+    # Output Chain:
+    #
+    # Step Output
+    #     ↓
+    # Job Output
+    #     ↓
+    # Workflow Output
+    #
+    # workflow_call output reads from:
+    # jobs.<job-id>.outputs.<output-name>
+    outputs:
+
+      # Final reusable workflow output
+      build_version:
+        description: Generated build version during the build
+
+        # Read value from job output
+        value: ${{ jobs.build.outputs.build_version }}
+
+# ── Jobs ──────────────────────────────────────────────────────────────
+jobs:
+
+  # Build job ID
+  build:
+
+    # Dynamic job name shown in Actions UI
+    name: Build ${{ inputs.app_name }}
+
+    # GitHub-hosted runner
+    runs-on: ubuntu-latest
+
+    # ── Job outputs ───────────────────────────────────────────────────
+    #
+    # Job output reads from:
+    # steps.<step-id>.outputs.<output-name>
+    outputs:
+
+      # Expose step output as job output
+      build_version: ${{ steps.version.outputs.build_version }}
+
+    # ── Steps ─────────────────────────────────────────────────────────
+    steps:
+
+      # Checkout repository source code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Print reusable workflow inputs
+      - name: Print build info
+        run: |
+          echo "Building ${{ inputs.app_name }} for ${{ inputs.environment }}"
+
+      # ── Secret Safety Best Practice ─────────────────────────────────
+      #
+      # Safe:
+      # Only confirm whether the secret exists.
+      #
+      # Dangerous:
+      # Never print actual secrets in logs.
+      #
+      # Even though GitHub masks secrets automatically,
+      # partially encoded or transformed values may bypass masking.
+      #
+      # Best practice:
+      # Print only true/false status.
+      - name: Verify docker token
+        run: |
+          if [ -n "${{ secrets.DOCKER_TOKEN }}" ]; then
+            echo "Docker token is set: true"
+          else
+            echo "Docker token is set: false"
+          fi
+
+      # ── Generate reusable workflow output ───────────────────────────
+      - name: Generate build version
+
+        # Step ID required for outputs
+        id: version
+
+        run: |
+
+          # Take first 7 characters of commit SHA
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+
+          # Create reusable version string
+          BUILD_VERSION="v1.0-${SHORT_SHA}"
+
+          # ── Step Output ─────────────────────────────────────────────
+          #
+          # Step outputs are stored using:
+          # $GITHUB_OUTPUT
+          #
+          # Accessible later as:
+          # steps.version.outputs.build_version
+          echo "build_version=${BUILD_VERSION}" >> "$GITHUB_OUTPUT"
+
+          # Print generated version
+          echo "Generated build version: ${BUILD_VERSION}"
+
+      # ── GitHub Actions Job Summary ──────────────────────────────────
+      #
+      # Writes markdown output into the "Summary" tab in Actions UI.
+      - name: Build summary
+        run: |
+          echo "## Reusable Build Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Key | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|-----|-------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| App | \`${{ inputs.app_name }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Environment | \`${{ inputs.environment }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Version | \`${{ steps.version.outputs.build_version }}\` |" >> "$GITHUB_STEP_SUMMARY"
