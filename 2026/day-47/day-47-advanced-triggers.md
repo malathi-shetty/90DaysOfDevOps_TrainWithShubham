@@ -96,7 +96,7 @@ https://github.com/malathi-shetty/github-actions-practice/pulls?q=is%3Apr+is%3Ac
 
 ---
 
-# ✅ After pushing branch:
+### ✅ After pushing branch:
 
 ```bash id="9l6wqt"
 git push origin feature/pr-validation-success
@@ -104,11 +104,11 @@ git push origin feature/pr-validation-success
 
 you must ALSO:
 
-# 👉 Open Pull Request in GitHub UI
+### 👉 Open Pull Request in GitHub UI
 
 ---
 
-# 🪜 Do this now
+###  Do this now
 
 Go to your repo on GitHub.
 
@@ -123,7 +123,7 @@ Click it.
 
 ---
 
-# 🪜 Create PR
+###  Create PR
 
 Use:
 
@@ -134,7 +134,7 @@ Use:
 
 ---
 
-# 🪜 Add PR body
+###  Add PR body
 
 ```text id="6nq1oq"
 ## Changes
@@ -146,7 +146,7 @@ Use:
 
 ---
 
-# 🪜 Click:
+###  Click:
 
 ```text id="w0s64u"
 Create Pull Request
@@ -154,7 +154,7 @@ Create Pull Request
 
 ---
 
-# ✅ NOW what happens
+### ✅ NOW what happens
 
 Immediately GitHub triggers:
 
@@ -172,7 +172,7 @@ PR Validation Checks #4
 
 ---
 
-# 🧠 IMPORTANT UNDERSTANDING
+###  IMPORTANT UNDERSTANDING
 
 This sequence matters:
 
@@ -200,11 +200,11 @@ We’ll test:
 
 ---
 
-# 🧪 TEST 1 — SUCCESSFUL PR (All checks pass)
+###  TEST 1 — SUCCESSFUL PR (All checks pass)
 
 ---
 
-# 🪜 Step 1 — Create valid branch
+###  Step 1 — Create valid branch
 
 ```bash id="u5vjjz"
 git checkout main
@@ -215,7 +215,7 @@ git checkout -b feature/pr-validation-success
 
 ---
 
-# 🪜 Step 2 — Make small change
+###  Step 2 — Make small change
 
 ```bash id="rzyhxq"
 echo "Testing successful PR validation" >> test.txt
@@ -223,7 +223,7 @@ echo "Testing successful PR validation" >> test.txt
 
 ---
 
-# 🪜 Step 3 — Commit & push
+###  Step 3 — Commit & push
 
 ```bash id="4np5b0"
 git add .
@@ -233,7 +233,7 @@ git push origin feature/pr-validation-success
 
 ---
 
-# 🪜 Step 4 — Open PR in GitHub UI
+###  Step 4 — Open PR in GitHub UI
 
 Go to:
 
@@ -243,7 +243,7 @@ GitHub Repository → Compare & Pull Request
 
 ---
 
-# 🪜 Step 5 — Add PR description
+###  Step 5 — Add PR description
 
 Paste this:
 
@@ -258,7 +258,7 @@ Paste this:
 
 ---
 
-# 🪜 Step 6 — Create Pull Request
+###  Step 6 — Create Pull Request
 
 ---
 
@@ -276,11 +276,11 @@ All checks should PASS:
 
 ---
 
-# 🧪 TEST 2 — BAD BRANCH NAME
+###  TEST 2 — BAD BRANCH NAME
 
 ---
 
-# 🪜 Step 1 — Create invalid branch
+###  Step 1 — Create invalid branch
 
 ```bash id="35wr4j"
 git checkout main
@@ -290,7 +290,7 @@ git checkout -b randombranch
 
 ---
 
-# 🪜 Step 2 — Make small change
+###  Step 2 — Make small change
 
 ```bash id="6tbntd"
 echo "Testing invalid branch" >> invalid.txt
@@ -298,7 +298,7 @@ echo "Testing invalid branch" >> invalid.txt
 
 ---
 
-# 🪜 Step 3 — Commit & push
+###  Step 3 — Commit & push
 
 ```bash id="v6t0oe"
 git add .
@@ -308,13 +308,13 @@ git push origin randombranch
 
 ---
 
-# 🪜 Step 4 — Open PR
+###  Step 4 — Open PR
 
 Add normal PR description.
 
 ---
 
-# ❌ EXPECTED RESULT
+### ❌ EXPECTED RESULT
 
 | Check             | Result |
 | ----------------- | ------ |
@@ -324,7 +324,7 @@ Add normal PR description.
 
 ---
 
-# 🧠 What failed?
+###  What failed?
 
 This condition:
 
@@ -342,11 +342,11 @@ randombranch
 
 ---
 
-# 🧪 TEST 3 — LARGE FILE FAILURE
+### TEST 3 — LARGE FILE FAILURE
 
 ---
 
-# 🪜 Step 1 — Create valid branch
+###  Step 1 — Create valid branch
 
 ```bash id="2pfrje"
 git checkout main
@@ -356,7 +356,7 @@ git checkout -b feature/large-file-test
 
 ---
 
-# 🪜 Step 2 — Create large file (>1MB)
+###  Step 2 — Create large file (>1MB)
 
 Linux/macOS:
 
@@ -374,7 +374,7 @@ fsutil file createnew bigfile.bin 2097152
 
 ---
 
-# 🪜 Step 3 — Commit & push
+###  Step 3 — Commit & push
 
 ```bash id="pp6e2m"
 git add .
@@ -384,13 +384,13 @@ git push origin feature/large-file-test
 
 ---
 
-# 🪜 Step 4 — Open PR
+###  Step 4 — Open PR
 
 Add normal PR description.
 
 ---
 
-# ❌ EXPECTED RESULT
+### ❌ EXPECTED RESULT
 
 | Check             | Result |
 | ----------------- | ------ |
@@ -400,7 +400,7 @@ Add normal PR description.
 
 ---
 
-# 🧠 Why it failed?
+###  Why it failed?
 
 This command found large file:
 
@@ -412,11 +412,11 @@ find . -type f -size +1M
 
 ---
 
-# 🧪 TEST 4 — EMPTY PR BODY WARNING
+###  TEST 4 — EMPTY PR BODY WARNING
 
 ---
 
-# 🪜 Step 1 — Create valid branch
+### Step 1 — Create valid branch
 
 ```bash id="h9qz08"
 git checkout main
@@ -426,7 +426,7 @@ git checkout -b feature/empty-pr-body
 
 ---
 
-# 🪜 Step 2 — Small change
+###  Step 2 — Small change
 
 ```bash id="6fllq7"
 echo "Testing empty PR body" >> body.txt
@@ -434,7 +434,7 @@ echo "Testing empty PR body" >> body.txt
 
 ---
 
-# 🪜 Step 3 — Commit & push
+###  Step 3 — Commit & push
 
 ```bash id="78h56p"
 git add .
@@ -444,13 +444,13 @@ git push origin feature/empty-pr-body
 
 ---
 
-# 🪜 Step 4 — Open PR
+###  Step 4 — Open PR
 
 ⚠️ Leave PR description EMPTY
 
 ---
 
-# 🟡 EXPECTED RESULT
+### 🟡 EXPECTED RESULT
 
 | Check             | Result          |
 | ----------------- | --------------- |
@@ -462,7 +462,7 @@ Workflow still succeeds.
 
 ---
 
-# 🧠 IMPORTANT UNDERSTANDING
+###  IMPORTANT UNDERSTANDING
 
 ## Blocking vs Non-blocking checks
 
@@ -603,7 +603,7 @@ on:
       - main
 ```
 
-## 🧠 Meaning
+##  Meaning
 
 This workflow runs whenever:
 
@@ -619,7 +619,7 @@ main
 
 ---
 
-# 🧠 Key Concepts Learned
+#  Key Concepts Learned
 
 ---
 
@@ -746,7 +746,7 @@ This shows warning but DOES NOT fail workflow.
 
 ---
 
-# ⚠️ Blocking vs Non-Blocking Checks
+### ⚠️ Blocking vs Non-Blocking Checks
 
 | Type          | Behavior          |
 | ------------- | ----------------- |
@@ -755,11 +755,11 @@ This shows warning but DOES NOT fail workflow.
 
 ---
 
-# 🧪 Testing Performed
+###  Testing Performed
 
 ---
 
-# ✅ Test 1 — Successful PR
+### ✅ Test 1 — Successful PR
 
 ## Branch
 
@@ -787,7 +787,7 @@ No
 
 ---
 
-# ❌ Test 2 — Invalid Branch Name
+### ❌ Test 2 — Invalid Branch Name
 
 ## Branch
 
@@ -805,7 +805,7 @@ randombranch
 
 ---
 
-# ❌ Test 3 — Large File Detection
+### ❌ Test 3 — Large File Detection
 
 ## File created
 
@@ -829,7 +829,7 @@ Creates:
 
 ---
 
-# ⚠️ Test 4 — Empty PR Body
+### ⚠️ Test 4 — Empty PR Body
 
 ## PR description
 
@@ -1441,7 +1441,7 @@ jobs:
 
       - name: Print Test Start
         run: |
-          echo "🧪 Running tests..."
+          echo " Running tests..."
           echo "Branch: ${{ github.ref_name }}"
           echo "Commit: ${{ github.sha }}"
 
