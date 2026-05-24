@@ -1,0 +1,46 @@
+name: Smart Triggers
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/*'
+
+    paths:
+      - 'src/**'
+      - 'app/**'
+
+jobs:
+
+  smart-path-check:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Print Trigger Details
+        run: |
+          echo "Event       : ${{ github.event_name }}"
+          echo "Smart trigger workflow started"
+          echo "Branch      : ${{ github.ref_name }}"
+          echo "Commit SHA  : ${{ github.sha }}"
+          echo ""
+          echo "Workflow triggered because src/ or app/ changed."
+
+      - name: List Changed Files
+        run: |
+          echo "Recent commit files:"
+          git diff --name-only HEAD~1 HEAD || true
+
+      - name: Detect Changed Paths
+        run: |
+          echo "Changed files in this push:"
+          git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "(first commit or no previous ref)"
+
+      - name: Build Step Placeholder
+        run: |
+          echo "✅ Path filter matched — running build"
+          echo "Branch : ${{ github.ref_name }}"
+          echo "Trigger: ${{ github.event_name }}"

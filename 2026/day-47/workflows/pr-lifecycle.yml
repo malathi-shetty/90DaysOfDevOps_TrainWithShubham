@@ -1,0 +1,53 @@
+name: Pull Request (PR) Lifecycle Events
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  pr-info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show event type
+        run:  |
+          echo "Event fired: ${{ github.event.action }}"
+
+      - name: PR Title
+        run:  |
+          echo "Title: ${{ github.event.pull_request.title }}"
+
+      - name: PR Author
+        run:  |
+          echo "Author: ${{ github.event.pull_request.user.login }}"
+
+      - name: Branch Info
+        run: |
+          echo "Source branch: ${{ github.head_ref }}"
+          echo "Target branch: ${{ github.base_ref }}"
+
+      - name: PR Opened
+        if: github.event.action == 'opened'
+        run: echo "🟢 PR Opened"
+
+      - name: PR Updated (Synchronize)
+        if: github.event.action == 'synchronize'
+        run: echo "🔄 PR Updated"
+
+      - name: PR Reopened
+        if: github.event.action == 'reopened'
+        run: echo "🔁 PR Reopened"
+
+      - name: PR Merged (Post actions)
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        run: |
+          echo "✅ PR #${{ github.event.pull_request.number }} was MERGED"
+          echo "Target branch: ${{ github.base_ref }}"
+          echo "Merged by: ${{ github.event.pull_request.merged_by.login }}"
+          echo "Merge SHA: ${{ github.event.pull_request.merge_commit_sha }}"
+
+      - name: PR Closed without merge
+        if: github.event.action == 'closed' && github.event.pull_request.merged == false
+        run: |
+          echo "⚠️ PR #${{ github.event.pull_request.number }} closed WITHOUT merge"
+          echo "Author: ${{ github.event.pull_request.user.login }}"

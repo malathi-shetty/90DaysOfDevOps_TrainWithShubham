@@ -1,0 +1,45 @@
+name: Run Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+
+  test-job:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Print Test Start
+        run: |
+          echo "🧪 Running tests..."
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+
+      - name: Simulate Tests
+        run: |
+          echo "Running sample tests..."
+
+          # Simulated test logic
+          echo "Test 1 Passed"
+          echo "Test 2 Passed"
+          echo "Test 3 Passed"
+
+      - name: Test Success
+        run: echo "✅ All tests passed successfully"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run tests
+        run: |
+          echo "Running test suite..."
+          python scripts/test_utils.py
+          echo "✅ All tests passed"

@@ -1,0 +1,32 @@
+name: Docs Ignore Workflow
+
+on:
+  push:
+
+    branches:
+      - main
+      - 'release/*'
+
+    paths-ignore:
+      - '*.md'
+      - 'docs/**'
+      - '**/README.md'
+      - '.github/CODEOWNERS'
+      - 'LICENSE'
+
+jobs:
+
+  ignore-docs-job:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Workflow Triggered
+        run: |
+          echo "Workflow executed because non-doc files changed"
+          echo "Branch: ${{ github.ref_name }}"
+          echo ""
+          echo "This workflow is skipped when only docs or markdown files change."

@@ -1,0 +1,62 @@
+name: PR Validation Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  file-size-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check file sizes > 1MB
+        run: |
+          echo "Checking files larger than 1MB..."
+
+          LARGE_FILES=$(find . -type f -size +1M)
+
+          if [ -n "$LARGE_FILES" ]; then
+            echo "::error::The following files exceed 1MB:"
+            echo "$LARGE_FILES"
+            exit 1
+          fi
+
+          echo "✅ No large files found"
+
+  branch-name-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate branch name
+        shell: bash
+        run: |
+          BRANCH="${{ github.head_ref }}"
+
+          echo "Branch: $BRANCH"
+
+          if [[ ! "$BRANCH" =~ ^(feature|fix|docs)/ ]]; then
+            echo "::error::Invalid branch name '$BRANCH'"
+            echo "Branch must start with feature/, fix/, or docs/"
+            exit 1
+          fi
+
+          echo "✅ Branch name valid"
+
+  pr-body-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR body
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+
+          if [ -z "$PR_BODY" ] || [ "$PR_BODY" == "null" ]; then
+            echo "::warning::PR body is empty (non-blocking)"
+          else
+            echo "✅ PR body present"
+          fi

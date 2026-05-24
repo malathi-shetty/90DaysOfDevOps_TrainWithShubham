@@ -1,0 +1,112 @@
+name: Scheduled Tasks
+
+# Scheduled workflows only run on the default branch (usually main)
+# workflow_dispatch allows manual testing
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    # Every Monday at 2:30 AM UTC
+    - cron: '30 2 * * 1'
+
+    # Every 6 hours
+    - cron: '0 */6 * * *'
+
+jobs:
+  scheduled-health-check:
+    name: Health Check
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ── Checkout Repository ─────────────────────────────
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # ── Print Trigger Information ──────────────────────
+      - name: Print Trigger Information
+        run: |
+          echo "Trigger type: ${{ github.event_name }}"
+
+          if [ -z "${{ github.event.schedule }}" ]; then
+            echo "Workflow triggered manually"
+          else
+            echo "Workflow triggered by cron schedule: ${{ github.event.schedule }}"
+          fi
+
+          echo "Workflow triggered at: $(date -u)"
+          echo "Triggered by: ${{ github.actor }}"
+
+          # Detect which cron schedule fired
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+
+            case "${{ github.event.schedule }}" in
+
+              "30 2 * * 1")
+                echo "Running: Weekly Monday job (2:30 AM UTC)"
+                ;;
+
+              "0 */6 * * *")
+                echo "Running: Every-6-hours job"
+                ;;
+
+              *)
+                echo "Running: Unknown schedule"
+                ;;
+
+            esac
+
+          else
+            echo "Running: Manual workflow dispatch"
+          fi
+
+      # ── Health Check using curl ────────────────────────
+      - name: Health Check using curl
+        run: |
+
+          TARGET_URL="https://github.com"
+
+          echo "Checking: $TARGET_URL"
+
+          STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}" --max-time 15 "$TARGET_URL")
+
+          echo "HTTP Response code: $STATUS_CODE"
+
+          if [ "$STATUS_CODE" -eq 200 ]; then
+            echo "✅ Health check PASSED (HTTP $STATUS_CODE)"
+          else
+            echo "::error::Health check FAILED (HTTP $STATUS_CODE)"
+            exit 1
+          fi
+
+      # ── Report Last Commit Info ────────────────────────
+      - name: Report Last Commit Age
+        run: |
+
+          LAST_COMMIT_DATE=$(git log -1 --format="%ci")
+          LAST_COMMIT_SHA=$(git log -1 --format="%h")
+
+          echo "Last commit: $LAST_COMMIT_SHA"
+          echo "Committed at: $LAST_COMMIT_DATE"
+
+      # ── Job Summary ────────────────────────────────────
+      - name: Scheduled Run Summary
+        run: |
+
+          echo "## Scheduled Health Check" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          echo "| Key | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|-----|-------|" >> "$GITHUB_STEP_SUMMARY"
+
+          echo "| Ran at | $(date -u) |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Schedule | \`${{ github.event.schedule }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| HTTP Check | ✅ 200 OK |" >> "$GITHUB_STEP_SUMMARY"
+
+# curl flags explanation:
+#
+# -s                  Silent mode
+# -o /dev/null        Discard response body
+# -w "%{http_code}"   Print only HTTP status code
+# --max-time 15       Timeout after 15 seconds
