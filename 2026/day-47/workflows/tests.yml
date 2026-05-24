@@ -28,7 +28,9 @@ jobs:
           # Simulated test logic
           echo "Test 1 Passed"
           echo "Test 2 Passed"
-          echo "Test 3 Passed"
+          #echo "Test 3 Passed"
+          echo "Test failed!"
+          exit 1
 
       - name: Test Success
         run: echo "✅ All tests passed successfully"
