@@ -91,7 +91,7 @@ From memory, draw or describe the Kubernetes architecture. Your diagram should i
 
  ### Detailed:
 
- <img width="1535" height="1024" alt="Kubernetes architecture communication flow diagram" src="https://github.com/user-attachments/assets/9096694f-f966-40a8-b6b3-bd47352cf935" />
+
 <img width="1536" height="1024" alt="Kubernetes architecture high-level overview 2024+" src="https://github.com/user-attachments/assets/5f201e00-bee9-4645-ad0b-598f0ddcb666" />
 
 
