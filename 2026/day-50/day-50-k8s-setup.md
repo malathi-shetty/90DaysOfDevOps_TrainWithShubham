@@ -91,6 +91,10 @@ From memory, draw or describe the Kubernetes architecture. Your diagram should i
 
  ### Detailed:
 
+ <img width="1535" height="1024" alt="Kubernetes architecture communication flow diagram" src="https://github.com/user-attachments/assets/9096694f-f966-40a8-b6b3-bd47352cf935" />
+<img width="1536" height="1024" alt="Kubernetes architecture high-level overview 2024+" src="https://github.com/user-attachments/assets/5f201e00-bee9-4645-ad0b-598f0ddcb666" />
+
+
  ## Kubernetes Architecture 
 
 A Kubernetes cluster consists of:
@@ -735,30 +739,37 @@ Examples include:
 ## Final Architecture Flow
 
 ```text id="pd9k5d"
-kubectl
-   ↓
-API Server
-   ↓
-etcd
+                 kubectl
+                    │
+                    ▼
+              API Server
+                    │
+         ┌──────────┴──────────┐
+         ▼                     ▼
+       etcd              Control Loops
+                         ├── Scheduler
+                         ├── Controller Manager
+                         └── Cloud Controller Manager
+                                   │
+                                   ▼
+                           Worker Nodes
+                    ┌─────────────────────┐
+                    │ kubelet             │
+                    │ Container Runtime   │
+                    │ kube-proxy          │
+                    │ CNI Plugin          │
+                    │ Pods                │
+                    └─────────────────────┘
 
-Scheduler ───────┐
-Controller Mgr ──┤
-Cloud Controller ┘
-        ↓
-Worker Nodes
-   ├── kubelet
-   ├── Container Runtime
-   ├── kube-proxy
-   ├── CNI Plugin
-   └── Pods
-
-CoreDNS
-Monitoring
-Logging
-Dashboard
+        Cluster Addons:
+        ├── CoreDNS
+        ├── Monitoring
+        ├── Logging
+        └── Dashboard
 ```
 
-<img width="1536" height="1024" alt="Kubernetes architecture high-level overview 2024+" src="https://github.com/user-attachments/assets/665aad81-ebbe-4716-a714-9e2a88f857c4" />
+<img width="1535" height="1024" alt="Kubernetes architecture communication flow diagram" src="https://github.com/user-attachments/assets/ce536f72-7577-40be-9b84-be4621bec122" />
+
 
 
 
