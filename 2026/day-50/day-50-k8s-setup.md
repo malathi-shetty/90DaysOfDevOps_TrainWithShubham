@@ -290,7 +290,7 @@ The kubelet on the selected worker node is responsible for actually starting the
 
 ### 4. Controller Manager (kube-controller-manager)
 
-## What it does
+#### What it does
 
 Runs multiple controllers that continuously monitor cluster state and move the cluster toward the desired state.
 
@@ -358,11 +358,10 @@ Each controller:
 
 ---
 
-## Key Point
+### Key Point
 
-Controllers continuously monitor and reconcile cluster state.
-
-They do not directly run containers themselves.
+- Controllers continuously monitor and reconcile cluster state.
+- They do not directly run containers themselves.
 
 ---
 
@@ -384,7 +383,7 @@ Clusters running locally or on-premises may not use it.
 
 ---
 
-#### Responsibilities
+## Responsibilities
 
 ### Node Controller
 
@@ -410,7 +409,7 @@ The cloud-controller-manager allows Kubernetes to interact with cloud infrastruc
 
 ---
 
-### Worker Node Components
+## Worker Node Components
 
 Worker nodes are the machines where application workloads actually run.
 
@@ -452,7 +451,7 @@ It also:
 
 ---
 
-#### Key Point
+### Key Point
 
 The kubelet is the node-level manager responsible for enforcing the desired state on its worker node.
 
@@ -622,9 +621,9 @@ CNI plugins provide the networking layer that allows Pods across nodes to commun
 
 ---
 
-# Cluster DNS (CoreDNS)
+### Cluster DNS (CoreDNS)
 
-## What it does
+#### What it does
 
 * Provides DNS-based service discovery inside the cluster
 * Allows Pods and Services to communicate using DNS names instead of IP addresses
@@ -633,7 +632,7 @@ Most Kubernetes clusters use CoreDNS as the default DNS service.
 
 ---
 
-## How it works
+#### How it works
 
 When a Service is created:
 
@@ -655,7 +654,7 @@ Most Kubernetes workloads rely heavily on Cluster DNS for internal service-to-se
 
 ---
 
-# Cluster Addons
+### Cluster Addons
 
 Kubernetes clusters commonly include addons that extend cluster functionality.
 
@@ -669,30 +668,30 @@ namespace.
 
 ---
 
-# Common Addons
+### Common Addons
 
-## Dashboard
+### Dashboard
 
 * Web-based Kubernetes UI
 * Used for cluster management and troubleshooting
 
 ---
 
-## Monitoring
+### Monitoring
 
 * Collects metrics and performance data
 * Often implemented using Prometheus and Grafana
 
 ---
 
-## Cluster-Level Logging
+### Cluster-Level Logging
 
 * Centralizes logs from containers and nodes
 * Enables searching and monitoring cluster logs
 
 ---
 
-## Network Plugins
+### Network Plugins
 
 * Implement the Kubernetes CNI specification
 * Provide cluster networking functionality
@@ -768,9 +767,9 @@ Dashboard
 ---
 
 ## After drawing, verify your understanding:
-### What happens when you run `kubectl apply -f pod.yaml`? Trace the request through each component.
-### OR
-### What Happens When You Deploy a Pod?
+#### What happens when you run `kubectl apply -f pod.yaml`? Trace the request through each component.
+#### OR
+#### What Happens When You Deploy a Pod?
 
 Deploying a pod using:
 ```bash
@@ -779,6 +778,7 @@ kubectl apply -f pod.yaml
 is exactly the action that starts the Kubernetes workflow.
 
 Let's trace the request through each component:
+```bash
 1. kubectl reads the pod.yaml file
 2. kubectl sends the request to the Kubernetes API Server
 3. API Server authenticates and validates the request
@@ -793,8 +793,9 @@ Let's trace the request through each component:
 12. API Server updates etcd with the current state
 13. kube-proxy configures networking rules
 14. Pod reaches the Running state
+```
 
-**Important Understanding:**
+## Important Understanding:
 - Kubernetes works using a **desired state model**.
 
 You say:
@@ -812,7 +813,7 @@ That is why:
 
 Everything revolves around maintaining desired state.
 
-Easy Trick:
+## Easy Trick:
 
 ```bash
 kubectl
@@ -966,10 +967,10 @@ Container Runtime = Actually runs containers
 
 ---
 
-### Task 3: Install kubectl
+## Task 3: Install kubectl
 `kubectl` is the CLI tool you will use to talk to your Kubernetes cluster.
 
-## Step-by-Step: Setting Up Your Local Cluster
+### Step-by-Step: Setting Up Your Local Cluster
 
 **macOS:**
 ```bash
@@ -993,28 +994,28 @@ choco install kubernetes-cli
 kubectl version --client
 ```
 
-**Expected output:**
-
-Verify:
+## Expected output:
 ```bash
-$ kubectl version --client
-Client Version: v1.34.1
-Kustomize Version: v5.7.1
+ubuntu@ip-172-31-38-115:~$ kubectl version --client
+Client Version: v1.36.1
+Kustomize Version: v5.8.1
 ```
 
 <img width="700" height="158" alt="1- Install kubectl" src="https://github.com/user-attachments/assets/7f9a4ce9-ef28-46fb-8df0-ba18897903a7" />
 
-<img width="103" height="23" alt="image" src="https://github.com/user-attachments/assets/9c9fbe05-8435-4e8a-8b24-5398e25090d3" />
+<img width="445" height="71" alt="kubectl version --client" src="https://github.com/user-attachments/assets/ff385a88-83c1-4a90-9722-8474ec3cff5a" />
+
 
 ---
 
-### Task 4: Set Up Your Local Cluster
+## Task 4: Set Up Your Local Cluster
 
-# kind (Kubernetes in Docker)
+## kind (Kubernetes in Docker)
 
-# Create a cluster
+## Create a cluster
+```bash
 kind create cluster --name devops-cluster
-
+```
 
 <img width="368" height="163" alt="2" src="https://github.com/user-attachments/assets/360ca3a5-0122-407f-9b10-54a2c5644dc1" />
 
@@ -1025,14 +1026,25 @@ kubectl cluster-info
 kubectl get nodes
 ```
 
-<img width="405" height="36" alt="3" src="https://github.com/user-attachments/assets/48d86f30-81f7-4ebc-94a6-0bca98c2a19c" />
-<img width="383" height="31" alt="4" src="https://github.com/user-attachments/assets/ba9a8727-439c-4922-ac3b-187fb58176df" />
+<img width="583" height="130" alt="Cluster-info   Nodes" src="https://github.com/user-attachments/assets/efd7412a-6364-42e0-8ad6-d7eb258422e5" />
 
+```bash
+ubuntu@ip-172-31-38-115:~$ kubectl cluster-info
+Kubernetes control plane is running at https://127.0.0.1:41901
+CoreDNS is running at https://127.0.0.1:41901/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+
+ubuntu@ip-172-31-38-115:~$ kubectl get nodes
+NAME                           STATUS   ROLES           AGE   VERSION
+devops-cluster-control-plane   Ready    control-plane   11h   v1.35.1
+
+```
 
 
 **The cluster initialized successfully, and the control plane node became Ready.**
 ```bash
-Cluster endpoint: https://127.0.0.1:36955
+Cluster endpoint: https://127.0.0.1:41901/
 Node name: devops-cluster-control-plane
 Role: control-plane
 Kubernetes version: v1.35.1
