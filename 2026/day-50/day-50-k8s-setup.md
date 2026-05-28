@@ -1,7 +1,7 @@
 # Day 50 – Kubernetes Architecture and Cluster Setup
 ## Challenge Tasks
 
-### Task 1: Recall the Kubernetes Story
+## Task 1: Recall the Kubernetes Story
 
 ### What is Kubernetes?
 
@@ -72,7 +72,7 @@ It was designed to manage containerized applications at scale by handling schedu
 
 ---
 
-### Task 2: Draw the Kubernetes Architecture
+## Task 2: Draw the Kubernetes Architecture
 From memory, draw or describe the Kubernetes architecture. Your diagram should include:
 
 **Control Plane (Master Node):**
@@ -89,12 +89,12 @@ From memory, draw or describe the Kubernetes architecture. Your diagram should i
 <img width="1536" height="1024" alt="K8-architecture" src="https://github.com/user-attachments/assets/427bc0ff-04b3-46d1-a174-8a8f95fd0748" />
 
 
- ## Detailed:
+ ### Detailed:
 
  <img width="1536" height="1024" alt="Kubernetes cluster architecture diagram" src="https://github.com/user-attachments/assets/938d8bb9-6b2e-4fe1-9218-1a39059be068" />
 
 
-#### Kubernetes Architecture 
+## Kubernetes Architecture 
 
 A Kubernetes cluster consists of:
 
@@ -110,7 +110,7 @@ Production Kubernetes clusters usually run:
 
 ---
 
-# Control Plane Components (Master Node)
+### Control Plane Components (Master Node)
 
 The control plane is the brain of the Kubernetes cluster.
 
@@ -130,9 +130,9 @@ Control plane components may run:
 
 ---
 
-# 1. API Server (kube-apiserver)
+### 1. API Server (kube-apiserver)
 
-## What it does
+#### What it does
 
 * The central communication hub of Kubernetes
 * Exposes the Kubernetes API
@@ -144,7 +144,7 @@ All Kubernetes components communicate through the API Server.
 
 ---
 
-## How it works
+#### How it works
 
 When you run:
 
@@ -165,7 +165,7 @@ Other Kubernetes components continuously watch the API Server for changes.
 
 ---
 
-## Horizontal Scaling
+#### Horizontal Scaling
 
 The kube-apiserver is designed to scale horizontally.
 
@@ -182,7 +182,7 @@ to provide:
 
 ---
 
-## Key Point
+#### Key Point
 
 If the API Server goes down:
 
@@ -197,9 +197,9 @@ until another reconciliation event or failure occurs.
 
 ---
 
-# 2. etcd
+### 2. etcd
 
-## What it does
+#### What it does
 
 * A distributed and highly available key-value store
 * Stores the entire cluster state
@@ -217,7 +217,7 @@ It stores:
 
 ---
 
-## How it works
+#### How it works
 
 When a pod is created:
 
@@ -233,7 +233,7 @@ etcd uses the Raft consensus algorithm to maintain consistency across multiple i
 
 ---
 
-## Key Point
+#### Key Point
 
 If etcd data is lost:
 
@@ -243,9 +243,9 @@ Production clusters should always back up etcd regularly.
 
 ---
 
-# 3. Scheduler (kube-scheduler)
+### 3. Scheduler (kube-scheduler)
 
-## What it does
+#### What it does
 
 * Watches for newly created Pods that do not yet have a node assigned
 * Selects the most suitable worker node for each Pod
@@ -262,7 +262,7 @@ Scheduling decisions are based on:
 
 ---
 
-## How it works
+#### How it works
 
 The Scheduler:
 
@@ -274,7 +274,7 @@ The Scheduler:
 
 ---
 
-## Key Point
+#### Key Point
 
 The Scheduler only decides:
 
@@ -288,7 +288,7 @@ The kubelet on the selected worker node is responsible for actually starting the
 
 ---
 
-# 4. Controller Manager (kube-controller-manager)
+### 4. Controller Manager (kube-controller-manager)
 
 ## What it does
 
@@ -314,7 +314,7 @@ and take corrective action when needed.
 
 ---
 
-## How it works
+#### How it works
 
 Each controller:
 
@@ -366,9 +366,9 @@ They do not directly run containers themselves.
 
 ---
 
-# 5. cloud-controller-manager
+### 5. cloud-controller-manager
 
-## What it does
+#### What it does
 
 * Integrates Kubernetes with cloud provider APIs
 * Runs cloud-specific control logic
@@ -384,7 +384,7 @@ Clusters running locally or on-premises may not use it.
 
 ---
 
-## Responsibilities
+#### Responsibilities
 
 ### Node Controller
 
@@ -410,7 +410,7 @@ The cloud-controller-manager allows Kubernetes to interact with cloud infrastruc
 
 ---
 
-# Worker Node Components
+### Worker Node Components
 
 Worker nodes are the machines where application workloads actually run.
 
@@ -422,9 +422,9 @@ Each worker node contains components responsible for:
 
 ---
 
-# 1. kubelet
+### 1. kubelet
 
-## What it does
+#### What it does
 
 * The primary node agent running on every worker node
 * Communicates with the API Server
@@ -434,7 +434,7 @@ The kubelet only manages containers created by Kubernetes.
 
 ---
 
-## How it works
+#### How it works
 
 The kubelet:
 
@@ -452,7 +452,7 @@ It also:
 
 ---
 
-## Key Point
+#### Key Point
 
 The kubelet is the node-level manager responsible for enforcing the desired state on its worker node.
 
@@ -462,9 +462,9 @@ It delegates container operations to the container runtime.
 
 ---
 
-# 2. Container Runtime
+### 2. Container Runtime
 
-## What it does
+#### What it does
 
 The container runtime is responsible for actually running containers.
 
@@ -525,9 +525,9 @@ The runtime performs the actual container operations.
 
 ---
 
-# 3. kube-proxy (Optional)
+### 3. kube-proxy (Optional)
 
-## What it does
+#### What it does
 
 * A network proxy that runs on each node
 * Maintains networking rules on nodes
@@ -536,7 +536,7 @@ The runtime performs the actual container operations.
 
 ---
 
-## How it works
+#### How it works
 
 The kube-proxy:
 
@@ -562,9 +562,9 @@ Some modern networking solutions can replace kube-proxy functionality entirely.
 
 ---
 
-# 4. CNI Plugin (Container Network Interface)
+### 4. CNI Plugin (Container Network Interface)
 
-## What it does
+#### What it does
 
 * Provides Pod networking across the cluster
 * Assigns IP addresses to Pods
