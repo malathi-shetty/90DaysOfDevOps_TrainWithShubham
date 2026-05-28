@@ -1071,3 +1071,202 @@ It is ideal for:
  - Experimenting with Kubernetes features in a lightweight environment
 
 Another advantage is that kind uses fewer system resources compared to solutions like minikube, making it efficient for local machines.
+
+--------
+
+# Common Kubernetes & kind Commands Used Today (Day 50)
+
+## kubectl Installation & Verification
+
+```bash
+# Verify kubectl installation
+kubectl version --client
+```
+
+---
+
+# kind Cluster Setup
+
+```bash
+# Create a Kubernetes cluster using kind
+kind create cluster --name devops-cluster
+
+# Delete cluster
+kind delete cluster --name devops-cluster
+
+# List existing kind clusters
+kind get clusters
+```
+
+---
+
+# Cluster Information
+
+```bash
+# Show cluster endpoints and services
+kubectl cluster-info
+
+# List all nodes
+kubectl get nodes
+
+# List nodes with extra details
+kubectl get nodes -o wide
+
+# Get detailed information about a node
+kubectl describe node <node-name>
+```
+
+Example:
+
+```bash
+kubectl describe node devops-cluster-control-plane
+```
+
+---
+
+# Namespaces
+
+```bash
+# List all namespaces
+kubectl get namespaces
+
+# Short form
+kubectl get ns
+```
+
+---
+
+# Pods
+
+```bash
+# List pods in current namespace
+kubectl get pods
+
+# List pods in all namespaces
+kubectl get pods -A
+
+# Same as --all-namespaces
+kubectl get pods --all-namespaces
+
+# List pods in kube-system namespace
+kubectl get pods -n kube-system
+
+# Get detailed information about a pod
+kubectl describe pod <pod-name> -n kube-system
+
+# View pod logs
+kubectl logs <pod-name> -n kube-system
+```
+
+Examples:
+
+```bash
+kubectl describe pod kube-scheduler-devops-cluster-control-plane -n kube-system
+
+kubectl logs kube-controller-manager-devops-cluster-control-plane -n kube-system
+```
+
+---
+
+# Kubernetes Configuration (kubeconfig)
+
+```bash
+# Show current kubectl context
+kubectl config current-context
+
+# List all contexts
+kubectl config get-contexts
+
+# View full kubeconfig file
+kubectl config view
+```
+
+---
+
+# Troubleshooting Commands
+
+```bash
+# Check cluster events
+kubectl get events
+
+# Describe node for troubleshooting
+kubectl describe node <node-name>
+
+# Describe pod for troubleshooting
+kubectl describe pod <pod-name> -n kube-system
+
+# View logs of a crashing pod
+kubectl logs <pod-name> -n kube-system
+
+# Delete a pod (Kubernetes recreates it automatically if managed)
+kubectl delete pod <pod-name> -n kube-system
+
+# Delete pods using label selector
+kubectl delete pod -n kube-system -l k8s-app=kube-dns
+```
+
+---
+
+# Docker Commands Used with kind
+
+```bash
+# List running Docker containers
+docker ps
+
+# Enter the kind control-plane container
+docker exec -it devops-cluster-control-plane bash
+
+# Check kubelet process inside the node container
+ps aux | grep kubelet
+```
+
+---
+
+# Helpful Notes
+
+```bash
+kubectl get pods -A
+```
+
+is shorthand for:
+
+```bash
+kubectl get pods --all-namespaces
+```
+
+---
+
+# Default kubeconfig Location
+
+## Linux/macOS
+
+```bash
+~/.kube/config
+```
+
+## Windows
+
+```text
+C:\Users\<username>\.kube\config
+```
+
+---
+
+# Kubernetes Mental Model
+
+```text
+kubectl
+   ↓
+API Server
+   ↓
+etcd
+   ↓
+Scheduler
+   ↓
+kubelet
+   ↓
+Container Runtime
+   ↓
+Running Pod
+```
+
