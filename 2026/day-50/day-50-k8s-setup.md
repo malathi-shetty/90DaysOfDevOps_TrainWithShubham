@@ -698,32 +698,32 @@ namespace.
 
 ---
 
-# Architecture Variations
+## Architecture Variations
 
 Kubernetes architecture can be deployed in different ways depending on operational requirements.
 
 ---
 
-## Traditional Deployment
+### Traditional Deployment
 
 * Control plane components run directly on dedicated machines or VMs
 
 ---
 
-## Static Pods
+### Static Pods
 
 * Control plane components run as static Pods managed by kubelet
 * Common in kubeadm-based clusters
 
 ---
 
-## Self-Hosted Control Plane
+### Self-Hosted Control Plane
 
 * Control plane components run as Pods inside the cluster itself
 
 ---
 
-## Managed Kubernetes Services
+### Managed Kubernetes Services
 
 Cloud providers may fully manage the control plane.
 
@@ -735,7 +735,7 @@ Examples include:
 
 ---
 
-# Final Architecture Flow
+## Final Architecture Flow
 
 ```text id="pd9k5d"
 kubectl
