@@ -91,10 +91,7 @@ From memory, draw or describe the Kubernetes architecture. Your diagram should i
 
  ### Detailed:
 
- <img width="1536" height="1024" alt="Kubernetes cluster architecture diagram" src="https://github.com/user-attachments/assets/938d8bb9-6b2e-4fe1-9218-1a39059be068" />
-
-
-## Kubernetes Architecture 
+ ## Kubernetes Architecture 
 
 A Kubernetes cluster consists of:
 
@@ -761,7 +758,8 @@ Logging
 Dashboard
 ```
 
-<img width="1024" height="1536" alt="Kubernetes architecture overview diagram" src="https://github.com/user-attachments/assets/e05c1d8d-42c1-4944-9583-8106102c4d88" />
+<img width="1536" height="1024" alt="Kubernetes architecture high-level overview 2024+" src="https://github.com/user-attachments/assets/665aad81-ebbe-4716-a714-9e2a88f857c4" />
+
 
 
 ---
