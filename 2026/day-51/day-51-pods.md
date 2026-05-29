@@ -62,7 +62,7 @@ kubectl get pods -o wide
 
 Wait until the STATUS shows `Running`. Then explore:
 
-# Detailed info about the pod
+### Detailed info about the pod
 ```bash
 kubectl describe pod nginx-pod
 ```
@@ -77,7 +77,7 @@ kubectl describe pod nginx-pod
 <img width="1076" height="789" alt="image" src="https://github.com/user-attachments/assets/919ac9ea-4ac6-48b0-a596-20a5622a8fbb" />
 
 
-# Read the logs
+### Read the logs
 ```bash
 kubectl logs nginx-pod
 ```
@@ -87,12 +87,12 @@ It shows:
 - Nginx startup logs
 
 
-# Get a shell inside the container
+### Get a shell inside the container
 ```bash
 kubectl exec -it nginx-pod -- /bin/bash
 ```
 
-# Inside the container, run:
+### Inside the container, run:
 ```bash
 curl localhost:80
 exit
@@ -224,6 +224,24 @@ Now extract the YAML that Kubernetes generated:
 kubectl get pod redis-pod -o yaml
 ```
 
+### generated-pod.yaml
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: test-pod
+  name: test-pod
+spec:
+  containers:
+  - image: nginx
+    name: test-pod
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+```
+
 <img width="874" height="1840" alt="image" src="https://github.com/user-attachments/assets/bcc92690-8588-4c0c-ba92-ef9e7303da1b" />
 
 Compare this output with your hand-written manifests. Notice how much extra metadata Kubernetes adds automatically (status, timestamps, uid, resource version).
@@ -284,7 +302,7 @@ This is a powerful trick — use it to quickly scaffold a manifest, then customi
 
 ## Verification
 
-# What Fields Are the Same?
+### What Fields Are the Same?
 
 Both the hand-written manifest and the Kubernetes-generated YAML contain the basic Kubernetes structure:
 
@@ -345,7 +363,7 @@ These define:
 
 ---
 
-# Understanding the Field Path Notation
+### Understanding the Field Path Notation
 
 The following syntax:
 
@@ -371,7 +389,7 @@ It is **NOT actual YAML syntax**.
 
 ---
 
-# Actual YAML Equivalent
+### Actual YAML Equivalent
 
 For example:
 
@@ -402,7 +420,7 @@ spec:
 
 ---
 
-# Easy Analogy
+### Easy Analogy
 
 Think of YAML like folders and files:
 
@@ -426,7 +444,7 @@ instead of writing the full YAML tree every time.
 
 ---
 
-# What Fields Are Different?
+### What Fields Are Different?
 
 The generated YAML contains many additional fields automatically added by Kubernetes.
 
@@ -434,7 +452,7 @@ These fields are usually **NOT written manually**.
 
 ---
 
-## Automatically Added Metadata
+### Automatically Added Metadata
 
 ```text
 creationTimestamp:
@@ -454,7 +472,7 @@ These fields contain:
 
 ---
 
-## Additional Runtime & Cluster Fields
+### Additional Runtime & Cluster Fields
 
 The generated YAML may also contain:
 
@@ -469,7 +487,7 @@ The generated YAML may also contain:
 
 ---
 
-## Example Additional Fields
+### Example Additional Fields
 
 ```text
 metadata.annotations
@@ -487,7 +505,7 @@ status
 
 ---
 
-# Why Kubernetes Adds These Fields
+### Why Kubernetes Adds These Fields
 
 Kubernetes automatically enriches objects with:
 
@@ -501,9 +519,9 @@ This helps Kubernetes manage the Pod lifecycle automatically.
 
 ---
 
-# Important Understanding
+### Important Understanding
 
-## Hand-Written YAML
+###  Hand-Written YAML
 
 Usually contains only the:
 
@@ -526,7 +544,7 @@ You define:
 
 ---
 
-## Generated YAML
+### Generated YAML
 
 Contains:
 
@@ -543,7 +561,7 @@ Kubernetes automatically adds:
 
 ---
 
-# Key Learning
+### Key Learning
 
 * Hand-written manifests are clean and minimal
 * Generated YAML is verbose and runtime-aware
@@ -553,9 +571,9 @@ Kubernetes automatically adds:
 
 ---
 
-# Easy Analogy
+### Easy Analogy
 
-## Declarative Approach
+### Declarative Approach
 
 ```text
 "I want this final result."
@@ -582,7 +600,7 @@ The kitchen handles:
 
 ---
 
-## Imperative Approach
+### Imperative Approach
 
 ```text
 "Do these exact steps now."
@@ -598,7 +616,7 @@ You control every command directly.
 
 ---
 
-# Key Learning
+### Key Learning
 
 * Declarative approach is preferred in production environments
 * Imperative approach is useful for quick testing and debugging
@@ -635,7 +653,7 @@ Kubernetes provides two types of validation:
 
 ---
 
-# Validation Commands
+### Validation Commands
 
 ```bash
 # Check if the YAML is valid locally without creating the resource
@@ -647,7 +665,7 @@ kubectl apply -f nginx-pod.yaml --dry-run=server
 
 ---
 
-# Client-Side vs Server-Side Validation
+### Client-Side vs Server-Side Validation
 
 | Validation Type    | Description                                     | Checks                                  |
 | ------------------ | ----------------------------------------------- | --------------------------------------- |
@@ -656,9 +674,9 @@ kubectl apply -f nginx-pod.yaml --dry-run=server
 
 ---
 
-# Easy Analogy
+### Easy Analogy
 
-## Client-Side Validation
+### Client-Side Validation
 
 ```text
 Checking your exam paper format before submitting
@@ -674,7 +692,7 @@ But it does NOT fully verify whether Kubernetes can actually run the resource.
 
 ---
 
-## Server-Side Validation
+### Server-Side Validation
 
 ```text
 Teacher actually evaluating the paper officially
@@ -689,7 +707,7 @@ The Kubernetes API Server checks:
 
 ---
 
-# Breaking the YAML Intentionally
+### Breaking the YAML Intentionally
 
 To test validation, I intentionally removed the `image` field from the container definition.
 
@@ -711,9 +729,9 @@ spec:
 
 ---
 
-# Validation Results
+### Validation Results
 
-## Client-Side Validation
+### Client-Side Validation
 
 ```bash
 kubectl apply -f nginx-pod.yaml --dry-run=client
@@ -729,7 +747,7 @@ Client-side validation did NOT detect the missing image field because it mainly 
 
 ---
 
-## Server-Side Validation
+### Server-Side Validation
 
 ```bash
 kubectl apply -f nginx-pod.yaml --dry-run=server
@@ -745,9 +763,9 @@ This error was detected because the Kubernetes API Server performs full schema v
 
 ---
 
-# Verification
+### Verification
 
-## What Error Does Kubernetes Give When the Image Field is Missing?
+### What Error Does Kubernetes Give When the Image Field is Missing?
 
 ```text
 The Pod "nginx-pod" is invalid:
@@ -758,7 +776,7 @@ spec.containers[0].image: Required value
 
 ---
 
-# What Happens Internally During Validation?
+###  What Happens Internally During Validation?
 
 ```text
 kubectl apply
@@ -778,9 +796,9 @@ Accept or Reject Resource
 
 ---
 
-# Failure Flow Summary
+## Failure Flow Summary
 
-## Missing Required Field (`image`)
+### Missing Required Field (`image`)
 
 ```text
 Manifest Applied
@@ -800,7 +818,7 @@ Resource Rejected
 
 ---
 
-# Key Learning
+### Key Learning
 
 * `--dry-run=client` performs local validation only
 * `--dry-run=server` performs full Kubernetes API validation
@@ -815,24 +833,24 @@ Resource Rejected
 Labels are how Kubernetes organizes and selects resources. You added labels in your manifests — now use them:
 
 
-# List all pods with their labels
+### List all pods with their labels
 kubectl get pods --show-labels
 
 <img width="1382" height="419" alt="image" src="https://github.com/user-attachments/assets/35bb0e28-7ac0-4278-9d9e-c3d365946911" />
 
 
 
-# Filter pods by label
+### Filter pods by label
 kubectl get pods -l app=nginx
 kubectl get pods -l environment=dev
 
-# Add a label to an existing pod
+### Add a label to an existing pod
 kubectl label pod nginx-pod environment=production
 
-# Verify
+### Verify
 kubectl get pods --show-labels
 
-# Remove a label
+### Remove a label
 kubectl label pod nginx-pod environment-
 
 
@@ -875,7 +893,7 @@ Labels are extremely important in Kubernetes because Services, Deployments, moni
 
 ---
 
-# What Are Labels?
+### What Are Labels?
 
 Labels are metadata attached to Kubernetes objects.
 
@@ -896,7 +914,7 @@ Here:
 
 ---
 
-# Easy Analogy
+### Easy Analogy
 
 Think of labels like tags on files or folders.
 
@@ -918,7 +936,7 @@ Now Kubernetes can easily search/filter resources using those tags.
 
 ---
 
-# List All Pods with Labels
+### List All Pods with Labels
 
 ```bash id="i55wiv"
 kubectl get pods --show-labels
@@ -928,9 +946,9 @@ This displays all pods along with their labels.
 
 ---
 
-# Filter Pods by Labels
+### Filter Pods by Labels
 
-## Filter by App Label
+### Filter by App Label
 
 ```bash id="k76j8j"
 kubectl get pods -l app=nginx
@@ -944,7 +962,7 @@ app=nginx
 
 ---
 
-## Filter by Environment Label
+### Filter by Environment Label
 
 ```bash id="zdgx3n"
 kubectl get pods -l environment=dev
@@ -958,7 +976,7 @@ environment=dev
 
 ---
 
-# Understanding Label Filtering
+### Understanding Label Filtering
 
 ```text id="m0vfyy"
 -l = label selector
@@ -968,7 +986,7 @@ Kubernetes searches for matching labels.
 
 ---
 
-# ASCII Example
+### ASCII Example
 
 ```text id="9xqf3h"
 Pods:
@@ -1000,7 +1018,7 @@ because only that pod matches the label.
 
 ---
 
-# Add a Label to an Existing Pod
+### Add a Label to an Existing Pod
 
 ```bash id="h5oxfq"
 kubectl label pod nginx-pod environment=production
@@ -1010,7 +1028,7 @@ This dynamically adds a new label to the running pod.
 
 ---
 
-# Verify Labels
+###  Verify Labels
 
 ```bash id="n8x1m9"
 kubectl get pods --show-labels
@@ -1025,7 +1043,7 @@ nginx-pod    1/1     Running   app=nginx,environment=production
 
 ---
 
-# Remove a Label
+### Remove a Label
 
 ```bash id="ry2x6d"
 kubectl label pod nginx-pod environment-
@@ -1035,7 +1053,7 @@ The `-` at the end removes the label.
 
 ---
 
-# Third Pod Manifest with Multiple Labels
+### Third Pod Manifest with Multiple Labels
 
 Created `third-pod.yaml`:
 
@@ -1063,7 +1081,7 @@ kubectl apply -f third-pod.yaml
 
 ---
 
-# Filter the Third Pod
+### Filter the Third Pod
 
 ```bash id="thz0t8"
 kubectl get pods -l environment=testing
@@ -1077,7 +1095,7 @@ alpine-pod
 
 ---
 
-# Multi-Label Filtering
+### Multi-Label Filtering
 
 You can filter using multiple labels together.
 
@@ -1100,7 +1118,7 @@ Meaning:
 
 ---
 
-# What Happens Internally?
+### What Happens Internally?
 
 ```text id="c7kz3e"
 kubectl get pods -l app=nginx
@@ -1117,7 +1135,7 @@ Returns Matching Pods
 
 ---
 
-# Why Labels Are Important
+### Why Labels Are Important
 
 Labels are the foundation of Kubernetes resource selection.
 
@@ -1132,7 +1150,7 @@ They are used by:
 
 ---
 
-# Real-World Example
+###  Real-World Example
 
 A Service may use:
 
@@ -1149,7 +1167,7 @@ This tells Kubernetes:
 
 ---
 
-# Key Learning
+### Key Learning
 
 * Labels are key-value metadata
 * Labels help organize and group resources
@@ -1191,7 +1209,7 @@ After completing the exercises, delete all the Pods that were created.
 
 ---
 
-# Delete Pods by Name
+###  Delete Pods by Name
 
 ```bash id="lw4q0m"
 kubectl delete pod nginx-pod
@@ -1203,7 +1221,7 @@ Kubernetes will terminate and remove the Pods from the cluster.
 
 ---
 
-# Delete Using the Manifest File
+###  Delete Using the Manifest File
 
 You can also delete resources using the same YAML manifest file that created them.
 
@@ -1219,7 +1237,7 @@ This method is very useful in real-world DevOps workflows because:
 
 ---
 
-# Verify Everything Is Deleted
+###  Verify Everything Is Deleted
 
 ```bash id="y8swwr"
 kubectl get pods
@@ -1233,7 +1251,7 @@ No resources found in default namespace.
 
 ---
 
-# What Happens When You Delete a Standalone Pod?
+###  What Happens When You Delete a Standalone Pod?
 
 When a standalone Pod is deleted:
 
@@ -1251,7 +1269,7 @@ The Pod is gone forever because no controller exists to recreate it.
 
 ---
 
-# Important Understanding
+###  Important Understanding
 
 A standalone Pod is unmanaged.
 
@@ -1266,9 +1284,9 @@ This is why standalone Pods are mostly used for:
 
 ---
 
-# Easy Analogy
+###  Easy Analogy
 
-## Standalone Pod
+###  Standalone Pod
 
 ```text id="v6a7nr"
 Deleting a temporary file manually
@@ -1280,7 +1298,7 @@ Once deleted:
 
 ---
 
-## Deployment-Managed Pod
+###  Deployment-Managed Pod
 
 ```text id="mjlwmf"
 A photocopy machine maintaining 3 copies continuously
@@ -1299,9 +1317,9 @@ This self-healing behavior is why Deployments are used in production.
 
 ---
 
-# ASCII Comparison
+###  ASCII Comparison
 
-## Standalone Pod
+###  Standalone Pod
 
 ```text id="hy3xg9"
 User
@@ -1318,7 +1336,7 @@ Gone Forever
 
 ---
 
-## Deployment-Managed Pod
+###  Deployment-Managed Pod
 
 ```text id="b79ikq"
 Deployment
@@ -1344,7 +1362,7 @@ Creates New Pod Automatically
 
 ---
 
-# What Happens Internally During Pod Deletion?
+###  What Happens Internally During Pod Deletion?
 
 ```text id="sblgzc"
 kubectl delete pod nginx-pod
@@ -1367,9 +1385,9 @@ Pod Removed from etcd
 
 ---
 
-# Failure Flow Summary
+###  Failure Flow Summary
 
-## Standalone Pod Deletion
+###  Standalone Pod Deletion
 
 ```text id="g3u7zg"
 Pod Deleted
@@ -1386,7 +1404,7 @@ Application Gone
 
 ---
 
-# Why Deployments Are Preferred in Production
+###  Why Deployments Are Preferred in Production
 
 Deployments provide:
 
@@ -1404,7 +1422,7 @@ Without Deployments:
 
 ---
 
-# Key Learning
+###  Key Learning
 
 * Pods can be deleted by name or manifest file
 * Standalone Pods are not automatically recreated
