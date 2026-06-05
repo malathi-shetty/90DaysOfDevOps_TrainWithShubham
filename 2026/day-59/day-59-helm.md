@@ -100,7 +100,7 @@ Output:
 pod/my-nginx-6b69d887f4-hs69f   1/1 Running
 ```
 
-✅ **Pods Running:** **1**
+ **Pods Running:** **1**
 
 ---
 
@@ -110,7 +110,7 @@ From your Service output:
 service/my-nginx     LoadBalancer
 ```
 
-✅ **Service Type:** **LoadBalancer**
+ **Service Type:** **LoadBalancer**
 
 ---
 
@@ -344,7 +344,7 @@ This demonstrates an important Helm concept:
 
 **How many revisions after the rollback?**
 
-✅ **3 revisions**
+ **3 revisions**
 
 | Revision | Description            |
 | -------- | ---------------------- |
