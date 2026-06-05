@@ -13,21 +13,13 @@ spec:
       labels:
         k8s-app: metrics-server
     spec:
-      serviceAccountName: metrics-server
-
-      # 🔥 CRITICAL FIX FOR KIND NETWORKING
       hostNetwork: true
-
+      serviceAccountName: metrics-server
       containers:
         - name: metrics-server
           image: registry.k8s.io/metrics-server/metrics-server:v0.8.1
           args:
-            - --cert-dir=/tmp
-            - --secure-port=10250
-            - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+            - --kubelet-insecure-tls
+            - --kubelet-preferred-address-types=InternalIP
             - --kubelet-use-node-status-port
             - --metric-resolution=15s
-            - --kubelet-insecure-tls
-          ports:
-            - containerPort: 10250
-              name: https
