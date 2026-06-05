@@ -1,35 +1,3 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: metrics-server
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: metrics-server:auth-delegator
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: system:auth-delegator
-subjects:
-  - kind: ServiceAccount
-    name: metrics-server
-    namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: system:metrics-server
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: system:metrics-server
-subjects:
-  - kind: ServiceAccount
-    name: metrics-server
-    namespace: kube-system
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -47,19 +15,26 @@ spec:
     spec:
       serviceAccountName: metrics-server
 
-      # 🔥 IMPORTANT FOR KIND
-      hostNetwork: true
-
       containers:
         - name: metrics-server
           image: registry.k8s.io/metrics-server/metrics-server:v0.8.1
           args:
             - --cert-dir=/tmp
             - --secure-port=10250
-            - --kubelet-preferred-address-types=InternalIP,Hostname,ExternalIP
+
+            # 🔥 CRITICAL FOR KIND
+            - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
             - --kubelet-use-node-status-port
-            - --metric-resolution=15s
+
+            # 🔥 FIX FOR TLS / SCRAPING ISSUES
             - --kubelet-insecure-tls
+            - --metric-resolution=15s
+
           ports:
             - containerPort: 10250
               name: https
+
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
