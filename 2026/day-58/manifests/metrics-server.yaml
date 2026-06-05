@@ -15,26 +15,19 @@ spec:
     spec:
       serviceAccountName: metrics-server
 
+      # 🔥 CRITICAL FIX FOR KIND NETWORKING
+      hostNetwork: true
+
       containers:
         - name: metrics-server
           image: registry.k8s.io/metrics-server/metrics-server:v0.8.1
           args:
             - --cert-dir=/tmp
             - --secure-port=10250
-
-            # 🔥 CRITICAL FOR KIND
             - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
             - --kubelet-use-node-status-port
-
-            # 🔥 FIX FOR TLS / SCRAPING ISSUES
-            - --kubelet-insecure-tls
             - --metric-resolution=15s
-
+            - --kubelet-insecure-tls
           ports:
             - containerPort: 10250
               name: https
-
-          securityContext:
-            runAsNonRoot: true
-            readOnlyRootFilesystem: true
-            allowPrivilegeEscalation: false
