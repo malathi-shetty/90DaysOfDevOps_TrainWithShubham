@@ -49,23 +49,17 @@ spec:
       containers:
         - name: metrics-server
           image: registry.k8s.io/metrics-server/metrics-server:v0.8.1
-          imagePullPolicy: IfNotPresent
           args:
             - --cert-dir=/tmp
             - --secure-port=10250
-            - --kubelet-preferred-address-types=InternalIP
+            - --kubelet-preferred-address-types=InternalIP,Hostname,ExternalIP
             - --kubelet-use-node-status-port
             - --metric-resolution=15s
             - --kubelet-insecure-tls
-            - --requestheader-client-ca-file=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-            - --requestheader-allowed-names=aggregator
-            - --requestheader-extra-headers-prefix=X-Remote-Extra-
-            - --requestheader-group-headers=X-Remote-Group
-            - --requestheader-username-headers=X-Remote-User
           ports:
             - containerPort: 10250
               name: https
           securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
             runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
