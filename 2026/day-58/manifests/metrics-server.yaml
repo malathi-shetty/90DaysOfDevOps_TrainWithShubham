@@ -22,6 +22,6 @@ spec:
             - --cert-dir=/tmp
             - --secure-port=10250
             - --kubelet-insecure-tls
-            - --kubelet-preferred-address-types=InternalIP
+            - --kubelet-preferred-address-types=InternalIP,Hostname
             - --kubelet-use-node-status-port
             - --metric-resolution=15s
