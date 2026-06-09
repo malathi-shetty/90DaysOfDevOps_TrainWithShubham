@@ -49,7 +49,7 @@ data "aws_ami" "amazon_linux" {
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+    values = ["al2023-ami-*-x86_64"] #amzn2-ami-hvm-*-x86_64-gp2
   }
 }
 
@@ -88,17 +88,20 @@ resource "aws_security_group" "main" {
 
 resource "aws_instance" "main" {
   ami           = data.aws_ami.amazon_linux.id
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
 
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.main.id]
 
   associate_public_ip_address = true
-
-  key_name = "tws"
+  key_name                    = "tws"
 
   tags = {
     Name = "TerraWeek-Server"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
@@ -157,3 +160,4 @@ resource "aws_instance" "web" {
 
   depends_on = [aws_security_group.main]
 }
+
