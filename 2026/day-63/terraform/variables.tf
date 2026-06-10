@@ -27,7 +27,7 @@ variable "project_name" {
   type        = string
 
   validation {
-    condition     = trim(var.project_name) != ""
+    condition     = trimspace(var.project_name) != ""
     error_message = "Project name cannot be empty."
   }
 }

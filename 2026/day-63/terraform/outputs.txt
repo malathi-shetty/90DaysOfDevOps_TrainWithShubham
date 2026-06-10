@@ -1,0 +1,6 @@
+instance_id = "i-0331c04ecaf33c341"
+instance_public_dns = ""
+instance_public_ip = "100.21.17.7"
+security_group_id = "sg-0513d120f717a69c2"
+subnet_id = "subnet-015f4f5323ce56036"
+vpc_id = "vpc-0acc47bd462520288"
