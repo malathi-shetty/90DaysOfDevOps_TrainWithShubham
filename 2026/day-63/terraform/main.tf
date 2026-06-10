@@ -98,7 +98,7 @@ resource "aws_security_group" "main" {
 
 resource "aws_instance" "main" {
   ami           = data.aws_ami.amazon_linux.id
-  instance_type = var.instance_type
+  instance_type = var.environment == "prod" ? "t3.small" : "t2.micro"
 
   subnet_id                   = aws_subnet.public.id
   vpc_security_group_ids      = [aws_security_group.main.id]
@@ -174,14 +174,14 @@ resource "aws_iam_role_policy_attachment" "app_policy" {
 
 resource "aws_instance" "app" {
   ami           = data.aws_ami.amazon_linux.id
-  instance_type = var.instance_type
+  instance_type = var.environment == "prod" ? "t3.small" : "t2.micro"
 
   depends_on = [aws_iam_role_policy_attachment.app_policy]
 }
 
 resource "aws_instance" "web" {
   ami           = data.aws_ami.amazon_linux.id
-  instance_type = var.instance_type
+  instance_type = var.environment == "prod" ? "t3.small" : "t2.micro"
 
   depends_on = [aws_security_group.main]
 }
