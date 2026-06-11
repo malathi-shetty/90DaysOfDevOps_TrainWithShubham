@@ -1,0 +1,6 @@
+instance_id = "i-0d16ba34040a8c10a"
+instance_public_dns = "ec2-44-246-208-210.us-west-2.compute.amazonaws.com"
+instance_public_ip = "44.246.208.210"
+security_group_id = "sg-0d8e2110307f36d32"
+subnet_id = "subnet-034c67d508bb28c56"
+vpc_id = "vpc-0362da385aa5b4df1"
