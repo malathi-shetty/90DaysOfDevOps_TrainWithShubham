@@ -560,6 +560,8 @@ Using both flags together allows administrators to:
 
 Because no changes are applied while still showing the expected results, `--check --diff` is one of the safest ways to test Ansible playbooks in production environments.
 
+<img width="822" height="788" alt="image" src="https://github.com/user-attachments/assets/67f1d5b5-9464-46d2-8d14-22c00bfb06c5" />
+
 
 ---
 
