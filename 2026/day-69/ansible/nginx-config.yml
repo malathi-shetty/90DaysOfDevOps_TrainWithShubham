@@ -1,0 +1,47 @@
+---
+- name: Configure Nginx with a custom config
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: present
+
+    - name: Deploy Nginx config
+      copy:
+        src: files/nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        mode: "0644"
+      notify: Restart Nginx
+
+    - name: Deploy custom index page
+      copy:
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Day 69 - Ansible</title>
+          </head>
+          <body>
+              <h1>🚀 Managed by Ansible</h1>
+              <h2>90 Days of DevOps - Day 69</h2>
+              <p>Server: {{ inventory_hostname }}</p>
+              <p>Deployed by Malathi</p>
+          </body>
+          </html>
+        dest: /usr/share/nginx/html/index.html
+
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
