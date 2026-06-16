@@ -26,9 +26,9 @@
               <title>Day 69 - Ansible</title>
           </head>
           <body>
-              <h1>🚀 Managed by Ansible</h1>
+              <h1> Managed by Ansible</h1>
               <h2>90 Days of DevOps - Day 69</h2>
-              <p>Server: {{ inventory_hostname }}</p>
+              <h3>Server: {{ inventory_hostname }}</h3>
               <p>Deployed by Malathi</p>
           </body>
           </html>
