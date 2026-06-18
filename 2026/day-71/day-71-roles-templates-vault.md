@@ -805,7 +805,9 @@ Run:
 ```bash
 ansible-playbook site.yml
 ```
+<img width="1331" height="1260" alt="image" src="https://github.com/user-attachments/assets/3290a961-131b-4c03-b4cc-a6127da5a6e4" />
 
+<img width="1102" height="1257" alt="image" src="https://github.com/user-attachments/assets/bf236e8c-3c16-4c14-af40-6b3512918fbe" />
 
 
 **Verify:** SSH into the db server and check `/etc/db-config.env`. Are the secrets rendered correctly? Is the file permission `600`?
