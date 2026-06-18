@@ -1,0 +1,10 @@
+docker_add_repo: true
+
+docker_install_compose_plugin: true
+docker_install_compose_v2: true
+
+docker_users:
+  - ubuntu
+
+docker_install_rootless: false
+docker_install_rootless_extras: false

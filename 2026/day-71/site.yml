@@ -1,0 +1,28 @@
+# ---
+# - name: Configure web servers
+#   hosts: web
+#   become: true
+#   roles:
+#     - role: webserver
+#       vars:
+#         app_name: terraweek
+#         http_port: 80
+
+---
+- name: Configure web servers
+  hosts: web
+  become: true
+  roles:
+    - webserver
+
+- name: Configure app servers with Docker
+  hosts: app
+  become: true
+  roles:
+    - geerlingguy.docker
+
+- name: Configure database servers
+  hosts: db
+  become: true
+  roles:
+    - db

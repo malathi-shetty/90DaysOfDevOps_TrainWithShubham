@@ -1,0 +1,13 @@
+---
+- name: Configure app servers with Docker
+  hosts: app
+  become: true
+
+  vars:
+    docker_users:
+      - ubuntu
+
+    docker_install_compose_plugin: false
+
+  roles:
+    - geerlingguy.docker
