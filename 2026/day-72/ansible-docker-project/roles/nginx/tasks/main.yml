@@ -1,0 +1,49 @@
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+  tags: nginx
+
+- name: Ensure correct nginx user for Ubuntu
+  replace:
+    path: /etc/nginx/nginx.conf
+    regexp: '^user .*;'
+    replace: 'user www-data;'
+  tags: nginx
+
+- name: Remove default Nginx site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Reload Nginx
+  tags: nginx
+
+- name: Deploy reverse proxy config
+  template:
+    src: app-proxy.conf.j2
+    dest: /etc/nginx/sites-available/app-proxy.conf
+    mode: "0644"
+  notify: Reload Nginx
+  tags: nginx
+
+- name: Enable reverse proxy site
+  file:
+    src: /etc/nginx/sites-available/app-proxy.conf
+    dest: /etc/nginx/sites-enabled/app-proxy.conf
+    state: link
+  notify: Reload Nginx
+  tags: nginx
+
+- name: Test Nginx configuration
+  command: nginx -t
+  changed_when: false
+  tags: nginx
+
+- name: Start and enable Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+  tags: nginx

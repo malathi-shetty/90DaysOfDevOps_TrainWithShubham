@@ -1,0 +1,42 @@
+---
+- name: Update apt cache (safe refresh)
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+  tags: common
+
+- name: Ensure universe repo is enabled
+  apt_repository:
+    repo: "deb http://archive.ubuntu.com/ubuntu focal universe"
+    state: present
+  tags: common
+
+- name: Update package cache
+  apt:
+    update_cache: yes
+  tags: common
+
+- name: Install common packages
+  apt:
+    name: "{{ common_packages }}"
+    state: present
+    update_cache: yes
+  tags: common
+
+- name: Set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+  tags: common
+
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
+  tags: common
+
+- name: Create deploy user
+  user:
+    name: deploy
+    groups: sudo
+    shell: /bin/bash
+    state: present
+  tags: common

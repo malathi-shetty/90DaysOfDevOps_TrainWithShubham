@@ -1,0 +1,82 @@
+---
+- name: Install required system packages
+  apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+      - python3-pip
+      - python3-docker
+    state: present
+    update_cache: yes
+  tags: docker
+
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  tags: docker
+
+- name: Add Docker repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename | default(ansible_distribution_release) }} stable
+    state: present
+  tags: docker
+
+- name: Install Docker CE
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+    update_cache: yes
+  tags: docker
+
+- name: Start and enable Docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  tags: docker
+
+- name: Add deploy user to docker group
+  user:
+    name: deploy
+    groups: docker
+    append: yes
+  tags: docker
+
+- name: Install Docker SDK (Python)
+  pip:
+    name: docker
+    executable: pip3
+  tags: docker
+
+- name: Pull application image
+  community.docker.docker_image:
+    name: "{{ docker_app_image }}"
+    tag: "{{ docker_app_tag }}"
+    source: pull
+  tags: docker
+
+- name: Run container
+  community.docker.docker_container:
+    name: "{{ docker_app_name }}"
+    image: "{{ docker_app_image }}:{{ docker_app_tag }}"
+    state: started
+    restart_policy: always
+    ports:
+      - "{{ docker_app_port }}:{{ docker_container_port }}"
+  tags: docker
+
+- name: Wait for app
+  uri:
+    url: "http://localhost:{{ docker_app_port }}"
+    status_code: 200
+  register: result
+  retries: 10
+  delay: 3
+  until: result.status == 200
+  check_mode: no
