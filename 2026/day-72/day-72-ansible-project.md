@@ -338,7 +338,7 @@ vault_password_file = .vault_pass
 ```
 
 Deploy the full stack:
-# Dry run first -- always
+## Dry run first -- always
 ansible-playbook site.yml --check --diff
 
 <img width="1365" height="1247" alt="image" src="https://github.com/user-attachments/assets/c5d73108-10db-466e-a93c-f3564c1b4193" />
@@ -347,7 +347,7 @@ ansible-playbook site.yml --check --diff
 <img width="1390" height="1272" alt="image" src="https://github.com/user-attachments/assets/424df07c-49c1-45e0-904a-2624924b0275" />
 
 
-# Full deploy
+## Full deploy
 ansible-playbook site.yml
 
 <img width="1562" height="1262" alt="image" src="https://github.com/user-attachments/assets/f63e4365-3f52-4784-9a4b-919d0dc4230f" />
@@ -355,13 +355,13 @@ ansible-playbook site.yml
 
 
 Use tags for selective execution:
-# Only set up Docker and containers
+## Only set up Docker and containers
 ansible-playbook site.yml --tags docker
 
 <img width="1562" height="987" alt="image" src="https://github.com/user-attachments/assets/1fd374b7-73e8-4e91-b07a-0e45912dd3bc" />
 
 
-# Only update Nginx config
+## Only update Nginx config
 ansible-playbook site.yml --tags nginx
 
 <img width="1402" height="787" alt="image" src="https://github.com/user-attachments/assets/5df7c508-76ea-4e74-bfc0-d1cf2d57e23f" />
@@ -369,7 +369,7 @@ ansible-playbook site.yml --tags nginx
 <img width="1131" height="597" alt="image" src="https://github.com/user-attachments/assets/dc7346e4-4807-4f97-b859-be635090ce47" />
 
 
-# Skip common setup
+## Skip common setup
 ansible-playbook site.yml --skip-tags common
 
 <img width="1557" height="1247" alt="image" src="https://github.com/user-attachments/assets/4adc35bd-de32-442f-95f5-bc26978c1fa2" />
