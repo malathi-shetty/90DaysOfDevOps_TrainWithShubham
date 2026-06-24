@@ -1030,7 +1030,7 @@ Metrics + Logs + Traces = Full Observability Platform
 ```
 
 ---
-
+```text
                         ┌──────────────────────────────┐
                         │        TRACES PIPELINE       │
                         └──────────────────────────────┘
@@ -1130,3 +1130,5 @@ Metrics + Logs + Traces = Full Observability Platform
                 │        GRAFANA         │
                 │ Dashboards + Alerts    │
                 └────────────────────────┘
+
+```
