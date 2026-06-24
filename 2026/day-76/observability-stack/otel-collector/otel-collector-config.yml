@@ -1,0 +1,39 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: "otel-self"
+          static_configs:
+            - targets: ["localhost:8889"]
+
+processors:
+  batch: {}
+
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+
+  debug:
+    verbosity: detailed
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp, prometheus]
+      processors: [batch]
+      exporters: [prometheus, debug]
+
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
+
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
