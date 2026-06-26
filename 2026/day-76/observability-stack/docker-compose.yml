@@ -38,6 +38,8 @@ services:
       - '--path.rootfs=/rootfs'
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - 9100
     ports:
       - "9100:9100"
     networks:
@@ -70,6 +72,9 @@ services:
     restart: unless-stopped
     networks:
       - monitoring
+    devices:
+    - /dev/kmsg:/dev/kmsg
+
   loki:
     image: grafana/loki:latest
     container_name: loki
