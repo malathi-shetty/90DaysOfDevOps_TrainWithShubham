@@ -44,7 +44,7 @@ mysql:
 
 # Ollama AI configuration
 ollama:
-  enabled: true  # Enable Ollama deployment
+  enabled: false  # Enable Ollama deployment
   image:
     repository: ollama/ollama  # Ollama image
     tag: "latest"  # Image version
@@ -68,14 +68,14 @@ config:
 # Secrets
 secrets:
   mysqlRootPassword: Test@123  # Root password
-  mysqlUser: root  # Application DB user
+  mysqlUser: bankapp  # Application DB user
   mysqlPassword: Test@123  # Application DB password
   
 # StorageClass configuration
 storageClass:
-  create: true  # Whether to create storage class
-  name: gp3  # Storage class name
-  provisioner: ebs.csi.aws.com  # AWS EBS CSI provisioner
+  create: false  # Whether to create storage class
+  name: standard  # Storage class name
+  #provisioner: ebs.csi.aws.com  # AWS EBS CSI provisioner
 
 # Gateway (optional -- for EKS with Envoy Gateway)
 gateway:

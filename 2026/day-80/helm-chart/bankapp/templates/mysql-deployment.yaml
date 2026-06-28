@@ -28,11 +28,24 @@ spec:
                 secretKeyRef:
                   name: {{ include "bankapp.fullname" . }}-secret
                   key: MYSQL_ROOT_PASSWORD
+
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "bankapp.fullname" . }}-config
                   key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bankapp.fullname" . }}-secret
+                  key: MYSQL_USER 
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bankapp.fullname" . }}-secret
+                  key: MYSQL_PASSWORD
+
           {{- with .Values.mysql.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
