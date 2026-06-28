@@ -602,7 +602,7 @@ Check what you have deployed:
 helm list -A
 ```
 
-
+<img width="1305" height="97" alt="helm" src="https://github.com/user-attachments/assets/e03e51c5-946f-4eed-ae78-2bf763793998" />
 
 **Reflect and document the 3-day Helm journey:**
 
