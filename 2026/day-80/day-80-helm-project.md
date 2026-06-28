@@ -601,8 +601,8 @@ Check what you have deployed:
 ```bash
 helm list -A
 ```
+<img width="1305" height="98" alt="image" src="https://github.com/user-attachments/assets/fdd52e61-af68-4dbc-8831-c10989e36492" />
 
-<img width="1305" height="97" alt="helm" src="https://github.com/user-attachments/assets/e03e51c5-946f-4eed-ae78-2bf763793998" />
 
 **Reflect and document the 3-day Helm journey:**
 
