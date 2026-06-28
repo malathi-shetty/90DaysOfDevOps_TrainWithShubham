@@ -1057,6 +1057,8 @@ terraform output
 <img width="2560" height="1228" alt="image" src="https://github.com/user-attachments/assets/ea49b8b8-dda5-4a81-9faa-f6485a9c0167" />
 <img width="2560" height="1483" alt="image" src="https://github.com/user-attachments/assets/d24e2ab9-6ebd-4db7-bccb-4da78bd7784a" />
 <img width="2560" height="1229" alt="image" src="https://github.com/user-attachments/assets/1720b176-2ced-4bcd-8e50-6b4d6a32343a" />
+<img width="2560" height="2453" alt="Elastic-Kubernetes-Service-us-west" src="https://github.com/user-attachments/assets/a60e81a3-7df1-4c22-843a-4d7a3f563dba" />
+<img width="2535" height="926" alt="AWS EKS Cluster" src="https://github.com/user-attachments/assets/3c793af6-fa59-45b6-96cc-1e8f055f8e08" />
 
 
 ---
@@ -1228,6 +1230,7 @@ kubectl delete -f k8s/pv.yml
 kubectl delete -f k8s/namespace.yml
 ```
 
+<img width="1230" height="511" alt="Delete the BankApp workload" src="https://github.com/user-attachments/assets/65d05908-f6bb-4de7-bf84-3e5cbabcf859" />
 
 
 To destroy everything (do this at the end of Day 83 or if taking a break):
@@ -1235,6 +1238,9 @@ To destroy everything (do this at the end of Day 83 or if taking a break):
 cd terraform
 terraform destroy
 ```
+
+<img width="1125" height="897" alt="terraform destroy" src="https://github.com/user-attachments/assets/2cbae3ef-9d7f-444a-980a-75253af4b1bc" />
+
 
 **Document:** What are the cost components of the AI-BankApp EKS setup? Why is the NAT Gateway surprisingly expensive?
 
