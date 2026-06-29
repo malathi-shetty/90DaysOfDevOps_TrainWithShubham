@@ -1,0 +1,4 @@
+Thank you for installing AI-BankApp!
+
+Release Name: {{ .Release.Name }}
+Namespace: {{ .Release.Namespace }}
