@@ -43,3 +43,8 @@ CLAUDE.md
 
 ### Speaker Notes (personal, not for repo) ###
 SPEAKER_NOTES.md
+
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
