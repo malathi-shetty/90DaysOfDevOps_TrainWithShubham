@@ -32,4 +32,4 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-    - bankapp.52.39.28.122.nip.io
+    - 54.191.196.247.nip.io

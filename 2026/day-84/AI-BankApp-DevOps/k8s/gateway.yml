@@ -33,7 +33,7 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443 # HTTPS traffic entry
-      hostname: 52.39.28.122.nip.io # Use your public IP or DNS name here <your-ip>.nip.io
+      hostname: 54.191.196.247.nip.io # Use your public IP or DNS name here <your-ip>.nip.io
       tls:
         mode: Terminate # TLS handled at gateway
         certificateRefs:
@@ -51,7 +51,7 @@ metadata:
   namespace: bankapp
 spec:
   hostnames:
-    - 52.39.28.122.nip.io
+    - 54.191.196.247.nip.io
     - a50ce70b771354c12a603db0741cc557-1844316640.us-west-2.elb.amazonaws.com
   parentRefs:
     - group: gateway.networking.k8s.io
