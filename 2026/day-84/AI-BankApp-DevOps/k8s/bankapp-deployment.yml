@@ -4,7 +4,7 @@ metadata:
   name: bankapp
   namespace: bankapp
 spec:
-  replicas: 4
+  #replicas: 4
   selector:
     matchLabels:
       app: bankapp
