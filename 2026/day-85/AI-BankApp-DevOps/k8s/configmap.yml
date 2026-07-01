@@ -10,6 +10,5 @@ data:
   MYSQL_HOST: mysql-service
   MYSQL_PORT: "3306"
   MYSQL_DATABASE: bankappdb
-  OLLAMA_URL: http://olla
-  ma-service:11434
+  OLLAMA_URL: http://ollama-service:11434
   SERVER_FORWARD_HEADERS_STRATEGY: native
