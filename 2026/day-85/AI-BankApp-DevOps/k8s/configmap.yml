@@ -4,7 +4,9 @@ metadata:
   name: bankapp-config
   namespace: bankapp
 data:
-  APP_NAME: AI-BankApp
+  APP_NAME: AI-BankApp-Manual-Test-Sync
+  TASK: "ManualSyncDemo"
+  APP_VERSION: "1.1"
   MYSQL_HOST: mysql-service
   MYSQL_PORT: "3306"
   MYSQL_DATABASE: bankappdb
