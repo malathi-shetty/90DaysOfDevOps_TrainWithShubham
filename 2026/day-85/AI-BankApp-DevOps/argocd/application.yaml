@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham.git
     targetRevision: master
-    path: 2026/day-84/AI-BankApp-DevOps/k8s
+    path: 2026/day-85/AI-BankApp-DevOps/k8s
 
   destination:
     server: https://kubernetes.default.svc
