@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: mysql-service
   namespace: bankapp
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   selector:
     app: mysql
@@ -14,6 +16,8 @@ kind: Service
 metadata:
   name: ollama-service
   namespace: bankapp
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   selector:
     app: ollama
@@ -25,6 +29,8 @@ kind: Service
 metadata:
   name: bankapp-service
   namespace: bankapp
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   type: ClusterIP
   sessionAffinity: ClientIP
