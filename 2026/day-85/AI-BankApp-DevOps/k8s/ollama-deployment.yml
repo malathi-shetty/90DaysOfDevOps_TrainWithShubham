@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: ollama
   namespace: bankapp
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
 spec:
   selector:
     matchLabels:
