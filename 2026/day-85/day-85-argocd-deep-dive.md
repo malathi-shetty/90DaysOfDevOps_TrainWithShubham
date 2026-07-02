@@ -646,29 +646,35 @@ git push origin master
 
 ```
 
-                 Developer
-                     │
-             Push / Pull Request
-                     │
-                     ▼
-        GitHub Repository (Source of Truth)
-                     │
-                     ▼
+                    Developer
+                        │
+                Push / Pull Request
+                        │
+                        ▼
+       GitHub Repository (Source of Truth)
+                        │
+                        ▼
         ArgoCD Watches Git Repository
-                     │
-                     ▼
-      Root Application (App of Apps)
-      (root-app in argocd namespace)
-      ┌──────────┼──────────┐
-      │          │          │
-      ▼          ▼          ▼
-   BankApp   Monitoring   Envoy Gateway
- Application  Application   Application
-      │          │          │
-      └──────────┼──────────┘
-                 ▼
-         Kubernetes Cluster
-       (Namespaces & Resources)
+                        │
+                        ▼
+     Root Application (App of Apps Pattern)
+       (root-app in argocd namespace)
+                        │
+      ┌─────────────────┼─────────────────┐
+      │                 │                 │
+  Wave 0            Wave 1           Wave 2
+      │                 │                 │
+      ▼                 ▼                 ▼
+ Envoy Gateway      Monitoring        BankApp
+  Application       Application      Application
+      │                 │                 │
+      └─────────────────┼─────────────────┘
+                        ▼
+              Kubernetes Cluster
+         (Namespaces & Resources)
+                        │
+                        ▼
+        Auto Sync • Self-Heal • Prune
 
 
 ```
