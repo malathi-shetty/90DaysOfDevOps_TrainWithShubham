@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: bankapp-team
   source:
     repoURL: https://github.com/malathi-shetty/90DaysOfDevOps_TrainWithShubham.git
     targetRevision: master
