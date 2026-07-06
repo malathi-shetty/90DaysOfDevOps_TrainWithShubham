@@ -40,7 +40,7 @@
 
 ---
 
-## 1. What is an AI Agent?
+### 1. What is an AI Agent?
 
 An **AI agent** is an application powered by a **Large Language Model (LLM)** that can use external **tools** to perform tasks in the real world.
 
@@ -84,7 +84,7 @@ It analyzes the outputs and then explains the actual root cause.
 
 ---
 
-# 2. Why Agents for DevOps?
+## 2. Why Agents for DevOps?
 
 DevOps engineers spend much of their time using command-line tools such as:
 
@@ -140,7 +140,7 @@ This reduces manual troubleshooting and speeds up incident resolution.
 
 ---
 
-# 3. The ReAct Pattern (Reason + Act + Observe)
+## 3. The ReAct Pattern (Reason + Act + Observe)
 
 **ReAct** stands for:
 
@@ -232,9 +232,9 @@ The important point is that the user never instructed the agent to check logs or
 
 ---
 
-# 4. Key Components of an AI Agent
+## 4. Key Components of an AI Agent
 
-## A. LLM (The Brain)
+### A. LLM (The Brain)
 
 The **Large Language Model (LLM)** is responsible for understanding the user's request, reasoning about the problem, deciding which tools to use, interpreting the outputs, and generating the final response.
 
@@ -248,7 +248,7 @@ Without an LLM, there is no intelligent decision-making.
 
 ---
 
-## B. Tools (The Hands)
+### B. Tools (The Hands)
 
 Tools are Python functions that perform real actions by wrapping CLI commands or APIs.
 
@@ -278,7 +278,7 @@ The LLM reads the tool's description (docstring) to decide when to use it.
 
 ---
 
-## C. Agent Framework
+### C. Agent Framework
 
 An agent framework manages the interaction between the LLM and the available tools.
 
@@ -312,7 +312,7 @@ This removes the need to manually write the reasoning logic.
 
 ---
 
-## D. MCP (Model Context Protocol)
+### D. MCP (Model Context Protocol)
 
 **Model Context Protocol (MCP)** is an open standard that allows AI models to discover and use tools in a consistent way.
 
@@ -331,7 +331,7 @@ This enables different AI clients to use the same tools without custom implement
 
 ---
 
-# Summary
+### Summary
 
 * An **AI agent** is an LLM that can use external tools to perform tasks.
 * Unlike chatbots, agents can execute commands, read logs, call APIs, and make decisions.
