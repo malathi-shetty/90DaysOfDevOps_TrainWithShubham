@@ -609,7 +609,7 @@ Watch the agent's reasoning:
 
 **The LLM decided which tools to call and in what order.** You never told it to check logs -- it figured that out from the problem.
 
-![image](images/agent.png)
+![alt text](image-6.png)
 
 Try more questions:
 ```
