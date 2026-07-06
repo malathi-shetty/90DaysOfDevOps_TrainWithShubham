@@ -478,10 +478,12 @@ The LLM explains what went wrong and how to fix it -- no manual Googling needed.
 
 ![1st_response](image.png)
 
-![image](images/2nd_response.png)
+
+![images/2nd_response.png](image-1.png)
 
 
-![image](images/3rd_response.png)
+
+![images/task-3/2nd_response.png](image-2.png)
 
 **Document:** How does the system prompt affect the quality of the response? Try changing it and see what happens.
 
