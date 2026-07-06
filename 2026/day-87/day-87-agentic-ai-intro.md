@@ -485,12 +485,52 @@ The LLM explains what went wrong and how to fix it -- no manual Googling needed.
 
 ![images/task-3/2nd_response.png](image-2.png)
 
-![images/task-3/2nd_response.png](images/task-3/2nd_response.png)
 
 **Document:** How does the system prompt affect the quality of the response? Try changing it and see what happens.
 
-- The system prompt affects the quality by guiding the model on how to respond.
-- Changing it changes the tone,structure and clarity of the answer.
+## Effect of the System Prompt on the Response
+
+The **system prompt** defines the AI model's role, behavior, tone, and response format. It guides the model on how to interpret the user's input and what kind of output to produce.
+
+### Original System Prompt
+
+```python
+SYSTEM_PROMPT = """You are a Docker expert. When given a Docker error, explain:
+1. What went wrong (plain English)
+2. Most likely cause
+3. How to fix it (with commands)
+Keep it short."""
+```
+
+**Observation:**
+- Responses were concise and technical.
+- The explanation was well-structured.
+- The model included relevant Docker commands to fix the issue.
+- Suitable for developers and DevOps engineers.
+
+### Modified System Prompt
+
+```python
+SYSTEM_PROMPT = """
+You are teaching Docker to complete beginners.
+
+Explain:
+1. The error in simple English.
+2. Why it happened.
+3. Give a real-world analogy.
+4. Show the commands to fix it.
+"""
+```
+
+**Observation:**
+- Responses became more detailed and beginner-friendly.
+- The model used simpler language and provided additional explanations.
+- Real-world analogies made the concepts easier to understand.
+- The response was longer than with the original prompt.
+
+### Conclusion
+
+Changing the system prompt significantly changes the quality and style of the response. A well-designed system prompt produces more focused, consistent, and useful answers by clearly defining the model's role, tone, audience, and expected output format.
 
 ---
 
@@ -501,6 +541,9 @@ Now the real thing -- an agent that autonomously uses tools to diagnose Docker i
 ```bash
 docker run -d --name broken-app nginx:alpine sh -c "echo 'app starting...' && sleep 2 && exit 1"
 ```
+
+![docker run](image-4.png)
+![docker ps -a](image-5.png)
 
 This container starts, prints "app starting...", waits 2 seconds, then crashes. Docker will keep restarting it (CrashLoopBackOff equivalent).
 
