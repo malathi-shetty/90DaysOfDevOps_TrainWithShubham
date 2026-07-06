@@ -627,7 +627,7 @@ Try more questions:
 docker rm -f broken-app
 ```
 
-![alt text](image-10.png)
+![docker rm -f broken-app](image-10.png)
 
 
 ---
@@ -678,6 +678,111 @@ Any CLI command can become an agent tool. Any DevOps workflow can be automated t
 
 ---
 
+## Agent Architecture
+
+```text
+                    User Question
+                         │
+                         ▼
+             LLM (Gemma 4 via Ollama)
+                         │
+      ReAct: Reason about which tool to use
+                         │
+                         ▼
+                  Tool Selection
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+        ▼                ▼                ▼
+list_containers()   get_logs()   inspect_container()
+      │                │                │
+docker ps -a      docker logs    docker inspect
+        └────────────────┼────────────────┘
+                         │
+                         ▼
+               Tool Output (Text)
+                         │
+                         ▼
+      LLM reads the output and reasons again
+                         │
+        (Repeat until enough information)
+                         │
+                         ▼
+               Final Answer to the User
+```
+
+---
+
+## How It Works
+
+1. The user asks a question (for example, *"Why is broken-app crashing?"*).
+2. The LLM (Gemma 4 running locally through Ollama) analyzes the question.
+3. Using the **ReAct (Reason → Act → Observe)** pattern, it decides which tool should be used first.
+4. The selected tool executes the corresponding Docker CLI command using `subprocess.run()`.
+5. The tool returns the command output as plain text.
+6. The LLM reads the output, reasons again, and decides whether another tool is needed.
+7. This process repeats until the LLM has enough information to provide a complete answer.
+
+---
+
+## Why This Matters for DevOps
+
+This architecture is **domain-agnostic**, meaning the same reasoning process can automate different DevOps tasks by replacing the underlying tools.
+
+For example:
+
+| DevOps Domain | CLI Tool      | Example Command                            |
+| ------------- | ------------- | ------------------------------------------ |
+| Docker        | Docker CLI    | `docker ps`, `docker logs`                 |
+| Kubernetes    | kubectl       | `kubectl get pods`, `kubectl describe pod` |
+| Terraform     | Terraform CLI | `terraform plan`, `terraform apply`        |
+| GitHub        | GitHub CLI    | `gh repo list`, `gh workflow run`          |
+| AWS           | AWS CLI       | `aws ec2 describe-instances`               |
+| Ansible       | Ansible CLI   | `ansible-playbook`                         |
+
+The AI agent does not change—only the available tools change.
+
+This means the same architecture can be extended from Docker troubleshooting to Kubernetes debugging, Terraform automation, cloud management, and other DevOps workflows.
+
+---
+
+## Generic Tool Pattern
+
+Every tool follows the same structure:
+
+```python
+@tool
+def my_tool(argument: str) -> str:
+    """Description the LLM reads to decide when to use this tool."""
+    result = subprocess.run(
+        ["some-cli", "command", argument],
+        capture_output=True,
+        text=True
+    )
+    return result.stdout or result.stderr
+```
+
+### Components
+
+* **`@tool` decorator**: Registers the function as a tool the AI agent can use.
+* **Docstring**: Describes the tool's purpose. The LLM reads this description to determine when it should use the tool.
+* **`subprocess.run()`**: Executes the actual CLI command.
+* **Return value**: The command output is returned as a string so the LLM can analyze and reason about it.
+
+---
+
+## Key Takeaways
+
+* The LLM acts as the **brain**, making decisions and reasoning about the problem.
+* Tools act as the **hands**, executing real-world CLI commands.
+* LangChain's `create_react_agent()` orchestrates the ReAct reasoning loop.
+* The same architecture can automate Docker, Kubernetes, Terraform, AWS CLI, GitHub CLI, Ansible, and many other DevOps workflows by simply changing the available tools.
+* Any CLI command can be wrapped as a tool, allowing AI agents to automate repetitive operational tasks and assist with infrastructure troubleshooting.
+
+
+
+---
+
 ### Task 6: Experiment and Extend
 Try adding a new tool to the agent. Edit `module-2/agent.py` and add:
 
@@ -698,7 +803,7 @@ Run the agent and ask: "What images do I have and how much space are they using?
 
 The agent will call your new tool.
 
-![image](images/list_docker_images.png)
+![images_tool](image-12.png)
 
 **Try another:** Add a `restart_container` tool:
 ```python
