@@ -799,11 +799,15 @@ Add it to the tools list:
 tools = [list_containers, get_logs, inspect_container, list_images]
 ```
 
+![images_tool](image-12.png)
+
 Run the agent and ask: "What images do I have and how much space are they using?"
 
 The agent will call your new tool.
 
-![images_tool](image-12.png)
+
+
+![disk_space](image-14.png)
 
 **Try another:** Add a `restart_container` tool:
 ```python
@@ -814,69 +818,386 @@ def restart_container(container_name: str) -> str:
     return result.stdout or result.stderr
 ```
 
+![restart_container](image-15.png)
+
 Now ask: "broken-app keeps crashing, can you restart it?"
 
 **Think about the safety implications:** This tool can restart any container. In production, you would add guardrails (confirmation prompts, allowed container lists). You will learn about guardrails on Day 89.
 
-![image](images/cont_restart.png)
+
 
 ---
 
-**What are AI agents and how they differ from chatbots**
+# Documentation
 
-- Chatbots mainly respond to user questions with text-based answers.
-- AI agents can take actions using tools (like running commands, inspecting systems, or fixing issues).
 
-**The ReAct pattern explained with the broken-app example**
 
-`Thought (The Reasoning)`
-- When you ask, "Why is broken-app crashing?", the agent doesn't just guess. It generates a "Thought."
-- Agent's internal logic: "To find out why it's crashing, I need to check the container's status and logs."
+---
 
-`Action (The Interaction)`
-- The agent decides to use a tool. In this DevOps context, it likely called a function like docker_inspect() or docker_logs().
-- The Command: In the background, it executed commands to retrieve the container metadata.
+# 1. What are AI Agents?
 
-`Observation (The Evidence)`
-- This is the data the agent receives back from the system. In your image, the "Observation" is the raw data showing:
-    - `Status: "exited"`
-    - `ExitCode: 1`
-    - `Cmd: sh -c "echo 'app starting...' && sleep 2 && exit 1"`
+An **AI Agent** is an application powered by a Large Language Model (LLM) that can use external tools to interact with real systems.
 
-**The agent architecture diagram**
+Unlike a chatbot that only generates text, an AI agent can:
 
-```
-[User Question]
-      |
-      v
-[LLM: Gemma 4 via Ollama]
-      |
-      | (ReAct: Reason what tool to use)
-      v
-[Tool Selection]
-      |
-      +---> list_containers()   --> docker ps -a
-      +---> get_logs()          --> docker logs
-      +---> inspect_container() --> docker inspect
-      |
-      v
-[Tool Output (text)]
-      |
-      v
-[LLM reads output, reasons again]
-      |
-      | (repeat until answer is ready)
-      v
-[Final Answer to User]
+- Execute shell/CLI commands
+- Read files and logs
+- Call APIs
+- Inspect infrastructure
+- Make decisions about which tool to use
+- Perform multi-step reasoning before answering
+
+### AI Agent vs Chatbot
+
+| Chatbot | AI Agent |
+|----------|----------|
+| Generates text responses | Uses external tools to perform actions |
+| Answers based on training data | Collects real-time information using tools |
+| Cannot interact with systems | Can execute CLI commands, APIs, and scripts |
+| Single-step response | Multi-step reasoning and execution |
+
+Example:
+
+User:
+> Why is my Docker container crashing?
+
+A chatbot guesses possible reasons.
+
+An AI agent actually runs:
+
+```bash
+docker ps -a
+docker logs broken-app
+docker inspect broken-app
 ```
 
-**The tool you added and how the agent used it**
-- A restart_container tool was added using docker restart and included in the tools list so the agent can use it.
-- How the agent used it:
-    - When I asked to restart a container (e.g., broken-app)
-- The agent called the restart_container tool to execute the restart command automatically
-- It returned the result of the operation
+It then analyzes the outputs before providing the root cause.
 
-**System prompt and temperature explained**
-- `System prompt` tells the LLM what role it should take and how to structure its responses.
-- `Temperature` (e.g., 0.3) controls randomness; lower values make outputs more consistent and deterministic, which is better for technical answers.
+---
+
+# 2. The ReAct Pattern (Reason → Act → Observe)
+
+The Docker Troubleshooter Agent follows the ReAct pattern.
+
+### Example
+
+User:
+
+> Why is broken-app crashing?
+
+**Reason**
+
+The agent decides to check running containers.
+
+↓
+
+**Action**
+
+```
+list_containers()
+```
+
+↓
+
+**Observation**
+
+```
+broken-app is Restarting
+```
+
+↓
+
+**Reason**
+
+The agent decides to inspect the logs.
+
+↓
+
+**Action**
+
+```
+get_logs("broken-app")
+```
+
+↓
+
+**Observation**
+
+```
+app starting...
+exit code 1
+```
+
+↓
+
+**Reason**
+
+The agent decides to inspect the container configuration.
+
+↓
+
+**Action**
+
+```
+inspect_container("broken-app")
+```
+
+↓
+
+**Observation**
+
+```
+ExitCode: 1
+```
+
+↓
+
+**Final Answer**
+
+The container starts successfully, prints *"app starting..."*, waits two seconds, exits with code **1**, and Docker continuously restarts it because the restart policy is enabled.
+
+---
+
+# 3. Environment Setup
+
+Repository:
+
+```bash
+git clone https://github.com/TrainWithShubham/agentic-ai-for-devops.git
+cd agentic-ai-for-devops
+```
+
+Installed and configured:
+
+- Ollama
+- Gemma 4
+- Python Virtual Environment
+- LangChain
+- LangGraph
+- FastMCP
+- LangChain-Ollama
+
+### Verification
+
+Executed:
+
+```bash
+python3 module-0/verify_setup.py
+```
+
+Output:
+
+```
+Checking your setup...
+
+[PASS] Python 3.10+
+[PASS] Docker
+[PASS] kubectl
+[PASS] Kind
+[PASS] Ollama + gemma4
+
+5/5 — you're ready for Day 1!
+```
+
+---
+
+# 4. Docker Error Explainer
+
+The Docker Error Explainer is the simplest use of an LLM.
+
+It receives a Docker error message and explains:
+
+- What went wrong
+- Most likely cause
+- Commands to fix the issue
+
+There is **no agent** and **no tools** involved.
+
+Flow:
+
+```
+User Input
+      │
+      ▼
+System Prompt
+      │
+      ▼
+Gemma 4
+      │
+      ▼
+Explanation
+```
+
+### Screenshot
+
+> **Refer above Screenshot:** Docker Error Explainer
+
+---
+
+# 5. Docker Troubleshooter Agent
+
+Unlike the Error Explainer, this application is an AI agent.
+
+Available tools:
+
+- `list_containers()`
+- `get_logs(container_name)`
+- `inspect_container(container_name)`
+
+When asked:
+
+> Why is broken-app crashing?
+
+The agent automatically:
+
+1. Listed Docker containers.
+2. Found **broken-app** restarting.
+3. Retrieved container logs.
+4. Inspected the container.
+5. Determined that the startup command intentionally exits with **exit code 1**.
+6. Explained the root cause.
+
+The LLM decided which tools to use without explicit instructions.
+
+### Screenshot
+
+> **Refer above Screenshot:** Docker Troubleshooter Agent diagnosing `broken-app`
+
+---
+
+# 6. Agent Architecture
+
+```
+                    User Question
+                         │
+                         ▼
+             LLM (Gemma 4 via Ollama)
+                         │
+      ReAct: Reason about which tool to use
+                         │
+                         ▼
+                  Tool Selection
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+        ▼                ▼                ▼
+list_containers()   get_logs()   inspect_container()
+      │                │                │
+docker ps -a      docker logs    docker inspect
+        └────────────────┼────────────────┘
+                         │
+                         ▼
+               Tool Output (Text)
+                         │
+                         ▼
+      LLM reads the output and reasons again
+                         │
+       (Repeat until enough information)
+                         │
+                         ▼
+               Final Answer to the User
+```
+
+---
+
+# 7. Tool Added
+
+I extended the agent by adding a new tool:
+
+```python
+@tool
+def list_images() -> str:
+    """List all Docker images on this machine with their sizes."""
+    result = subprocess.run(
+        ["docker", "images"],
+        capture_output=True,
+        text=True,
+    )
+    return result.stdout or result.stderr
+```
+
+Added to the tools list:
+
+```python
+tools = [
+    list_containers,
+    get_logs,
+    inspect_container,
+    list_images,
+]
+```
+
+When I asked:
+
+> What images do I have and how much space are they using?
+
+The agent automatically selected the `list_images()` tool, executed the `docker images` command, and summarized the available images and their sizes.
+
+---
+
+# 8. System Prompt and Temperature
+
+## System Prompt
+
+The system prompt defines the role, behavior, and response format of the LLM.
+
+Original prompt:
+
+```python
+SYSTEM_PROMPT = """
+You are a Docker expert.
+Explain:
+1. What went wrong
+2. Most likely cause
+3. How to fix it
+Keep it short.
+"""
+```
+
+### Observation
+
+Changing the system prompt significantly changed the response quality:
+
+- The original prompt produced concise, technical answers.
+- A beginner-focused prompt generated simpler explanations with more detail.
+- A senior DevOps prompt produced structured, command-oriented responses.
+
+A well-designed system prompt makes responses more consistent, focused, and useful.
+
+---
+
+## Temperature
+
+The project uses:
+
+```python
+temperature = 0.3
+```
+
+Temperature controls randomness.
+
+| Temperature | Behaviour |
+|--------------|-----------|
+| 0 | Fully deterministic |
+| 0.3 | Stable technical responses |
+| 0.7 | More varied wording |
+| 1.0 | Creative but less predictable |
+
+For DevOps troubleshooting, a low temperature is preferred because it produces reliable and consistent answers.
+
+---
+
+# Key Learnings
+
+- AI agents differ from chatbots by using tools to perform real actions.
+- The ReAct pattern enables multi-step reasoning before answering.
+- LangChain's `create_react_agent()` orchestrates the reasoning loop.
+- Docker CLI commands can be wrapped as tools using the `@tool` decorator.
+- The same architecture can be extended to Kubernetes, Terraform, AWS CLI, GitHub CLI, and other DevOps tools.
+- Effective system prompts and low temperatures improve the consistency and quality of technical responses.
+
+---
+
+# Conclusion
+
+Day 87 introduced the foundations of Agentic AI for DevOps. I successfully configured a local LLM with Ollama and Gemma 4, built a Docker Error Explainer using a single LLM call, and created a Docker Troubleshooter Agent capable of autonomously diagnosing Docker container failures using the ReAct reasoning pattern. By wrapping Docker CLI commands as tools, the agent was able to inspect containers, analyze logs, and explain failures without being explicitly told which commands to execute. This architecture can be extended to Kubernetes, Terraform, cloud platforms, and other DevOps automation workflows.
