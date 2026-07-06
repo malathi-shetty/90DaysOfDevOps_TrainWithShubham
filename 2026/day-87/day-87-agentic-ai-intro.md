@@ -417,7 +417,7 @@ You should see:
 Fix any failures before proceeding.
 
 
-![verify_set_up](<Screenshot 2026-07-06 114902.png>)
+![alt text](image-3.png)
 
 ---
 
@@ -484,6 +484,8 @@ The LLM explains what went wrong and how to fix it -- no manual Googling needed.
 
 
 ![images/task-3/2nd_response.png](image-2.png)
+
+![images/task-3/2nd_response.png](images/task-3/2nd_response.png)
 
 **Document:** How does the system prompt affect the quality of the response? Try changing it and see what happens.
 
