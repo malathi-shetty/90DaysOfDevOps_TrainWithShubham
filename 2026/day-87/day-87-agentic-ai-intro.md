@@ -609,19 +609,26 @@ Watch the agent's reasoning:
 
 **The LLM decided which tools to call and in what order.** You never told it to check logs -- it figured that out from the problem.
 
-![alt text](image-6.png)
+![broken-app crashing](image-7.png)
 
 Try more questions:
 ```
 > List all my running containers
 > What image is broken-app using?
 ```
-![image](images/agent2.png)
+
+
+![List all my running containers](image-8.png)
+
+![What image is broken-app using](image-9.png)
 
 **Clean up:**
 ```bash
 docker rm -f broken-app
 ```
+
+![alt text](image-10.png)
+
 
 ---
 
