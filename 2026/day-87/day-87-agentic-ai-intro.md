@@ -824,7 +824,9 @@ Now ask: "broken-app keeps crashing, can you restart it?"
 
 **Think about the safety implications:** This tool can restart any container. In production, you would add guardrails (confirmation prompts, allowed container lists). You will learn about guardrails on Day 89.
 
+![broken-app keeps crashing](image-16.png)
 
+![restart](image-17.png)
 
 ---
 
