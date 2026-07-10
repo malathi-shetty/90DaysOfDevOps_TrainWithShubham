@@ -436,6 +436,8 @@ pip install -r requirements.txt
 ```bash
 export ANTHROPIC_API_KEY="your-api-key-here"
 ```
+<img width="1676" height="35" alt="image" src="https://github.com/user-attachments/assets/3ed1f366-4cbd-41db-bf11-48b759cc06db" />
+
 
 ```bash
 How to get an Anthropic API key
@@ -453,6 +455,7 @@ Use it in your terminal:
 <img width="2552" height="661" alt="image" src="https://github.com/user-attachments/assets/f12a8f5d-a0b5-4d18-b7f1-cbec86f9af81" />
 
 <img width="1676" height="35" alt="image" src="https://github.com/user-attachments/assets/5d319770-3c3f-4815-b87c-7c54f4e73795" />
+<img width="2560" height="1393" alt="image" src="https://github.com/user-attachments/assets/cf29c5bd-b285-4961-bd62-52351a60c3d0" />
 
 
 ---
